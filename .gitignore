@@ -1,0 +1,29 @@
+# project directory #
+MYFILES/
+ 
+# Dreamweaver # 
+dwsync.xml
+_notes
+http/_compareTemp/
+ 
+# Eclipse #
+.buildpath
+.project
+.settings
+
+# Packages #
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+ 
+# OS generated files #
+.DS_Store
+ehthumbs.db
+Icon
+Thumbs.db
+._*
