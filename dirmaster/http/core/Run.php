@@ -3,16 +3,16 @@
 class Run {
 	function __construct() {
 		
-		$controler = $_GET['controler'];
+		$controller = $_GET['controller'];
 		
 		
-		if(!empty($controler)) {
-			echo "test run: $controler";
+		if(!empty($controller)) {
+			echo "test run: $controller";
 			
 			/**
-			 * check controler name in cache_controlers table from db
-			 * if controler not exists > check contoler in dir controler
-			 * if exists in dir controler add to cache_controlers
+			 * check controller name in cache_controllers table from db
+			 * if controller not exists > check contoler in dir controller
+			 * if exists in dir controller add to cache_controllers
 			 * if not exists > 404
 			 */
 			
