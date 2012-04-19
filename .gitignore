@@ -11,6 +11,7 @@ http/_compareTemp/
 .buildpath
 .project
 .settings
+.metadata
 
 # Packages #
 *.7z
