@@ -4,9 +4,16 @@ class Run {
 	function __construct() {
 		
 		$controller = strval($_GET['controller']);
+		
 		Debugger :: debug_echo( 'test run: ' . $controller . '<br />');
 		
-		if($this -> is_valid_controller_from_db($controller))
+		if(empty($controller)){
+			/**
+			 * this must be the homepage since there's no controller specified
+			 */
+			
+		}
+		elseif($this -> is_valid_controller_from_db($controller))
 		{
 			/**
 			 * check controller name in cache_controllers table from db
