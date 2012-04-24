@@ -2,6 +2,6 @@
 
 class ReportsController 
 {
-	
+	//voorlopig nog even niks
 }
 ?>
