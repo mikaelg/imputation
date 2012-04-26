@@ -1,9 +1,20 @@
 <?php namespace be\imputation;
 
 class Router {
+	
+	private $route;
+	
 	function __construct($_arg) {
 		
+		$this->route = trim(strval($_arg['rt']));
 		
-		return $_arg;
+		
+	}
+	
+	public function getRouter() {
+		if(empty($this->route))
+			return false;
+		else
+			return $this->route;
 	}
 }
