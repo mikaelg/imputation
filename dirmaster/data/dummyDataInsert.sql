@@ -234,3 +234,46 @@ VALUES (
 '1', '3', '1'
 );
 
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# 
+#   Aanmaken van een fictief project
+#
+#
+
+INSERT INTO `imputation`.`projects` (
+`idProject`, 
+`name`, 
+`description`, 
+`startdate`, 
+`enddate`, 
+`budget`, 
+`estimatedCost`, 
+`idCompany`, 
+`idProjectType`, 
+`idProjectStatus`, 
+`idParentProject`) 
+VALUES (
+NULL, 
+'Corporate website acme.be', 
+NULL, 
+'2012-04-25 00:00:00', 
+NULL, 
+'15000', 
+'13800', 
+'2', 
+'1', 
+'1', 
+NULL
+);
+
+
+
+
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# 
+#   Aanmaken van imputaties op fictief project
+#
+#
+INSERT INTO `imputation`.`imputations` (`idImputation`, `idProject`, `idPerson`, `idCostCentre`, `start`, `end`, `isBillable`, `comment`) VALUES (NULL, '1', '1', '2', '2012-04-28 09:00:00', '2012-04-28 15:00:00', UNHEX(NULL), NULL);
