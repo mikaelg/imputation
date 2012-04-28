@@ -1,6 +1,7 @@
 # project directory #
 MYFILES/
 !MYFILES/opdracht1/*/*.php
+error_log.txt
  
 # Dreamweaver # 
 dwsync.xml

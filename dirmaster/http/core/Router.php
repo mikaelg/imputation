@@ -6,6 +6,7 @@ class Router {
 	
 	function __construct($_arg) {
 		
+		if(!empty($_arg))
 		$this->route = trim(strval($_arg['rt']));
 		
 		

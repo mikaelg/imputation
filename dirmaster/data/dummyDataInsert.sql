@@ -4,7 +4,7 @@
 #   Aanmaken van ons eigen bedrijf (1))
 #
 #
-INSERT INTO `imputation`.`Addresses` (
+INSERT INTO `Imputation`.`Addresses` (
 `idAddress` ,
 `Version` ,
 `idPostalCode` ,
@@ -17,7 +17,7 @@ VALUES (
 NULL , '1', '9000', 'BE', 'Dok Noord 5', NULL , NULL
 );
 
-INSERT INTO `imputation`.`Companies` (
+INSERT INTO `Imputation`.`Companies` (
 `idCompany` ,
 `name` ,
 `description` ,
@@ -27,7 +27,7 @@ VALUES (
 NULL , 'Imputation BVBA', 'Dit is het fictieve bedrijf waarvoor we werken', 'BE0433.270.195'
 );
 
-INSERT INTO `imputation`.`CompanyAddresses` (
+INSERT INTO `Imputation`.`CompanyAddresses` (
 `idCompany` ,
 `idAddress` ,
 `idAddressType`
@@ -43,7 +43,7 @@ VALUES (
 #   Aanmaken van fictieve klanten (2,3)
 #
 #
-INSERT INTO `imputation`.`Addresses` (
+INSERT INTO `Imputation`.`Addresses` (
 `idAddress` ,
 `Version` ,
 `idPostalCode` ,
@@ -56,7 +56,7 @@ VALUES (
 NULL , '1', '9000', 'BE', 'Voskenslaan 6', NULL , NULL
 );
 
-INSERT INTO `imputation`.`Companies` (
+INSERT INTO `Imputation`.`Companies` (
 `idCompany` ,
 `name` ,
 `description` ,
@@ -67,7 +67,7 @@ NULL , 'ACME ', 'Dit is een heel belangrijke klant' , 'BE0345.678.901'
 );
 
 
-INSERT INTO `imputation`.`CompanyAddresses` (
+INSERT INTO `Imputation`.`CompanyAddresses` (
 `idCompany` ,
 `idAddress` ,
 `idAddressType`
@@ -78,7 +78,7 @@ VALUES (
 
 
 
-INSERT INTO `imputation`.`Addresses` (
+INSERT INTO `Imputation`.`Addresses` (
 `idAddress` ,
 `Version` ,
 `idPostalCode` ,
@@ -91,7 +91,7 @@ VALUES (
 NULL , '1', '9000', 'BE', 'Koepoortbrug 366', NULL , NULL
 );
 
-INSERT INTO `imputation`.`Companies` (
+INSERT INTO `Imputation`.`Companies` (
 `idCompany` ,
 `name` ,
 `description` ,
@@ -102,7 +102,7 @@ NULL , 'Detectievebureau Janssen en Janssen ', 'Dit is ook een heel belangrijke 
 );
 
 
-INSERT INTO `imputation`.`CompanyAddresses` (
+INSERT INTO `Imputation`.`CompanyAddresses` (
 `idCompany` ,
 `idAddress` ,
 `idAddressType`
@@ -120,7 +120,7 @@ VALUES (
 #
 
 
-INSERT INTO `imputation`.`Functions` (
+INSERT INTO `Imputation`.`Functions` (
 `idFunction` ,
 `name` ,
 `description`
@@ -129,7 +129,7 @@ VALUES (
 NULL , 'Developer', 'Developer'
 );
 
-INSERT INTO `imputation`.`Functions` (
+INSERT INTO `Imputation`.`Functions` (
 `idFunction` ,
 `name` ,
 `description`
@@ -138,7 +138,7 @@ VALUES (
 NULL , 'Project Manager', 'Project Manager'
 );
 
-INSERT INTO `imputation`.`Functions` (
+INSERT INTO `Imputation`.`Functions` (
 `idFunction` ,
 `name` ,
 `description`
@@ -154,7 +154,7 @@ NULL , 'Designer', 'Designer'
 #   Aanmaken van verschillende werknemers
 #
 #
-INSERT INTO `imputation`.`Persons` (
+INSERT INTO `Imputation`.`Persons` (
 `idPerson` ,
 `name` ,
 `firstname` ,
@@ -172,7 +172,7 @@ NULL , 'Bolssens', 'Georges', NULL , NULL , '1', '2002-08-16', NULL , 'jos', '12
 
 
 
-INSERT INTO `imputation`.`CompanyPerson` (
+INSERT INTO `Imputation`.`CompanyPerson` (
 `idCompany` ,
 `idPerson` ,
 `idFunction`
@@ -182,7 +182,7 @@ VALUES (
 );
 
 
-INSERT INTO `imputation`.`Persons` (
+INSERT INTO `Imputation`.`Persons` (
 `idPerson` ,
 `name` ,
 `firstname` ,
@@ -198,7 +198,7 @@ VALUES (
 NULL , 'Gyselinck', 'Mikael', NULL , NULL , '1', '2000-01-01', NULL , 'mig', '12345678'
 );
 
-INSERT INTO `imputation`.`CompanyPerson` (
+INSERT INTO `Imputation`.`CompanyPerson` (
 `idCompany` ,
 `idPerson` ,
 `idFunction`
@@ -209,7 +209,7 @@ VALUES (
 
 
 
-INSERT INTO `imputation`.`Persons` (
+INSERT INTO `Imputation`.`Persons` (
 `idPerson` ,
 `name` ,
 `firstname` ,
@@ -225,7 +225,7 @@ VALUES (
 NULL , 'De Boer', 'Frank', NULL , NULL , '1', '2006-04-12', NULL , 'frb', '1234567'
 );
 
-INSERT INTO `imputation`.`CompanyPerson` (
+INSERT INTO `Imputation`.`CompanyPerson` (
 `idCompany` ,
 `idPerson` ,
 `idFunction`
@@ -241,7 +241,7 @@ VALUES (
 #
 #
 
-INSERT INTO `imputation`.`projects` (
+INSERT INTO `Imputation`.`Projects` (
 `idProject`, 
 `name`, 
 `description`, 
@@ -276,4 +276,4 @@ NULL
 #   Aanmaken van imputaties op fictief project
 #
 #
-INSERT INTO `imputation`.`imputations` (`idImputation`, `idProject`, `idPerson`, `idCostCentre`, `start`, `end`, `isBillable`, `comment`) VALUES (NULL, '1', '1', '2', '2012-04-28 09:00:00', '2012-04-28 15:00:00', UNHEX(NULL), NULL);
+INSERT INTO `Imputation`.`imputations` (`idImputation`, `idProject`, `idPerson`, `idCostCentre`, `start`, `end`, `isBillable`, `comment`) VALUES (NULL, '1', '1', '2', '2012-04-28 09:00:00', '2012-04-28 15:00:00', UNHEX(NULL), NULL);

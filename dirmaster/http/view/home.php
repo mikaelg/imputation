@@ -2,6 +2,7 @@
 <p>content voor de homepage</p>
 <p>
 put the variable content here:<br />
-<?php print($dynamicContent) ?>
+<?php print($dcreg->foo); ?>
+
 </p>
 </div>
