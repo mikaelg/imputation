@@ -1,7 +1,7 @@
 <?php namespace be\imputation;
 
-require_once 'core/Router.php';
-require_once 'controller/home.php';
+//require_once 'core/Router.php';
+//require_once 'controller/home.php';
 
 class Run extends Router {
 	//const HOMEPAGE = "home";
