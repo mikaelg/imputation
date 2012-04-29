@@ -1,9 +1,12 @@
 <?php namespace be\imputation;
 require_once 'core/Model.php';
 
+/**
+ * 
+ * @author gyselinckmikael
+ *
+ */
 class Login_model extends Model {
-
-	
 	
 	public function __construct(){
 		//print("FROM CONSTRUCTOR Login_model");

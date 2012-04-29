@@ -2,6 +2,11 @@
 require_once 'core/Controller.php';
 require_once 'model/Login.php';
 
+/**
+ * 
+ * @author gyselinckmikael
+ *
+ */
 class Login_controller extends Controller {
 
 	public function __construct($_controller){

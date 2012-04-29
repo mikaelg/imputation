@@ -1,6 +1,11 @@
 <?php namespace be\imputation;
 require_once 'core/DynamicContentRegistry.php';
 
+/**
+ * 
+ * @author gyselinckmikael
+ *
+ */
 abstract class Controller{
 	
 	private $regionHead;

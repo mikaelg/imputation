@@ -2,6 +2,11 @@
 require_once 'core/Controller.php';
 require_once 'model/Home.php';
 
+/**
+ * 
+ * @author gyselinckmikael
+ *
+ */
 class Home_controller extends Controller {
 
 	public function __construct($_controller){
