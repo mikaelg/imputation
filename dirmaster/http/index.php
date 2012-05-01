@@ -25,11 +25,11 @@ function load_my_classes($_cls)
     if(file_exists($candidate_class_file))
     {
       require_once($candidate_class_file);
-      echo($candidate_class_file . ' found in ' . $candidate_class_file . '<br />');
+      //echo($candidate_class_file . ' found in ' . $candidate_class_file . '<br />');
     }
     else
     {
-      echo($candidate_class_file . ' does not exist!<br />');
+      //echo($candidate_class_file . ' does not exist!<br />');
     }
   }
   echo '<hr />';
