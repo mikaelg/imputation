@@ -62,6 +62,12 @@ class Login_model extends Model {
 			}
 			else {
 				// put user id in session.
+				$userid = "12345";
+				
+				session_start();
+				$_SESSION['loginsession'] = $userid.'#'.md5($loginName.$userid.$_SERVER['REMOTE_ADDR']);
+				
+				
 				return true;
 			}
 		}
