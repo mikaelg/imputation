@@ -28,6 +28,7 @@ class DynamicContentRegistry {
 		}
 	
 		//  throw an exception
-		throw new OutOfBoundsException($key);
+		//throw new OutOfBoundsException($key);
+		return false;
 	}
 }

@@ -1,6 +1,11 @@
 <?php namespace be\imputation;
 require_once 'core/DynamicContentRegistry.php';
 
+/**
+ * 
+ * @author gyselinckmikael
+ *
+ */
 abstract class Controller{
 	
 	private $regionHead;
@@ -13,23 +18,35 @@ abstract class Controller{
 	 * en kijkt of er een pagetemplate bestaat voor deze contoller.
 	 * Zo niet wordt de default page template gebruikt.
 	 * 
-	 * consturctor maakt instantie van model
 	 */
 	public function __construct($_controller){
 		
+		/*
+		 * !!!!!!!!!!! 
+		 * can't get this to work. 
+		 * So i moved it to the child controller
+		 * An other reason tom moved it, is that the child controller logic has to determine which model to use.
+		 * !!!!!!!!!!!!!!!!
 		if(file_exists('model/'.$_controller.'.php'))
 		{
 			require_once 'model/'.$_controller.'.php';
 			
-			/*
-			$classname = ucfirst($_controller).'_model';
-			print $classname;
-			$this->model = new $classname();
-			*/
 			
-			$this->model = new Home_model();
+			$className = ucfirst($_controller).'_model';
+			if (!class_exists('Home_model')) 
+			{ 
+			    //throw new Exception('Class $className Not Found !'); 
+				print 'Class $className Not Found !';
+			} 
+			else 
+			{ 
+			    $this->model = new $className; 
+			}
+			
+			//$this->model = new Home_model();
 			
 		}
+		*/
 	
 		$this->dcreg = new DynamicContentRegistry;
 		
@@ -78,6 +95,14 @@ abstract class Controller{
 		}
 	}
 	
+	protected function setNewView($_ViewFileName){
+		$this->regions['content'] = 'view/'.$_ViewFileName.'.php';
+	}
+	
+	protected function getControllerName(){
+		return $this->controller;
+	}
+	
 	protected function getRegionHead(){
 		return  $this->regionHead;
 	}
@@ -103,12 +128,13 @@ abstract class Controller{
 		if(file_exists('templates/page--'.$this->controller.'.php'))
 			include 'templates/page--'.$this->controller.'.php';
 		else
-			include 'templates/page--home.php';
+			include 'templates/page.php';
 	
 	}
 	
 	/**
 	 * you can define any dynamic data here but don't forget to call assembleView or you have to define everything yourself.
+	 * Instantiate your model here to get proper data for your view.
 	 */
 	abstract public function getView();
 }
