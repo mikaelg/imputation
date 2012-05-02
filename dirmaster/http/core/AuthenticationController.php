@@ -8,7 +8,7 @@ require_once 'core/Controller.php';
  */
 abstract class AuthenticationController extends Controller{
 	
-	public function __construct($_controller){
+	public function __construct($_controller,$_args  = array()){
 		
 		/**
 		 * check login and uid against database. 
@@ -19,7 +19,7 @@ abstract class AuthenticationController extends Controller{
 		$userid = "12345";
 		$loginName = "mig";
 		
-		parent::__construct($_controller);
+		parent::__construct($_controller,$_args);
 		
 		if(isset($_SESSION['loginsession']) && $_SESSION['loginsession'] != $userid.'#'.md5($loginName.$userid.$_SERVER['REMOTE_ADDR'])){
 			//parent::__construct($_controller);

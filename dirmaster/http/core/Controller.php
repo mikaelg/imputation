@@ -19,7 +19,7 @@ abstract class Controller{
 	 * Zo niet wordt de default page template gebruikt.
 	 * 
 	 */
-	public function __construct($_controller){
+	public function __construct($_controller,$_args = array()){
 		
 		/*
 		 * !!!!!!!!!!! 
@@ -47,8 +47,11 @@ abstract class Controller{
 			
 		}
 		*/
+		
 	
 		$this->dcreg = new DynamicContentRegistry;
+		
+		$this->dcreg->args = $_args;
 		
 		$this->controller = $_controller;
 		$this->regionHead = 'templates/head.php';

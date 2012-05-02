@@ -9,8 +9,12 @@ require_once 'model/Login.php';
  */
 class Login_controller extends Controller {
 
-	public function __construct($_controller){
-		parent::__construct($_controller);
+	public function __construct($_controller,$_args = array()){
+		parent::__construct($_controller,$_args);
+	}
+	
+	function test(){
+		print("test");
 	}
 	
 	public function getView(){

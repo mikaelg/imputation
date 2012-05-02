@@ -1,7 +1,7 @@
 <?php namespace be\imputation;
 
 
-require_once 'core/Router.php';
+//require_once 'core/Router.php';
 require_once 'controller/home.php';
 //require_once 'controller/404.php';
 
@@ -56,7 +56,7 @@ class Run extends Router {
 				 * public pags
 				 */
 				$class = __NAMESPACE__.'\\'.$this->getRouter().'_controller';
-				$t = new $class($this->getRouter());
+				$t = new $class($this->getRouter(),$this->getArgs());
 				
 				/*
 				switch ($this->getRouter()) {

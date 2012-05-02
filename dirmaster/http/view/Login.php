@@ -11,7 +11,7 @@
 			}
 		?>
 		</p>
-		<form action="?rt=login" method="post" name="login">
+		<form action="" method="post" name="login">
 			
 			<label for="loginName">Loginnaam</label>
 			<input type="text" name="loginName" maxlength="100" autofocus="autofocus">

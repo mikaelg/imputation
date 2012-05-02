@@ -9,8 +9,8 @@ require_once 'model/Home.php';
  */
 class Home_controller extends Controller {
 
-	public function __construct($_controller){
-		parent::__construct($_controller);
+	public function __construct($_controller,$_args = array()){
+		parent::__construct($_controller,$_args);
 	}
 	
 	public function getView(){

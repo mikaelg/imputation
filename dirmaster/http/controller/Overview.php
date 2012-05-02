@@ -9,8 +9,8 @@ require_once 'model/Overview.php';
  */
 class Overview_controller extends AuthenticationController {
 
-	public function __construct($_controller){
-		parent::__construct($_controller);
+	public function __construct($_controller,$_args = array()){
+		parent::__construct($_controller,$_args);
 	}
 	
 	public function getView(){
@@ -20,9 +20,13 @@ class Overview_controller extends AuthenticationController {
 		 *
 		 */
 		$this->model = new Overview_model();
+		
+		//$this->get
 
 		
 		$this->dcreg->foo = 'INSERTED FROM CONTROLLER<b />Overview<br /><ul><li><a href="?rt=login">login</a></li></ul>';
+		
+		print_r($this->dcreg->args);
 		
 		$this->assembleView();
 
