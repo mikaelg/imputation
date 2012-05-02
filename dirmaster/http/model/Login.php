@@ -9,8 +9,17 @@ require_once 'core/Model.php';
 class Login_model extends Model {
 	
 	public function __construct(){
-		//print("FROM CONSTRUCTOR Login_model");
+
+		
 	} 
+	
+	public function generateFormGuid(){
+		//print("FROM CONSTRUCTOR Login_model");
+		// Deze dienen we on-the-fly te genereren wanneer pagin voor eerste keer wordt opgeroepen.
+		if(!isset($_POST['formGuid'])){
+			return '1234567890';
+		}
+	}
 	
 	public function checkLoginCredentials()
 	{

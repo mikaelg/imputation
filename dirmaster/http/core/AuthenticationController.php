@@ -19,12 +19,15 @@ abstract class AuthenticationController extends Controller{
 		$userid = "12345";
 		$loginName = "mig";
 		
+		parent::__construct($_controller);
 		
-		if(isset($_SESSION['loginsession']) && $_SESSION['loginsession'] != $userid.'#'.md5($loginName.$userid.$_SERVER['REMOTE_ADDR']))
-			parent::__construct($_controller);
+		if(isset($_SESSION['loginsession']) && $_SESSION['loginsession'] != $userid.'#'.md5($loginName.$userid.$_SERVER['REMOTE_ADDR'])){
+			//parent::__construct($_controller);
+		}
 		else {
-			header("Location: ?rt=oeeeeps");
-			return;
+		
+		//header("Location: ?rt=oeeeeps");
+		return;
 		}
 			
 	}

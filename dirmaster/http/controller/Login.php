@@ -20,6 +20,10 @@ class Login_controller extends Controller {
 		 *
 		 */
 		$this->model = new Login_model();
+		
+		//if(!isset($this->formGuid))
+		//	$this->formGuid = $this->model->generateFormGuid();
+		
 		$result = $this->model->checkLoginCredentials();
 		if(is_array($result)){
 			//$this->dcreg->foo = "from controller";

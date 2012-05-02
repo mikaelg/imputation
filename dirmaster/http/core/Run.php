@@ -43,12 +43,7 @@ class Run extends Router {
 		}
 		else
 		{
-			//print($this->getRouter());
-			/**
-			 * NEED SOME DYNAMIC CLASS INSTANTIATION HERE !!!!!!!!!!!!!
-			 * 
-			 */
-			//print($this->getRouter());
+
 
 			if(file_exists('controller/'.$this->getRouter().'.php')) {
 				
@@ -59,6 +54,10 @@ class Run extends Router {
 				/**
 				 * public pags
 				 */
+				$class = __NAMESPACE__.'\\'.$this->getRouter().'_controller';
+				$t = new $class($this->getRouter());
+				
+				/*
 				switch ($this->getRouter()) {
 					case 'Login':
 						$t = new Login_controller($this->getRouter());
@@ -73,6 +72,7 @@ class Run extends Router {
 						$t = new Project_controller($this->getRouter());
 						break;
 				}
+				*/
 					
 				
 				
