@@ -3,12 +3,12 @@
 function load_my_classes($_cls)
 {
   // Windows XAMPP
-  $ROOTPATH = "C:\\xampp\\htdocs\\imputation\\dirmaster\\http";
-  $PATH_SEPARATOR = "\\";
+  //$ROOTPATH = "C:\\xampp\\htdocs\\imputation\\dirmaster\\http";
+  //$PATH_SEPARATOR = "\\";
   
   // Mac XAMPP
-  //$ROOTPATH = "/var/www/imputation/dirmaster/http";
-  //$PATH_SEPARATOR = "/";
+  $ROOTPATH = "/Applications/xampp/htdocs/imputation/dirmaster/http";
+  $PATH_SEPARATOR = "/";
   
   $dirsToLookIn = Array("controller", "core", "model", "view");
   
@@ -17,7 +17,7 @@ function load_my_classes($_cls)
     if(strpos($_cls, __NAMESPACE__) !== false)
     {
       //namespace eraf strippen anders komt die mee in de padverwijzingen
-      $_cls = substr($_cls, strlen(__NAMESPACE__));  
+      $_cls = substr($_cls, strlen(__NAMESPACE__)+1);  
     }
     
      
