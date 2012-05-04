@@ -1,4 +1,4 @@
-<?php namespace '\common';
+<?php namespace Common;
 
 interface iAddressCollection extends iCollection
 {

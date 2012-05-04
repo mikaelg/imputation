@@ -1,4 +1,4 @@
-<?php namespace '\common';
+<?php namespace Common;
 
 error_reporting(E_ALL);
 
@@ -47,7 +47,7 @@ interface iCollection
      * @param  iEntity _member
      * @return mixed
      */
-    public function addMember( iEntity $_member);
+    public function addMember($_member);
 
     /**
      * Short description of method deleteMember
@@ -57,7 +57,7 @@ interface iCollection
      * @param  iEntity _member
      * @return mixed
      */
-    public function deleteMember( iEntity $_member);
+    public function deleteMember($_member);
 
     /**
      * Short description of method getMembers
@@ -75,7 +75,7 @@ interface iCollection
      * @author Jos Bolssens, <marvelade@gmail.com>
      * @return mixed
      */
-    private function checkMemberClass();
+    function checkMemberClass($_member);
 
 } /* end of interface iCollection */
 
