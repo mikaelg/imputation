@@ -19,7 +19,7 @@ class AddressCollection implements iAddressCollection
 	* @access 				private
 	*
 	*/
-	private static function compareAddressesByCity((array)$_a1, (array)$_a2)
+	private static function compareAddressesByCity($_a1, $_a2)
 	{
 		// nog verder uitwerken
 		return strcasecmp($_a1['city'], $_a2['city']);
@@ -35,7 +35,7 @@ class AddressCollection implements iAddressCollection
 	* @access 				private
 	*
 	*/
-	private static function compareAddressesByCountry((array)$_a1, (array)$_a2)
+	private static function compareAddressesByCountry($_a1, $_a2)
 	{
 		return strcasecmp($_a1['country'], $_a2['country']);
 	}
