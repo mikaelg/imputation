@@ -22,7 +22,7 @@ class Address implements iEntity
      * @param	$_input_array	Associative Array that holds the candidate data.
      * @return 					Bool
      */
-    private static function inputArrayIsValid($_input_array, $_enforceUseOfMandatoryFields = true)
+    public static function inputArrayIsValid($_input_array, $_enforceUseOfMandatoryFields = true)
     {
     	if(!is_array($_input_array))
     	{
