@@ -1,10 +1,17 @@
 <?php namespace Common;
 
-require("C:\\xampp\\htdocs\\imputation\\dirmaster\\common\\classes\\iEntity.php");
-require("C:\\xampp\\htdocs\\imputation\\dirmaster\\common\\classes\\Address.php");
-require("C:\\xampp\\htdocs\\imputation\\dirmaster\\common\\classes\\iCollection.php");
-require("C:\\xampp\\htdocs\\imputation\\dirmaster\\common\\classes\\iAddressCollection.php");
-require("C:\\xampp\\htdocs\\imputation\\dirmaster\\common\\classes\\AddressCollection.php");
+/*** error reporting on ***/
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', dirname(__FILE__) . '/error_log.txt');
+error_reporting(E_ALL);
+
+
+require("../../common/classes/iEntity.php");
+require("../../common/classes/Address.php");
+require("../../common/classes/iCollection.php");
+require("../../common/classes/iAddressCollection.php");
+require("../../common/classes/AddressCollection.php");
 
 
 try
@@ -43,6 +50,11 @@ try
   	)
 	{
 		echo "Update OK";
+		echo '<pre>test property: '.$a1 -> number.'</pre>';
+		echo '<pre>' . print_r($a1, true) . '</pre>';
+		
+		$a1 -> number = 'ik vul hier in wat ik wil en niemand kan dit controleren';
+		echo '<pre>test property update los van inputArrayIsValid: '.$a1 -> number.'</pre>';
 		echo '<pre>' . print_r($a1, true) . '</pre>';
 	}
 	else
