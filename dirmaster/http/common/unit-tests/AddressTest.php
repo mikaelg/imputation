@@ -53,6 +53,9 @@ class AddressTest extends PHPUnit_Framework_TestCase
   		
   		// Put "good" data in $a1					
   		$a1 -> Create($g1);
+  		
+  		
+  		
   		// Check if it arrived well			
   		$this->assertTrue($a1 -> __get('id') !== false);
   		// and has the correct value
@@ -60,8 +63,10 @@ class AddressTest extends PHPUnit_Framework_TestCase
   		
   		
   		// assert that nep-veld didn't make it into the object
-  		$this->assertFalse($a1 -> __get('nep-veld'));  		
-
+  		$this->assertClassNotHasAttribute('nep-veld', 'Common\Address');	
+		
+		// and that teh magic getter will also return false if asked for it
+		$this->assertFalse($a1 -> __get('nep-veld'));  
   							
         
     	
@@ -93,6 +98,9 @@ class AddressTest extends PHPUnit_Framework_TestCase
   		
   		// Put "good" data in $a1					
   		$a1 -> Create($g1);
+  		
+  		//assert that the box property exists, even though it's not mandatory and not populated
+  		$this->assertClassHasAttribute('box', 'Common\Address');
   		
   		// assert that the box property was not filled, but also not null
   		$this->assertEquals($a1 -> __get('box'), '');
