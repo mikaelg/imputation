@@ -1,7 +1,7 @@
 <?php namespace Common;
 
 
-class Address implements iEntity
+class Address
 {
 	protected static $fields = Array(	"id"				=> Array("type" =>"integer",	"mandatory" => true),
 										"country" 			=> Array("type" =>"string", 	"mandatory" => true),
