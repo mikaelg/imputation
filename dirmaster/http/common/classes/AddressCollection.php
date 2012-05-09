@@ -61,7 +61,7 @@ class AddressCollection implements iAddressCollection
 	{
 		if(!$this -> checkMemberClass($_address))
 		{
-			throw new \Exception('Tried to add a ' . get_class($_address) . ' to an ' . __CLASS__);
+			throw new AddressCollectionException('Tried to add a ' . get_class($_address) . ' to an ' . __CLASS__);
 		}
 		else
 		{
