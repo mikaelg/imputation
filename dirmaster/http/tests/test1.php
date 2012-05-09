@@ -7,11 +7,11 @@ ini_set('error_log', dirname(__FILE__) . '/error_log.txt');
 error_reporting(E_ALL);
 
 
-require("../../common/classes/iEntity.php");
-require("../../common/classes/Address.php");
-require("../../common/classes/iCollection.php");
-require("../../common/classes/iAddressCollection.php");
-require("../../common/classes/AddressCollection.php");
+require("../common/classes/iEntity.php");
+require("../common/classes/Address.php");
+require("../common/classes/iCollection.php");
+require("../common/classes/iAddressCollection.php");
+require("../common/classes/AddressCollection.php");
 
 
 try

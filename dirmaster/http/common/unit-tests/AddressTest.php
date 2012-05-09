@@ -1,42 +1,84 @@
 <?php
   
-  require_once dirname(dirname(__FILE__))."/classes/iEntity.php";
-  require_once dirname(dirname(__FILE__))."/classes/Address.php";
-  class AddressTest extends PHPUnit_Framework_TestCase
-  {
+require_once dirname(dirname(__FILE__))."/classes/iEntity.php";
+require_once dirname(dirname(__FILE__))."/classes/Address.php";
+require_once dirname(dirname(__FILE__))."/classes/Exceptions.php";
 
-    public function testAddressConstructor()
-    {
+class AddressTest extends PHPUnit_Framework_TestCase
+{
+	
+	public function testConstructor()
+	{
 		$a1 = new Common\Address();
-		/*$flds = $a1 -> __get('fields');
-		foreach($flds as $fieldname => $fieldspecs_arr)
-		{
-			$fn = $a1 -> __get($fieldname);
-			$this->assertTrue(empty($fn));
-			$this->assertTrue(is_null($a1 -> __get($fieldname)));
-		}*/
-		
-		
+		$this -> assertEquals(get_class($a1), "Common\Address");
+	}
+	
+	/**
+     * @depends testConstructor
+     */
+	public function testMagicGetFunction()
+    {
+		$a1 = new Common\Address();		
 		
 		$this->assertTrue($a1 -> __get('id') !== false);
 		$this->assertTrue($a1 -> __get('country') !== false);
+		
 		$this->assertFalse($a1 -> __get('fgdhjsdfgkjhsgdfkjhg') !== false);
+		$this->assertFalse($a1 -> __get(123) !== false);
+		$this->assertFalse($a1 -> __get(-1) !== false);
 
 		
     }
     
     
-    /*$g1 = array(	"id"				=> 5,
+    /**
+     * @depends testConstructor
+     */
+    public function testCreateWithAllFieldsFilled()
+    {
+    	$a1 = new Common\Address();
+    	
+    	$g1 = array(		"id"				=> 5,
 							"country" 			=> 'BEL',
 							"city"				=> 'Gent',
 							"street"			=> 'Dok Noord',
 							"number"			=> '5a',
-							"box"        =>  '3',
+							"box"        		=>  '3',
 							"nep-veld"			=> 'wtf stade gij hier te doen??',
 							"province" 			=> 'O-VL',
 							"organisationId" 	=> 4,
 							"addressTypeId"		=> 9);
-  		$g2 = array(	"id"				=> 5,
+
+  		
+  		
+  		// Put "good" data in $a1					
+  		$a1 -> Create($g1);
+  		// Check if it arrived well			
+  		$this->assertTrue($a1 -> __get('id') !== false);
+  		// and has the correct value
+  		$this->assertEquals($a1 -> __get('id') , 5);
+  		
+  		
+  		// assert that nep-veld didn't make it into the object
+  		$this->assertFalse($a1 -> __get('nep-veld'));  		
+
+  							
+        
+    	
+    }
+    
+    /**
+     * @depends testCreateWithAllFieldsFilled
+     */
+    public function testCreateWithJustMandatoryFieldsFilled()
+    {
+    
+    	// this test depends on testCreateWithAllFieldsFilled so we don't need to test
+    	// the testitems from there anymore
+    	    	
+    	$a1 = new Common\Address();
+							
+  		$g1 = array(		"id"				=> 5,
 							"country" 			=> 'BEL',
 							"city"				=> 'Gent',
 							"street"			=> 'Dok Noord',
@@ -44,23 +86,42 @@
 							"nep-veld"			=> 'wtf stade gij hier te doen??',
 							"province" 			=> 'O-VL',
 							"organisationId" 	=> 4,
-							"addressTypeId"		=> 9);*/
+							"addressTypeId"		=> 9);
+
+       
+  		
+  		
+  		// Put "good" data in $a1					
+  		$a1 -> Create($g1);
+  		
+  		// assert that the box property was not filled, but also not null
+  		$this->assertEquals($a1 -> __get('box'), '');
+  		$this->assertNotNull($a1 -> __get('box'));
+  		
+    }
     
     
-    /*public function testInputArrayWithBaddies()
+    
+    
+    
+    public function testCreateWithIllegalInputArrays()
     {
-        $b1 = array(	"id"				=> 'stringinsteadofint',
+    	
+
+    
+		$b1 = array(		"id"				=> 'stringinsteadofint',
 							"country" 			=> 'BEL',
 							"city"				=> 'Gent',
 							"street"			=> 'Dok Noord',
 							"number"			=> '5a',
-							"box"        =>  '3',
+							"box"        		=>  '3',
 							"nep-veld"			=> 'wtf stade gij hier te doen??',
 							"province" 			=> 'O-VL',
 							"organisationId" 	=> 4,
 							"addressTypeId"		=> 9
-  							);
-  			$b2 = array(	"id"				=> 5,
+							);
+  							
+  		$b2 = array(		"id"				=> 5,
 							"country-ismandatorybutnotpresent" 			=> 'BEL',
 							"city"				=> 'Gent',
 							"street"			=> 'Dok Noord',
@@ -70,15 +131,40 @@
 							"organisationId" 	=> 4,
 							"addressTypeId"		=> 9
   							);
-        $this->assertFalse(Common\Address::inputArrayIsValid($b1, true));
-        $this->assertFalse(Common\Address::inputArrayIsValid($b2, true));
-    }*/
+  							
+  						
+  		// Put "bad" data in $a1
+  		$a1 = new Common\Address();					
+  		$this->assertFalse($a1 -> Create($b1));
+  		
+  		// Put otherwise, yet equally bad data in $a2
+  		$a2 = new Common\Address();					
+  		$this->assertFalse($a2 -> Create($b2));
+    }
     
- 
+    /**
+     * @expectedException Common\AddressException
+     */
+    public function testExceptionThrownWhenCallingUpdateOnNonEmptyAddress()
+    {
+    	$g1 = array(		"id"				=> 5,
+							"country" 			=> 'BEL',
+							"city"				=> 'Gent',
+							"street"			=> 'Dok Noord',
+							"number"			=> '5a',
+							"box"        		=>  '3',
+							"province" 			=> 'O-VL',
+							"organisationId" 	=> 4,
+							"addressTypeId"		=> 9);
+    
+    	$a1 = new Common\Address();
+    	$this -> assertFalse($a1 -> Update($g1));
+    	
+    }
           
 
       
-    }
+}
   
   
 ?>
