@@ -1,9 +1,10 @@
 <?php
   
-
-require_once dirname(dirname(__FILE__))."/classes/Address.php";
-require_once dirname(dirname(__FILE__))."/classes/AddressCollection.php";
 require_once dirname(dirname(__FILE__))."/classes/Exceptions.php";
+require_once dirname(dirname(__FILE__))."/classes/Address.php";
+require_once dirname(dirname(__FILE__))."/classes/Collection.php";
+require_once dirname(dirname(__FILE__))."/classes/AddressCollection.php";
+
 
 class AddressCollectionTest extends PHPUnit_Framework_TestCase
 {
