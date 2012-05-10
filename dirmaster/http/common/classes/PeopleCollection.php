@@ -1,6 +1,6 @@
-<?php namespace '\common';
+<?php namespace Common;
 
-abstract class PeopleCollection implements iPeopleCollection
+abstract class PeopleCollection extends Collection
 {
 	public $people = null;
 }

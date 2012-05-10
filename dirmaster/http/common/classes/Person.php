@@ -1,77 +1,19 @@
 <?php namespace '\common';
 
-abstract class Person implements iEntity
+abstract class Person extends Entity
 {
-    // --- ASSOCIATIONS ---
-    // generateAssociationEnd :     // generateAssociationEnd :     // generateAssociationEnd : 
 
-    // --- ATTRIBUTES ---
+	protected static $myExceptionClass = 'Common\PersonException';
+	
+	public $userId = null;
+	public $name = null;
+	public $firstname = null;
+	public $gender = false;
+	public $emailadresses = '';
+	public $adresses = null;
+	public $status = null;
 
-    /**
-     * Short description of attribute userId
-     *
-     * @access public
-     * @var Integer
-     */
-    public $userId = null;
 
-    /**
-     * Short description of attribute name
-     *
-     * @access public
-     * @var String
-     */
-    public $name = null;
-
-    /**
-     * Short description of attribute firstname
-     *
-     * @access public
-     * @var String
-     */
-    public $firstname = null;
-
-    /**
-     * Short description of attribute gender
-     *
-     * @access public
-     * @var bool
-     */
-    public $gender = false;
-
-    /**
-     * Short description of attribute emailadresses
-     *
-     * @access public
-     * @var string
-     */
-    public $emailadresses = '';
-
-    /**
-     * Short description of attribute adresses
-     *
-     * @access public
-     * @var Address
-     */
-    public $adresses = null;
-
-    /**
-     * Short description of attribute status
-     *
-     * @access public
-     * @var Integer
-     */
-    public $status = null;
-
-    // --- OPERATIONS ---
-
-    /**
-     * Short description of method Create
-     *
-     * @access public
-     * @author Jos Bolssens, <marvelade@gmail.com>
-     * @return mixed
-     */
     public function Create()
     {
         
@@ -104,6 +46,6 @@ abstract class Person implements iEntity
         
     }
 
-} /* end of abstract class Person */
+}
 
 ?>
