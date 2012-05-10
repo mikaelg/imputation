@@ -24,6 +24,10 @@ abstract class Entity
     				$this -> $field = 0;
     			break;
     			
+    			case 'bool':
+    				$this -> field = false;
+    			break;
+    			
     			default:
     				if(class_exists($fieldSpec['type']))
     				{

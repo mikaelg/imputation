@@ -2,7 +2,7 @@
 
 abstract class PeopleCollection extends Collection
 {
-	public $people = null;
+
 }
 
 ?>

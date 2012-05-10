@@ -1,12 +1,12 @@
 <?php namespace Common;
 
-error_reporting(E_ALL);
-
-class AddressType
+class AddressType extends \SplEnum
 {
-    public $addressTypeId = null;
-    public $type = null;
-
+	const __default 			= 1;
+	
+    const MAIL_ADDRESS			= 1;
+	const VISITING_ADDRESS		= 2;
+	const INVOICING_ADDRESS		= 3;
 }
 
 ?>

@@ -1,138 +1,38 @@
-<?php namespace '\common';
+<?php namespace Common;
 
-class Project implements iEntity
+class Project implements Entity
 {
+	
+	protected static $myExceptionClass = 'Common\ProjectException';
+	
+	protected static $fields = Array(	"id"				=> Array("type" =>"integer",					"mandatory" => true),
+										"name" 				=> Array("type" =>"string", 					"mandatory" => true),
+										"type"				=> Array("type" =>"Common\ProjectType", 		"mandatory" => true),
+										"parentProject"		=> Array("type" =>"Common\Project", 			"mandatory" => false),
+										"projectTeam"		=> Array("type" =>"Common\PeopleCollection", 	"mandatory" => true),
+										"customerCompany"	=> Array("type" =>"Common\CustomerCompany",		"mandatory" => false),
+										"startDate" 		=> Array("type" =>"\DateTime", 					"mandatory" => true),
+										"endDate" 			=> Array("type" =>"\DateTime",					"mandatory" => false),
+										"status"			=> Array("type" =>"Common\ProjectStatus",		"mandatory" => true),
+										"totalCost"			=> Array("type" =>"float",						"mandatory" => false),
+										"contacts"			=> Array("type" =>"Common\PeopleCollection",	"mandatory" => false),
+								);
+	
+	
+    
+    protected $id;
+	protected $name;
+	protected $type;
+	protected $parentProject;
+	protected $projectTeam;
+	protected $customerCompany;
+	protected $startDate;
+	protected $endDate;
+	protected $status;
+	protected $totalCost;
+	protected $contacts;
 
-    /**
-     * Unique identifier of this project
-     *
-     * @access public
-     * @var UnlimitedInteger
-     */
-    public $projectId = null;
-
-    /**
-     * Name of the project; should also be unique
-     *
-     * @access public
-     * @var String
-     */
-    public $name = null;
-
-    /**
-     * This property holds an instance of the ProjectType class
-     *
-     * @access public
-     * @var ProjectType
-     */
-    public $type = null;
-
-    /**
-     * This property holds a reference to the project that this project resides under
-     * It can be null if this is a top-level project
-     *
-     * @access public
-     * @var Project
-     */
-    public $parentProject = null;
-
-    /**
-     * Short description of attribute teamMembers
-     *
-     * @access public
-     * @var EmployeesCollection
-     */
-    public $teamMembers = null;
-
-    /**
-     * Short description of attribute customerCompany
-     *
-     * @access public
-     * @var CustomerCompany
-     */
-    public $customerCompany = null;
-
-    /**
-     * Short description of attribute startDate
-     *
-     * @access public
-     * @var String
-     */
-    public $startDate = null;
-
-    /**
-     * Short description of attribute endDate
-     *
-     * @access public
-     * @var String
-     */
-    public $endDate = null;
-
-    /**
-     * Short description of attribute status
-     *
-     * @access public
-     * @var ProjectStatuses
-     */
-    public $status = null;
-
-    /**
-     * Short description of attribute totalCost
-     *
-     * @access public
-     * @var Integer
-     */
-    public $totalCost = null;
-
-    /**
-     * Short description of attribute contacts
-     *
-     * @access public
-     * @var ContactsCollection
-     */
-    public $contacts = null;
-
-    // --- OPERATIONS ---
-
-    /**
-     * Short description of method Create
-     *
-     * @access public
-     * @author Jos Bolssens, <marvelade@gmail.com>
-     * @return mixed
-     */
-    public function create()
-    {
-        
-        
-    }
-
-    /**
-     * Short description of method Update
-     *
-     * @access public
-     * @author Jos Bolssens, <marvelade@gmail.com>
-     * @return mixed
-     */
-    public function update()
-    {
-        
-        
-    }
-
-    /**
-     * Short description of method Delete
-     *
-     * @access public
-     * @author Jos Bolssens, <marvelade@gmail.com>
-     * @return mixed
-     */
-    public function delete()
-    {
-        
-        
-    }
-
+    
     /**
      * Short description of method GetProjectType
      *

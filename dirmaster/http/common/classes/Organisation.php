@@ -1,85 +1,20 @@
-<?php namespace '\common'
+<?php namespace Common
 
-abstract class Organisation implements iEntity
+abstract class Organisation extends Entity
 {
-    // --- ASSOCIATIONS ---
-    // generateAssociationEnd :     // generateAssociationEnd : 
 
-    // --- ATTRIBUTES ---
-
-    /**
-     * Short description of attribute organisationId
-     *
-     * @access public
-     * @var Integer
-     */
-    public $organisationId = null;
-
-    /**
-     * Short description of attribute name
-     *
-     * @access public
-     * @var String
-     */
-    public $name = null;
-
-    /**
-     * Short description of attribute addresses
-     *
-     * @access public
-     * @var AddressCollection
-     */
-    public $addresses = null;
-
-    /**
-     * Short description of attribute users
-     *
-     * @access public
-     * @var Person
-     */
-    public $users = null;
-
-    // --- OPERATIONS ---
-
-    /**
-     * Short description of method Create
-     *
-     * @access public
-     * @author Jos Bolssens, <marvelade@gmail.com>
-     * @return mixed
-     */
-    public function Create()
-    {
-        
-        
-    }
-
-    /**
-     * Short description of method Update
-     *
-     * @access public
-     * @author Jos Bolssens, <marvelade@gmail.com>
-     * @return mixed
-     */
-    public function Update()
-    {
-        
-        
-    }
-
-    /**
-     * Short description of method Delete
-     *
-     * @access public
-     * @author Jos Bolssens, <marvelade@gmail.com>
-     * @return mixed
-     */
-    public function Delete()
-    {
-        
-        
-    }
-
-} /* end of abstract class Organisation */
+	protected static $myExceptionClass = 'Common\OrganisationException';
+	
+	protected static $fields = Array(	"id"				=> Array("type" =>"integer",					"mandatory" => true),
+										"name" 				=> Array("type" =>"string", 					"mandatory" => true),
+										"addresses"			=> Array("type" =>"Common\AddressCollection", 	"mandatory" => true),
+										"employees"			=> Array("type" =>"Common\PeopleCollection", 	"mandatory" => true)
+								);
+    
+    public $id;
+    public $name;
+    public $addresses;
+    public $employees;
+}
 
 ?>
