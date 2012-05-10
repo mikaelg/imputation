@@ -111,6 +111,9 @@ class AddressTest extends PHPUnit_Framework_TestCase
     
     
     
+    /**
+     * @expectedException Common\AddressException
+     */
     
     public function testCreateWithIllegalInputArrays()
     {

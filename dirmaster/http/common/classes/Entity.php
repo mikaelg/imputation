@@ -25,7 +25,14 @@ abstract class Entity
     			break;
     			
     			default:
-    				throw new $ccls::$myExceptionClass($ccls . '::fieldspec contains illegal type: "' . $fieldSpec['type'] . '"');
+    				if(class_exists($fieldSpec['type']))
+    				{
+    					$this -> $field = new $fieldSpec['type'];
+    				}
+    				else
+    				{
+    					throw new $ccls::$myExceptionClass($ccls . '::fieldspec contains illegal type: "' . $fieldSpec['type'] . '"');
+    				}
     			break;
     		}
    			
@@ -78,17 +85,40 @@ abstract class Entity
 	    			$typeCheckFunction = 'is_'.$fieldSpec['type'];
 	    			if(is_callable($typeCheckFunction))
 	    			{
+	    				//echo "is " . $_input_array[$field] . " really a  " . $fieldSpec['type'] . "? ";
+	    				//echo ($typeCheckFunction($_input_array[$field])) ? " Yes it is" : " No it isn't";
+	    				//echo "\n";
 	    				$retval = $typeCheckFunction($_input_array[$field]) && $retval;
+	    			}
+	    			elseif(class_exists($fieldSpec['type']))
+	    			{
+	    				//echo "Does " . get_class($_input_array[$field]) . " equal " . $fieldSpec['type'] . "? ";
+	    				//echo (get_class($_input_array[$field]) == $fieldSpec['type']) ? " Yes it does" : " No it doesn't";
+	    				//echo "\n";
+	    				$retval = (get_class($_input_array[$field]) == $fieldSpec['type']) && $retval;
 	    			}
 	    			else
 	    			{
 	    				
-	    				throw new $ccls::$myExceptionClass('Invalid type "' . $fieldSpec['type'] . '" specified in ' . $ccls . '::fields matrix');
+	    				$errMsg = 'Invalid type "' . $fieldSpec['type'] . '" specified in ' . $ccls . '::fields matrix ';
+	    				
+	    				if(!is_callable($typeCheckFunction))
+		    			{
+		    				$errMsg.= 'because ' . $typeCheckFunction . ' is not callable' ;
+		    			}
+		    			elseif(!class_exists($fieldSpec['type']))
+		    			{
+		    				$errMsg.= 'because class' . $fieldSpec['type'] . ' does not exist' ;
+		    			}
+		    			
+	    				throw new $ccls::$myExceptionClass($errMsg);
+	    				return false; 
 	    			}
 	    		
 	    		}
 	    		elseif($_enforceUseOfMandatoryFields && $fieldSpec['mandatory'])
 	   			{
+	   				throw new $ccls::$myExceptionClass('Field "' . $field . '" is marked as mandatory yet not provided!');
 	   				return false;   			
 	   			}
 	    	}
@@ -124,6 +154,7 @@ abstract class Entity
         }
         else
         {
+        	
         	return false;        
         }
         

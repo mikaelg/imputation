@@ -1,50 +1,29 @@
-<?php namespace '\common';
+<?php namespace Common;
 
-abstract class Person extends Entity
+class Person extends Entity
 {
 
 	protected static $myExceptionClass = 'Common\PersonException';
 	
-	public $userId = null;
-	public $name = null;
-	public $firstname = null;
-	public $gender = false;
-	public $emailadresses = '';
-	public $adresses = null;
-	public $status = null;
+	protected static $fields = Array(	"id"				=> Array("type" =>"integer",						"mandatory" => true),
+										"lastname" 			=> Array("type" =>"string", 						"mandatory" => true),
+										"firstname"			=> Array("type" =>"string", 						"mandatory" => true),
+										"gender"			=> Array("type" =>"string", 						"mandatory" => true),
+										"emailaddresses"	=> Array("type" =>"Common\EmailAddressCollection", 	"mandatory" => true),
+										"addresses"			=> Array("type" =>"Common\AddressCollection", 		"mandatory" => false),
+										"status" 			=> Array("type" =>"string", 						"mandatory" => true),
+								);
+	
+	protected $id;
+	protected $lastname;
+	protected $firstname;
+	protected $gender;
+	protected $emailadresses;
+	protected $adresses;
+	protected $status;
 
 
-    public function Create()
-    {
-        
-        
-    }
 
-    /**
-     * Short description of method Update
-     *
-     * @access public
-     * @author Jos Bolssens, <marvelade@gmail.com>
-     * @return mixed
-     */
-    public function Update()
-    {
-        
-        
-    }
-
-    /**
-     * Short description of method Delete
-     *
-     * @access public
-     * @author Jos Bolssens, <marvelade@gmail.com>
-     * @return mixed
-     */
-    public function Delete()
-    {
-        
-        
-    }
 
 }
 
