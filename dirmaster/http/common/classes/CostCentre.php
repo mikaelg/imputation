@@ -8,6 +8,7 @@ class CostCentre extends Entity
 	protected static $fields = Array(	"id"				=> Array("type" =>"integer",	"mandatory" => true),
 										"shorthand" 		=> Array("type" =>"string", 	"mandatory" => true),
 										"description"		=> Array("type" =>"string", 	"mandatory" => true),
+			);
 									
 	
     protected $id;

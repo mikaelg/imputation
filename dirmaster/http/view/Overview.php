@@ -3,6 +3,8 @@
 <p>
 put the variable content here:<br />
 <?php print($dcreg->foo); ?>
+<br />
+<?php print($_SESSION['loginsession']); ?>
 
 </p>
 </div>

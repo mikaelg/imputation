@@ -1,6 +1,6 @@
 <div id="wrapper">
 	<div id="content">
-		<h1>content voor de Loginpage</h1>
+		<h1>content voor de Loginpage testen</h1>
 		<p>
 		<?php 
 			//print($dcreg->foo);
@@ -20,7 +20,8 @@
 			<input type="password" maxlength="20" name="password" >
 			<br />
 			<input type="submit" value="Verzenden"> 
-			<input type="hidden" name="formGuid" maxlength="100" value="1234567890">
+			
+			<input type="hidden" name="formGuid" maxlength="100" value="<?php echo $dcreg->formGuid ?>">
 		</form>
 		
 	</div>

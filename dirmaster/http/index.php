@@ -1,18 +1,26 @@
 <?php namespace be\imputation;
 
+/**
+ * Don't output anything in this file.
+ * every output should be after session_start in Run.php
+ */
+
 function load_my_classes($_cls)
 {
+
+	
+	
   // Windows XAMPP
-  $ROOTPATH = "C:\\xampp\\htdocs\\imputation\\dirmaster\\http";
-  $PATH_SEPARATOR = "\\";
+  //$ROOTPATH = "C:\\xampp\\htdocs\\imputation\\dirmaster\\http";
+  //$PATH_SEPARATOR = "\\";
   
   // Mac XAMPP
   //$ROOTPATH = "/Applications/xampp/htdocs/imputation/dirmaster/http";
   //$PATH_SEPARATOR = "/";
   
   // Mac MAMPP
-  //$ROOTPATH = "/Users/gyselinckmikael/Documents/WWW_MAMP/imputation/dirmaster/http";
-  //$PATH_SEPARATOR = "/";
+  $ROOTPATH = "/Users/gyselinckmikael/Documents/WWW_MAMP/imputation/dirmaster/http";
+  $PATH_SEPARATOR = "/";
   
   
   $dirsToLookIn = Array("controller", "core", "model", "view");
@@ -37,7 +45,7 @@ function load_my_classes($_cls)
       //echo($candidate_class_file . ' does not exist!<br />');
     }
   }
-  echo '<hr />';
+  //echo '<hr />';
 }
 
 spl_autoload_register(__NAMESPACE__.'\load_my_classes');

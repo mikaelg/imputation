@@ -1,5 +1,5 @@
 <?php namespace be\imputation;
-require_once 'core/Model.php';
+//require_once 'core/Model.php';
 
 class Home_model extends Model {
 

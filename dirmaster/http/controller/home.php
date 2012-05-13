@@ -1,5 +1,5 @@
 <?php namespace be\imputation;
-require_once 'core/Controller.php';
+//require_once 'core/Controller.php';
 require_once 'model/Home.php';
 
 /**
@@ -22,11 +22,7 @@ class Home_controller extends Controller {
 		$this->model = new Home_model();
 
 		
-		$this->dcreg->foo = 'INSERTED FROM CONTROLLER<br>
-		<ul>
-		<li><a href="?rt=login">login</a></li>
-		<li><a href="?rt=Overview">Overview</a></li>
-		</ul>';
+		$this->dcreg->foo = 'INSERTED FROM CONTROLLER';
 		
 		$this->assembleView();
 

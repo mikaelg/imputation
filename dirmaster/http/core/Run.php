@@ -14,6 +14,7 @@ class Run extends Router {
 	//const HOMEPAGE = "home";
 	
 	function __construct() {
+		session_start();
 		parent::__construct($_GET);
 		
 		/**

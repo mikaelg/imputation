@@ -15,7 +15,22 @@
 
 class DynamicContentRegistry {
 
-	private $dynamicContent = array();
+	private static $instance = null;
+	private $dynamicContent;
+	
+	private function __construct()
+	{
+		$this->dynamicContent = array();
+	}
+	
+	public static function instantiate()
+	{
+		if(self::$instance === null)
+		{
+			self::$instance = new DynamicContentRegistry();
+		}
+		return self::$instance;
+	}
 
 	/**
 	 * add value, update not allowed > use update function

@@ -48,8 +48,8 @@ abstract class Controller{
 		}
 		*/
 		
-	
-		$this->dcreg = new DynamicContentRegistry;
+		$this->dcreg = DynamicContentRegistry::instantiate();
+		//$this->dcreg = new DynamicContentRegistry;
 		
 		$this->dcreg->args = $_args;
 		

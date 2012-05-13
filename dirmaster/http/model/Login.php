@@ -8,17 +8,36 @@ require_once 'core/Model.php';
  */
 class Login_model extends Model {
 	
-	public function __construct(){
-
-		
+	public function __construct($_args  = array()){
+		parent::__construct($_args);
 	} 
 	
+	/**
+	 * maak formGuid aan of geef bestaande terug
+	 * @return string
+	 */
 	public function generateFormGuid(){
-		//print("FROM CONSTRUCTOR Login_model");
+
+		
 		// Deze dienen we on-the-fly te genereren wanneer pagin voor eerste keer wordt opgeroepen.
-		if(!isset($_POST['formGuid'])){
+		if(!isset($this->formvars['formGuid'])){
 			return '1234567890';
+		} else {
+			return $this->formvars['formGuid'];
 		}
+	}
+	
+	public function checkFormGuid(){
+		/** 
+		 * doe ŽŽn of ander check tegen de database.
+		 * vb session id + controllername.
+		 * verder onderzoeken hoe dit in Drupal wordt opgevangen
+		 */
+		return true;
+	}
+	
+	public function loginStatus(){
+		return AuthenticationController::loginStatus();
 	}
 	
 	public function checkLoginCredentials()
@@ -35,23 +54,23 @@ class Login_model extends Model {
 		 * if formGuid is not set there was no post => quit
 		 * if formGuid is set check if it is valid or throw exception.
 		 */
-		if(isset($_POST['formGuid']) && Sanitize::checkSanity($_POST['formGuid'], 'string', 100)){
-			$formGuid = $_POST['formGuid'];
+		if(isset($this->formvars['formGuid']) && Sanitize::checkSanity($this->formvars['formGuid'], 'string', 100)){
+			$formGuid = $this->formvars['formGuid'];
 			if($formGuid != '1234567890')
 				throw new Exception("fatal form error!");
 		}
 		else 
 			return;
 		
-		if(isset($_POST['loginName']) && Sanitize::checkSanity($_POST['loginName'], 'string', 100)){
-			$loginName = $_POST['loginName'];
+		if(isset($this->formvars['loginName']) && Sanitize::checkSanity($this->formvars['loginName'], 'string', 100)){
+			$loginName = $this->formvars['loginName'];
 		}
 		else {
 			$warnings[] = "Loginname is not valid";
 		}
 		
-		if(isset($_POST['password']) && Sanitize::checkSanity($_POST['password'], 'string', 20)){
-			$password = $_POST['password'];
+		if(isset($this->formvars['password']) && Sanitize::checkSanity($this->formvars['password'], 'string', 20)){
+			$password = $this->formvars['password'];
 		}
 		else {
 			$warnings[] = "Password is not valid";
@@ -73,7 +92,7 @@ class Login_model extends Model {
 				// put user id in session.
 				$userid = "12345";
 				
-				session_start();
+				//session_start();
 				$_SESSION['loginsession'] = $userid.'#'.md5($loginName.$userid.$_SERVER['REMOTE_ADDR']);
 				
 				

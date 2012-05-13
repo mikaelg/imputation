@@ -7,5 +7,10 @@ require_once 'core/Sanitize.php';
  *
  */
 class Model{
+
+	protected $formvars;
 	
+	public function __construct($_args  = array()){
+		$this->formvars = $_args;
+	}
 }

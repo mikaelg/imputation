@@ -1,16 +1,20 @@
 <?php namespace be\imputation;
-require_once 'core/AuthenticationController.php';
-require_once 'model/Overview.php';
+require_once 'core/Controller.php';
+require_once 'model/Logout.php';
 
 /**
  * 
  * @author gyselinckmikael
  *
  */
-class Overview_controller extends AuthenticationController {
+class Logout_controller extends Controller {
 
 	public function __construct($_controller,$_args = array()){
 		parent::__construct($_controller,$_args);
+	}
+	
+	function test(){
+		print("test");
 	}
 	
 	public function getView(){
@@ -19,14 +23,13 @@ class Overview_controller extends AuthenticationController {
 		 * Hier dienen we de data uit het model  op te roepen en door te geven aan de view.
 		 *
 		 */
-		$this->model = new Overview_model();
+		$this->model = new Logout_model();
 		
-		//$this->get
+		//if(!isset($this->formGuid))
+		//	$this->formGuid = $this->model->generateFormGuid();
+		
+		$this->dcreg->logout = $this->model->Logout();
 
-		
-		$this->dcreg->foo = 'INSERTED FROM CONTROLLER<b />Overview<br />';
-		
-		print_r($this->dcreg->args);
 		
 		$this->assembleView();
 

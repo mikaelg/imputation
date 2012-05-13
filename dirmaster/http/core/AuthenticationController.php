@@ -21,15 +21,31 @@ abstract class AuthenticationController extends Controller{
 		
 		parent::__construct($_controller,$_args);
 		
-		if(isset($_SESSION['loginsession']) && $_SESSION['loginsession'] != $userid.'#'.md5($loginName.$userid.$_SERVER['REMOTE_ADDR'])){
-			//parent::__construct($_controller);
+		if(isset($_SESSION['loginsession']) && $_SESSION['loginsession'] == $userid.'#'.md5($loginName.$userid.$_SERVER['REMOTE_ADDR'])){
+			parent::__construct($_controller);
 		}
 		else {
 		
-		//header("Location: ?rt=oeeeeps");
+		header("Location: /oeeeeps");
 		return;
 		}
 			
+	}
+	
+	public static function loginStatus(){
+		
+		if(isset($_SESSION['loginsession'])){
+			return true;
+		}
+		else {
+			return false;
+		}		
+	}
+	
+	public static function  logout(){
+		if(self::loginStatus()){
+			unset($_SESSION['loginsession']);
+		}
 	}
 
 }
