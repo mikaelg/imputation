@@ -1,13 +1,13 @@
 <?php namespace be\imputation;
-require_once 'core/Controller.php';
-require_once 'model/Login.php';
+//require_once 'core/Controller.php';
+//require_once 'model/Login.php';
 
 /**
  * 
  * @author gyselinckmikael
  *
  */
-class Login_controller extends Controller {
+class LoginController extends Controller {
 
 	public function __construct($_controller,$_args = array()){
 		parent::__construct($_controller,$_args);
@@ -24,7 +24,7 @@ class Login_controller extends Controller {
 		 *
 		 */
 		
-		$this->model = new Login_model($_POST);
+		$this->model = new LoginModel($_POST);
 		
 		// zijn we reeds ingelogd ?
 		if($this->model->loginStatus()){

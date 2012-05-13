@@ -2,7 +2,7 @@
 
 
 //require_once 'core/Router.php';
-require_once 'controller/home.php';
+//require_once 'controller/home.php';
 //require_once 'controller/404.php';
 
 /**
@@ -33,9 +33,9 @@ class Run extends Router {
 			 */
 			
 			
-			if(file_exists('controller/home.php')) {
+			if(file_exists('controller/HomeController.php')) {
 				
-				$t = new Home_controller('home');
+				$t = new HomeController('Home');
 				$t->getView();
 			}
 			else {
@@ -47,16 +47,16 @@ class Run extends Router {
 		{
 
 
-			if(file_exists('controller/'.$this->getRouter().'.php')) {
+			if(file_exists('controller/'.$this->getRouter().'Controller.php')) {
 				
-				require_once 'controller/'.$this->getRouter().'.php';
+				//require_once 'controller/'.$this->getRouter().'.php';
 				$t;
 				
 				
 				/**
 				 * public pags
 				 */
-				$class = __NAMESPACE__.'\\'.$this->getRouter().'_controller';
+				$class = __NAMESPACE__.'\\'.$this->getRouter().'Controller';
 				$t = new $class($this->getRouter(),$this->getArgs());
 				
 				/*

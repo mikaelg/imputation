@@ -1,12 +1,12 @@
 <?php namespace be\imputation;
-require_once 'core/Model.php';
+//require_once 'core/Model.php';
 
 /**
  * 
  * @author gyselinckmikael
  *
  */
-class Login_model extends Model {
+class LoginModel extends Model {
 	
 	public function __construct($_args  = array()){
 		parent::__construct($_args);

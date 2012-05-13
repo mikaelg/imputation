@@ -1,13 +1,13 @@
 <?php namespace be\imputation;
-require_once 'core/Controller.php';
-require_once 'model/Logout.php';
+//require_once 'core/Controller.php';
+//require_once 'model/Logout.php';
 
 /**
  * 
  * @author gyselinckmikael
  *
  */
-class Logout_controller extends Controller {
+class LogoutController extends Controller {
 
 	public function __construct($_controller,$_args = array()){
 		parent::__construct($_controller,$_args);
@@ -23,7 +23,7 @@ class Logout_controller extends Controller {
 		 * Hier dienen we de data uit het model  op te roepen en door te geven aan de view.
 		 *
 		 */
-		$this->model = new Logout_model();
+		$this->model = new LogoutModel();
 		
 		//if(!isset($this->formGuid))
 		//	$this->formGuid = $this->model->generateFormGuid();

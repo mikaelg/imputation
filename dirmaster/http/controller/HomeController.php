@@ -1,13 +1,13 @@
 <?php namespace be\imputation;
-require_once 'core/AuthenticationController.php';
-require_once 'model/Overview.php';
+//require_once 'core/Controller.php';
+//require_once 'model/Home.php';
 
 /**
  * 
  * @author gyselinckmikael
  *
  */
-class Overview_controller extends AuthenticationController {
+class HomeController extends Controller {
 
 	public function __construct($_controller,$_args = array()){
 		parent::__construct($_controller,$_args);
@@ -19,14 +19,10 @@ class Overview_controller extends AuthenticationController {
 		 * Hier dienen we de data uit het model  op te roepen en door te geven aan de view.
 		 *
 		 */
-		$this->model = new Overview_model();
-		
-		//$this->get
+		$this->model = new HomeModel();
 
 		
-		$this->dcreg->foo = 'INSERTED FROM CONTROLLER<b />Overview<br />';
-		
-		print_r($this->dcreg->args);
+		$this->dcreg->foo = 'INSERTED FROM CONTROLLER';
 		
 		$this->assembleView();
 

@@ -1,12 +1,12 @@
 <?php namespace be\imputation;
-require_once 'core/Model.php';
+//require_once 'core/Model.php';
 
 /**
  * 
  * @author gyselinckmikael
  *
  */
-class Logout_model extends Model {
+class LogoutModel extends Model {
 	
 	public function __construct(){
 
