@@ -8,7 +8,9 @@
 function load_my_classes($_cls)
 {
 
-	
+  $PATH_SEPARATOR = DIRECTORY_SEPARATOR;
+  $ROOTPATH = $_SERVER["DOCUMENT_ROOT"];
+  
 	
   // Windows XAMPP
   //$ROOTPATH = "C:\\xampp\\htdocs\\imputation\\dirmaster\\http";
@@ -19,8 +21,9 @@ function load_my_classes($_cls)
   //$PATH_SEPARATOR = "/";
   
   // Mac MAMPP
-  $ROOTPATH = "/Users/gyselinckmikael/Documents/WWW_MAMP/imputation/dirmaster/http";
-  $PATH_SEPARATOR = "/";
+  //$ROOTPATH = "/Users/gyselinckmikael/Documents/WWW_MAMP/imputation/dirmaster/http";
+  //$PATH_SEPARATOR = DIRECTORY_SEPARATOR;
+
   
   
   $dirsToLookIn = Array("controller", "core", "model", "view");
