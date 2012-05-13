@@ -3,11 +3,16 @@
 ?>
 
 <div>
-<?php if(AuthenticationController::loginStatus()) {
-	print('<a href="/logout">Logout</a>');} 
-	else {
-		print('<a href="/login">login</a>');
-	}; ?>
+	<ul>
+	<li><a href="/">Home</a></li>
+	<li>
+	<?php if(AuthenticationController::loginStatus()) {
+		print('<a href="/logout">Logout</a>');} 
+		else {
+			print('<a href="/login">login</a>');
+		}; ?>
+	</li>
+	</ul>
 </div>
 
 <div>
