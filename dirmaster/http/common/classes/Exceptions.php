@@ -11,9 +11,6 @@
 		
 	class CollectionException					extends \Exception{ }
 		
-		class AddressCollectionException		extends \Exception{ }
-		class PersonCollectionException			extends \Exception{ }
-		class EmailAddressCollectionException	extends \Exception{ }
 		class ProjectCollectionException		extends \Exception{ }
 
 	

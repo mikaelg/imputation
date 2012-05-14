@@ -7,8 +7,8 @@ abstract class Organisation extends Entity
 	
 	protected static $fields = Array(	"id"				=> Array("type" =>"integer",					"mandatory" => true),
 										"name" 				=> Array("type" =>"string", 					"mandatory" => true),
-										"addresses"			=> Array("type" =>"Common\AddressCollection", 	"mandatory" => true),
-										"employees"			=> Array("type" =>"Common\PersonCollection", 	"mandatory" => true)
+										"addresses"			=> Array("type" =>"\ArrayObject", 				"mandatory" => true),
+										"employees"			=> Array("type" =>"\ArrayObject", 	"mandatory" => true)
 								);
     
     public $id;

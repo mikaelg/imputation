@@ -30,9 +30,8 @@ class ProjectController extends AuthenticationController {
 			//print_r($this->dcreg->args);
 			
 			$p = new \Common\Project();
-			$this->model->getProjectValues($this->dcreg->args[0], $p);			
-			$this->model->getProjectTeamMembers($this->dcreg->args[0], $p);
-
+			$this->model->getProjectValues($this->dcreg->args[0], $p);
+			
 
 			
 			

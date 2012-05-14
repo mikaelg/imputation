@@ -9,8 +9,8 @@ class Person extends Entity
 										"lastname" 			=> Array("type" =>"string", 						"mandatory" => true),
 										"firstname"			=> Array("type" =>"string", 						"mandatory" => true),
 										"gender"			=> Array("type" =>"string", 						"mandatory" => true),
-										"emailaddresses"	=> Array("type" =>"Common\EmailAddressCollection", 	"mandatory" => /*true*/false),
-										"addresses"			=> Array("type" =>"Common\AddressCollection", 		"mandatory" => false),
+										"emailaddresses"	=> Array("type" =>"\ArrayObject", 					"mandatory" => /*true*/false),
+										"addresses"			=> Array("type" =>"\ArrayObject",					"mandatory" => false),
 										"status" 			=> Array("type" =>"string", 						"mandatory" => /*true*/false),
 								);
 	

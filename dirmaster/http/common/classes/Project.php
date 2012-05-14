@@ -9,13 +9,13 @@ class Project extends Entity
 										"name" 					=> Array("type" =>"string", 					"mandatory" => true),
 										"type"					=> Array("type" =>"Common\ProjectType", 		"mandatory" => /*true*/false),
 										"parentProject"			=> Array("type" =>"Common\Project", 			"mandatory" => false),
-										"projectTeam"			=> Array("type" =>"Common\PersonCollection", 	"mandatory" => /*true*/false),
+										"projectTeam"			=> Array("type" =>"\ArrayObject",				"mandatory" => /*true*/false),
 										"customerCompany"		=> Array("type" =>"Common\CustomerCompany",		"mandatory" => false),
 										"startDate"				=> Array("type" =>"\DateTime", 					"mandatory" => true),
 										"endDate"				=> Array("type" =>"\DateTime",					"mandatory" => false),
 										"status"				=> Array("type" =>"Common\ProjectStatus",		"mandatory" => /*true*/false),
 										"totalCost"				=> Array("type" =>"float",						"mandatory" => false),
-										"contacts"				=> Array("type" =>"Common\PersonCollection",	"mandatory" => false),
+										"contacts"				=> Array("type" =>"\ArrayObject",				"mandatory" => false),
 								);
 	
 	

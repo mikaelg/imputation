@@ -96,7 +96,11 @@ abstract class Entity
     				$this -> $_property = (bool)$value;
     			break;
     			
-    			default:
+    			case 'array':
+    				$this -> $_property = (array)$value;
+    			break;  			
+				
+				default:
     				if(class_exists($ccls :: $fields[$_property]['type']) || (get_class($value) == $ccls :: $fields[$_property]['type']) )
     				{
     				    $this -> $_property = $value;

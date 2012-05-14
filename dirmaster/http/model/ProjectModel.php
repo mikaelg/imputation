@@ -5,15 +5,25 @@ class ProjectModel extends Model {
 	public function __construct(){
 		print("FROM CONSTRUCTOR ProjectModel");
 		$this -> dcreg = DynamicContentRegistry::instantiate();
-	} 
+	}
 	
-	public function getProjectValues($_prjectID, &$_proj_obj){
+	public function getProjectValues($_prjectID, &$_proj_obj)
+	{
+		$this -> getProjectData($_prjectID, $_proj_obj);
+		$this -> getProjectTeamMembers($_prjectID, $_proj_obj);
+		$this -> getCustomerCompany($_prjectID, $_proj_obj);
+		
+	}
+	
+	private function getProjectData($_prjectID, &$_proj_obj){
 
-        $sql = "SELECT p.*, ps.name AS projectStatus, pt.name AS projectType FROM projects AS p 
+        $sql = "SELECT p.*, c.name AS customerName, ps.name AS projectStatus, pt.name AS projectType FROM projects AS p 
 				JOIN projectstatuses AS ps 
 					ON 	ps.idProjectStatus = p.idProjectStatus
 				JOIN projecttypes AS pt
 					ON pt.idProjectType = p.idProjectType
+				JOIN companies AS c
+					ON c.idCompany = p.idCompany
 				WHERE p.name = :prnm LIMIT 1";
         $stmt = $this -> dcreg -> dal -> prepare($sql);
 	    $stmt -> bindValue(':prnm', $_prjectID, \PDO::PARAM_STR);
@@ -24,12 +34,13 @@ class ProjectModel extends Model {
 	    
 	    if($stmt -> errorCode() == "00000")
 	    {
-			$_proj_obj -> id 			= $row[0]["idProject"];
-			$_proj_obj -> name 			= $row[0]["name"];
-			$_proj_obj -> startDate		= new \DateTime($row[0]["startdate"]);
-			$_proj_obj -> endDate 		= is_null($row[0]["enddate"]) ? null :  new \DateTime($row[0]["enddate"]);
-			$_proj_obj -> type			= $row[0]["projectType"];
-			$_proj_obj -> status		= $row[0]["projectStatus"];
+			$_proj_obj -> id 				= $row[0]["idProject"];
+			$_proj_obj -> name 				= $row[0]["name"];
+			$_proj_obj -> startDate			= new \DateTime($row[0]["startdate"]);
+			$_proj_obj -> endDate 			= is_null($row[0]["enddate"]) ? null :  new \DateTime($row[0]["enddate"]);
+			$_proj_obj -> type				= $row[0]["projectType"];
+			$_proj_obj -> status			= $row[0]["projectStatus"];
+
 			return true;
 		}
 	    else
@@ -41,7 +52,44 @@ class ProjectModel extends Model {
         
 	}
 	
-	public function getProjectTeamMembers($_prjectID, &$_proj_obj)
+	private function getCustomerCompany($_prjectID, &$_proj_obj){
+
+        $sql = "SELECT c.* FROM projects AS p 
+				JOIN companies AS c
+					ON c.idCompany = p.idCompany
+				JOIN companyaddresses AS ca
+					ON ca.idCompany = p.idCompany
+				JOIN addresses AS a
+					ON a.idAddress = ca.idAddress
+				WHERE p.name = :prnm LIMIT 1";
+        $stmt = $this -> dcreg -> dal -> prepare($sql);
+	    $stmt -> bindValue(':prnm', $_prjectID, \PDO::PARAM_STR);
+	    $stmt -> execute();
+	    $row = $stmt -> fetchAll();
+	    
+	    
+	    
+	    if($stmt -> errorCode() == "00000")
+	    {
+			
+			$cst = new \Common\CustomerCompany()
+			$cst -> id = 
+			$cst -> name = 
+			$cst -> addresses = 
+			
+			$_proj_obj -> customerCompany	= $cst;
+			return true;
+		}
+	    else
+	    {
+			throw new \Exception("Error #" . $stmt -> errorCode() . ' in query!');
+			return false;
+		}
+	    
+        
+	}
+	
+	private function getProjectTeamMembers($_prjectID, &$_proj_obj)
 	{
 		$sql = "SELECT pns.* FROM projects AS p 
 				JOIN projectteammembers AS ptm 
@@ -55,16 +103,10 @@ class ProjectModel extends Model {
 	    $row = $stmt -> fetchAll();
 	    if($stmt -> errorCode() == "00000")
 	    {
-		    $_proj_obj -> projectTeam = new \Common\PersonCollection();
+		    $_proj_obj -> projectTeam = new \ArrayObject();
 			foreach($row as $person_row)
 			{
-				$teamMember = new \Common\Person();
-				$teamMember -> id = $person_row["idPerson"];
-				$teamMember -> lastname = $person_row["name"];
-				$teamMember -> firstname = $person_row["firstname"];
-				$teamMember -> gender = $person_row["gender"];	
-				
-				$_proj_obj -> projectTeam -> attach($teamMember);
+				$_proj_obj -> projectTeam[$person_row['idPerson']] = $person_row;
 			}
         }
 		else
@@ -73,5 +115,8 @@ class ProjectModel extends Model {
 			return false;
 		} 
 	}
+	
+	
+	
 	
 }

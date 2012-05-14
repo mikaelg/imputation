@@ -1,4 +1,4 @@
-ALTER TABLE  `projects` DROP INDEX  `FK_Project_Project`
+
 
 INSERT INTO  `imputation`.`projects` (
 
