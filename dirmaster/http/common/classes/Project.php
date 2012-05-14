@@ -13,7 +13,7 @@ class Project extends Entity
 										"customerCompany"		=> Array("type" =>"Common\CustomerCompany",		"mandatory" => false),
 										"startDate"				=> Array("type" =>"\DateTime", 					"mandatory" => true),
 										"endDate"				=> Array("type" =>"\DateTime",					"mandatory" => false),
-										"status"				=> Array("type" =>"string",						"mandatory" => /true),
+										"status"				=> Array("type" =>"string",						"mandatory" => true),
 										"totalCost"				=> Array("type" =>"float",						"mandatory" => false),
 										"contacts"				=> Array("type" =>"\ArrayObject",				"mandatory" => false),
 								);
