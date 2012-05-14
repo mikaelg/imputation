@@ -7,13 +7,13 @@ class Project extends Entity
 
 	protected static $fields = Array(	"id"					=> Array("type" =>"integer",					"mandatory" => true),
 										"name" 					=> Array("type" =>"string", 					"mandatory" => true),
-										"type"					=> Array("type" =>"Common\ProjectType", 		"mandatory" => /*true*/false),
+										"type"					=> Array("type" =>"string",						"mandatory" => true),
 										"parentProject"			=> Array("type" =>"Common\Project", 			"mandatory" => false),
-										"projectTeam"			=> Array("type" =>"\ArrayObject",				"mandatory" => /*true*/false),
+										"projectTeam"			=> Array("type" =>"\ArrayObject",				"mandatory" => true),
 										"customerCompany"		=> Array("type" =>"Common\CustomerCompany",		"mandatory" => false),
 										"startDate"				=> Array("type" =>"\DateTime", 					"mandatory" => true),
 										"endDate"				=> Array("type" =>"\DateTime",					"mandatory" => false),
-										"status"				=> Array("type" =>"Common\ProjectStatus",		"mandatory" => /*true*/false),
+										"status"				=> Array("type" =>"string",						"mandatory" => /true),
 										"totalCost"				=> Array("type" =>"float",						"mandatory" => false),
 										"contacts"				=> Array("type" =>"\ArrayObject",				"mandatory" => false),
 								);

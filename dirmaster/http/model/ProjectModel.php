@@ -12,6 +12,7 @@ class ProjectModel extends Model {
 		$this -> getProjectData($_prjectID, $_proj_obj);
 		$this -> getProjectTeamMembers($_prjectID, $_proj_obj);
 		$this -> getCustomerCompany($_prjectID, $_proj_obj);
+		$this -> getProjectContacts($_prjectID, $_proj_obj);
 		
 	}
 	
@@ -54,7 +55,7 @@ class ProjectModel extends Model {
 	
 	private function getCustomerCompany($_prjectID, &$_proj_obj){
 
-        $sql = "SELECT c.* FROM projects AS p 
+        $sql = "SELECT c.*, a.* FROM projects AS p 
 				JOIN companies AS c
 					ON c.idCompany = p.idCompany
 				JOIN companyaddresses AS ca
@@ -72,11 +73,9 @@ class ProjectModel extends Model {
 	    if($stmt -> errorCode() == "00000")
 	    {
 			
-			$cst = new \Common\CustomerCompany()
-			$cst -> id = 
-			$cst -> name = 
-			$cst -> addresses = 
-			
+			$cst = new \Common\CustomerCompany();
+			$cst -> id = $row[0]['idCompany'];
+			$cst -> name = $row[0]['name'];
 			$_proj_obj -> customerCompany	= $cst;
 			return true;
 		}
@@ -107,6 +106,33 @@ class ProjectModel extends Model {
 			foreach($row as $person_row)
 			{
 				$_proj_obj -> projectTeam[$person_row['idPerson']] = $person_row;
+			}
+        }
+		else
+	    {
+			throw new \Exception("Error #" . $stmt -> errorCode() . ' in query!');
+			return false;
+		} 
+	}
+	
+	private function getProjectContacts($_prjectID, &$_proj_obj)
+	{
+		$sql = "SELECT pns.* FROM projects AS p 
+				JOIN projectcontacts AS pct 
+					ON pct.idProject = p.idProject
+				JOIN persons AS pns
+					ON pct.idPerson = pns.idPerson
+				WHERE p.name = :prnm ";
+        $stmt = $this -> dcreg -> dal -> prepare($sql);
+	    $stmt -> bindParam(':prnm', $_prjectID, \PDO::PARAM_STR);
+	    $stmt -> execute();
+	    $row = $stmt -> fetchAll();
+	    if($stmt -> errorCode() == "00000")
+	    {
+		    $_proj_obj -> contacts = new \ArrayObject();
+			foreach($row as $person_row)
+			{
+				$_proj_obj -> contacts[$person_row['idPerson']] = $person_row;
 			}
         }
 		else

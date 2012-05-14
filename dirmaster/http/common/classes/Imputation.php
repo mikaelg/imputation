@@ -28,7 +28,6 @@ class Imputation extends Entity
 	public function CalculateCost()
 	{
         
-       
 	}
 	
 	public function getSpentTime()
