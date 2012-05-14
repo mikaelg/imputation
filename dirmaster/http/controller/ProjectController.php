@@ -28,7 +28,17 @@ class ProjectController extends AuthenticationController {
 			print('please provide a project');
 		else {
 			//print_r($this->dcreg->args);
-			$this->dcreg->project = $this->model->getProjectValues($this->dcreg->args[0]);
+			
+			$p = new \Common\Project();
+			$this->model->getProjectValues($this->dcreg->args[0], $p);			
+			$this->model->getProjectTeamMembers($this->dcreg->args[0], $p);
+
+
+			
+			
+			$this->dcreg->project = $p;
+			
+			
 		}
 		
 			

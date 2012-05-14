@@ -1,6 +1,6 @@
 <?php namespace Common;
 
-class ContactsCollection extends PeopleCollection
+class ContactsCollection extends PersonCollection
 {
 
 

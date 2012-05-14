@@ -11,7 +11,11 @@ abstract class Entity
     	
     	// declare all neccesary properties to empty values, so they can be checked with isset();
     	// the isset function returns false if a variable is set to null
-    	foreach($ccls::$fields as $field => $fieldSpec)
+    	
+    	//not sure if initialisation is such a good idea...
+    	// commenting it out for now 
+    	
+    	/*foreach($ccls::$fields as $field => $fieldSpec)
     	{
     		switch($fieldSpec['type'])
     		{
@@ -31,7 +35,17 @@ abstract class Entity
     			default:
     				if(class_exists($fieldSpec['type']))
     				{
-    					$this -> $field = new $fieldSpec['type'];
+    				    //self-reference would create an endless loop
+    				    if($fieldSpec['type'] != $ccls)
+    				    {
+                            //echo 'Type: ' . $fieldSpec['type'] . '<br />';
+                            $this -> $field = new $fieldSpec['type'];
+                        }
+                        else
+                        {
+                            $this -> $field = null;
+                        }
+    				    
     				}
     				else
     				{
@@ -40,7 +54,7 @@ abstract class Entity
     			break;
     		}
    			
-    	}
+    	}*/
     	
     }
     
@@ -51,6 +65,51 @@ abstract class Entity
     	if(array_key_exists($_property, $ccls :: $fields))
     	{
     		return isset($this-> $_property) ? $this-> $_property : false;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    	
+    }
+    
+    public function __set($_property, $value)
+    {
+    	$ccls = get_called_class();
+    	if(array_key_exists($_property, $ccls :: $fields))
+    	{
+    		switch($ccls :: $fields[$_property]['type'])
+    		{
+    			case 'string':
+    				$this -> $_property = strval($value);
+    			break;
+    			
+    			case 'integer':
+    				$this -> $_property = intval($value);
+    			break;
+    			
+    			case 'float':
+    				$this -> $_property = floatval($value);
+    			break;
+    			
+    			case 'bool':
+    				$this -> $_property = (bool)$value;
+    			break;
+    			
+    			default:
+    				if(class_exists($ccls :: $fields[$_property]['type']) || (get_class($value) == $ccls :: $fields[$_property]['type']) )
+    				{
+    				    $this -> $_property = $value;
+    				}
+    				else
+    				{
+    					throw new $ccls::$myExceptionClass($ccls . '::fieldspec contains illegal type: "' . $ccls :: $fields[$_property]['type'] . '"');
+    				}
+    			break;
+    		}
+			
+    		
+    		return true;
     	}
     	else
     	{
@@ -81,7 +140,7 @@ abstract class Entity
     	else
     	{
 	    	$retval = true;
-	    	
+	    	print_r($_input_array);
 	    	foreach($ccls::$fields as $field => $fieldSpec)
 	    	{
 	    		if(array_key_exists($field, $_input_array))
@@ -122,7 +181,8 @@ abstract class Entity
 	    		}
 	    		elseif($_enforceUseOfMandatoryFields && $fieldSpec['mandatory'])
 	   			{
-	   				throw new $ccls::$myExceptionClass('Field "' . $field . '" is marked as mandatory yet not provided!');
+	   				throw new $ccls::$myExceptionClass('Field ' . $field . ' is marked as mandatory yet not provided!');
+	   				
 	   				return false;   			
 	   			}
 	    	}
@@ -176,13 +236,15 @@ abstract class Entity
      */
     public function Create($_data_array)
     {
+    	$ccls = get_called_class();
+
     	if(isset($this -> id))
     	{
     		return $this->populate($_data_array); 
     	}
     	else
     	{
-    		$ccls = get_called_class();
+    		
     		throw new $ccls::$myExceptionClass('Cannot invoke ' . __METHOD__ . ' on a non-empty ' . $ccls . ' object!'); 
     		return false;   	
     	}

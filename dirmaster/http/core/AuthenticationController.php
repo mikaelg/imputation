@@ -1,5 +1,5 @@
 <?php namespace be\imputation;
-require_once 'core/Controller.php';
+//require_once 'core/Controller.php';
 
 /**
  *
@@ -25,9 +25,8 @@ abstract class AuthenticationController extends Controller{
 			parent::__construct($_controller);
 		}
 		else {
-		
-		header("Location: /oeeeeps");
-		return;
+    		header("Location: /oeeeeps");
+            return;
 		}
 			
 	}

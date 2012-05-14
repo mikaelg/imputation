@@ -1,4 +1,4 @@
-﻿# ************************************************************
+# ************************************************************
 # Sequel Pro SQL dump
 # Version 3408
 #
@@ -716,9 +716,9 @@ CREATE TABLE `Projects` (
   KEY `idProjectType` (`idProjectType`),
   KEY `idProjectStatus` (`idProjectStatus`),
   KEY `indexIdCompany` (`idCompany`,`idProjectType`,`idProjectStatus`),
-  KEY `idParentProject` (`idParentProject`),
-  KEY `FK_Project_Project` (`idProject`),
-  CONSTRAINT `FK_Project_Project` FOREIGN KEY (`idProject`) REFERENCES `Projects` (`idParentProject`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+--  KEY `idParentProject` (`idParentProject`),
+--  KEY `FK_Project_Project` (`idProject`),
+--  CONSTRAINT `FK_Project_Project` FOREIGN KEY (`idProject`) REFERENCES `Projects` (`idParentProject`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_Project_ProjectSatus` FOREIGN KEY (`idProjectStatus`) REFERENCES `ProjectStatuses` (`idProjectStatus`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_Project_ProjectType` FOREIGN KEY (`idProjectType`) REFERENCES `ProjectTypes` (`idProjectType`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

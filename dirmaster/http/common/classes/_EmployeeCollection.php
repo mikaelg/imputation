@@ -1,7 +1,7 @@
 <?php namespace Common;
 
 
-class EmployeeCollection extends PeopleCollection
+class EmployeeCollection extends PersonCollection
 {
 	
 }

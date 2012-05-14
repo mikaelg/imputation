@@ -1,21 +1,21 @@
 <?php namespace Common;
 
-class Project implements Entity
+class Project extends Entity
 {
 	
 	protected static $myExceptionClass = 'Common\ProjectException';
-	
-	protected static $fields = Array(	"id"				=> Array("type" =>"integer",					"mandatory" => true),
-										"name" 				=> Array("type" =>"string", 					"mandatory" => true),
-										"type"				=> Array("type" =>"Common\ProjectType", 		"mandatory" => true),
-										"parentProject"		=> Array("type" =>"Common\Project", 			"mandatory" => false),
-										"projectTeam"		=> Array("type" =>"Common\PeopleCollection", 	"mandatory" => true),
-										"customerCompany"	=> Array("type" =>"Common\CustomerCompany",		"mandatory" => false),
-										"startDate" 		=> Array("type" =>"\DateTime", 					"mandatory" => true),
-										"endDate" 			=> Array("type" =>"\DateTime",					"mandatory" => false),
-										"status"			=> Array("type" =>"Common\ProjectStatus",		"mandatory" => true),
-										"totalCost"			=> Array("type" =>"float",						"mandatory" => false),
-										"contacts"			=> Array("type" =>"Common\PeopleCollection",	"mandatory" => false),
+
+	protected static $fields = Array(	"id"					=> Array("type" =>"integer",					"mandatory" => true),
+										"name" 					=> Array("type" =>"string", 					"mandatory" => true),
+										"type"					=> Array("type" =>"Common\ProjectType", 		"mandatory" => /*true*/false),
+										"parentProject"			=> Array("type" =>"Common\Project", 			"mandatory" => false),
+										"projectTeam"			=> Array("type" =>"Common\PersonCollection", 	"mandatory" => /*true*/false),
+										"customerCompany"		=> Array("type" =>"Common\CustomerCompany",		"mandatory" => false),
+										"startDate"				=> Array("type" =>"\DateTime", 					"mandatory" => true),
+										"endDate"				=> Array("type" =>"\DateTime",					"mandatory" => false),
+										"status"				=> Array("type" =>"Common\ProjectStatus",		"mandatory" => /*true*/false),
+										"totalCost"				=> Array("type" =>"float",						"mandatory" => false),
+										"contacts"				=> Array("type" =>"Common\PersonCollection",	"mandatory" => false),
 								);
 	
 	
