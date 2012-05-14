@@ -2,23 +2,45 @@
 
 class ProjectModel extends Model {
 
+	private $p;
+	
 	public function __construct(){
 		print("FROM CONSTRUCTOR ProjectModel");
-		$this -> dcreg = DynamicContentRegistry::instantiate();
+		parent::__construct();
+		//$this->p = new \Common\Project();
 	}
 	
-	public function getProjectValues($_prjectID, &$_proj_obj)
+	public function getProjectValues($_prjectID)
 	{
-		$this -> getProjectData($_prjectID, $_proj_obj);
-		$this -> getProjectTeamMembers($_prjectID, $_proj_obj);
-		$this -> getCustomerCompany($_prjectID, $_proj_obj);
-		$this -> getProjectContacts($_prjectID, $_proj_obj);
+		
+		$sql = "SELECT p.budget FROM projects AS p WHERE p.name = :prnm LIMIT 1";
+		$stmt = $this -> dal -> prepare($sql);
+		$stmt -> bindValue(':prnm', $_prjectID, \PDO::PARAM_STR);
+		$stmt -> execute();
+		$row = $stmt -> fetchAll();		
+		
+		if(is_null($row[0]["budget"]))
+			$this->p = new \Common\DirectedProject();
+		else
+			$this->p = new \Common\QuoteProject();
+		
+		
+		$this -> getProjectData($_prjectID, $this->p);
+		$this -> getProjectTeamMembers($_prjectID, $this->p);
+		$this -> getCustomerCompany($_prjectID, $this->p);
+		$this -> getProjectContacts($_prjectID, $this->p);
+		
+		return $this->p;
 		
 	}
 	
+
 	private function getProjectData($_prjectID, &$_proj_obj){
 
-        $sql = "SELECT p.*, c.name AS customerName, ps.name AS projectStatus, pt.name AS projectType FROM projects AS p 
+        
+		
+		
+		$sql = "SELECT p.*, c.name AS customerName, ps.name AS projectStatus, pt.name AS projectType FROM projects AS p 
 				JOIN projectstatuses AS ps 
 					ON 	ps.idProjectStatus = p.idProjectStatus
 				JOIN projecttypes AS pt
@@ -26,12 +48,14 @@ class ProjectModel extends Model {
 				JOIN companies AS c
 					ON c.idCompany = p.idCompany
 				WHERE p.name = :prnm LIMIT 1";
-        $stmt = $this -> dcreg -> dal -> prepare($sql);
+        $stmt = $this -> dal -> prepare($sql);
 	    $stmt -> bindValue(':prnm', $_prjectID, \PDO::PARAM_STR);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();
 	    
-	    
+
+	    	
+	       
 	    
 	    if($stmt -> errorCode() == "00000")
 	    {
@@ -63,7 +87,7 @@ class ProjectModel extends Model {
 				JOIN addresses AS a
 					ON a.idAddress = ca.idAddress
 				WHERE p.name = :prnm LIMIT 1";
-        $stmt = $this -> dcreg -> dal -> prepare($sql);
+        $stmt = $this -> dal -> prepare($sql);
 	    $stmt -> bindValue(':prnm', $_prjectID, \PDO::PARAM_STR);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();
@@ -96,7 +120,7 @@ class ProjectModel extends Model {
 				JOIN persons AS pns
 					ON ptm.idPerson = pns.idPerson
 				WHERE p.name = :prnm ";
-        $stmt = $this -> dcreg -> dal -> prepare($sql);
+        $stmt = $this -> dal -> prepare($sql);
 	    $stmt -> bindParam(':prnm', $_prjectID, \PDO::PARAM_STR);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();
@@ -123,7 +147,7 @@ class ProjectModel extends Model {
 				JOIN persons AS pns
 					ON pct.idPerson = pns.idPerson
 				WHERE p.name = :prnm ";
-        $stmt = $this -> dcreg -> dal -> prepare($sql);
+        $stmt = $this -> dal -> prepare($sql);
 	    $stmt -> bindParam(':prnm', $_prjectID, \PDO::PARAM_STR);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();

@@ -4,7 +4,7 @@ abstract class Entity
 {
     protected static $myExceptionClass = 'Common\EntityException';
     
-    
+
     public function __construct()
     {
     	$ccls = get_called_class();

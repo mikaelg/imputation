@@ -16,5 +16,6 @@
 </div>
 
 <div>
+<h1><?php print $dcreg->foo ?></h1>
 <h1>IMPUTATION HEADER</h1>
 </div>
