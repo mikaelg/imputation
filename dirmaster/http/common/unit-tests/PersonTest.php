@@ -3,9 +3,8 @@
 require_once dirname(dirname(__FILE__))."/classes/Entity.php";
 require_once dirname(dirname(__FILE__))."/classes/Person.php";
 require_once dirname(dirname(__FILE__))."/classes/Address.php";
-require_once dirname(dirname(__FILE__))."/classes/Collection.php";
-require_once dirname(dirname(__FILE__))."/classes/AddressCollection.php";
-require_once dirname(dirname(__FILE__))."/classes/EmailAddressCollection.php";
+
+
 require_once dirname(dirname(__FILE__))."/classes/EmailAddress.php";
 require_once dirname(dirname(__FILE__))."/classes/Exceptions.php";
 
@@ -45,10 +44,11 @@ class PersonTest extends PHPUnit_Framework_TestCase
     	
     	
     	$e = new Common\EmailAddress();
-    	$e -> Create(Array('id' => 1, 'email' => 'jantje@joepiedepoepie.nl'));
+    	$e -> id = 1;
+    	$e -> email = 'jantje@joepiedepoepie.nl';
+    	$eac = new \ArrayObject();
+    	$eac[0] = $e;
     	
-    	$eac = new Common\EmailAddressCollection();
-    	$eac -> attach($e);
     	
     	
     	
@@ -56,27 +56,19 @@ class PersonTest extends PHPUnit_Framework_TestCase
     	
 		
 		$a = new Common\Address();
+    	$a -> id = 5;
+		$a -> country = 'BEL';
+		$a -> city = 'Gent';
+		$a -> street = 'Dok Noord';
+		$a -> number = '5a';
+		$a -> nepveld = 'Mwhuhahahahaaaa';
+		$a -> box = '3';
+		$a -> province = 'O-VL';
+		$a -> organisationId = 4;
+		$a -> addressTypeId = 9;
     	
-    	$ga1 = array(		
-    						"id"				=> 5,
-							"country" 			=> 'BEL',
-							"city"				=> 'Gent',
-							"street"			=> 'Dok Noord',
-							"number"			=> '5a',
-							"nep-veld"			=> "Mwhuhahahahaaaa",
-							"box"        		=>  '3',
-							"province" 			=> 'O-VL',
-							"organisationId" 	=> 4,
-							"addressTypeId"		=> 9
-							);
-
-  		
-  		
-  		// Put "good" data in $a					
-  		$a -> Create($ga1);
-    	
-    	$ac = new Common\AddressCollection();
-    	$ac -> attach($a);
+    	$ac = new \ArrayObject();
+    	$ac[0] = $ac;
     	
     	
     	
