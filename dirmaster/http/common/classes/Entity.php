@@ -7,7 +7,7 @@ abstract class Entity
 
     public function __construct()
     {
-    	$ccls = get_called_class();
+    	//$ccls = get_called_class();
     	
     	// declare all neccesary properties to empty values, so they can be checked with isset();
     	// the isset function returns false if a variable is set to null
@@ -62,7 +62,7 @@ abstract class Entity
     public function __get($_property)
     {
     	$ccls = get_called_class();
-    	if(array_key_exists($_property, $ccls :: $fields))
+    	if(array_key_exists($_property, $ccls :: getFieldsArray()))
     	{
     		return isset($this-> $_property) ? $this-> $_property : false;
     	}
@@ -85,9 +85,10 @@ abstract class Entity
     protected function valueMatchesPropertyType($_property, &$value)
     {
     	$ccls = get_called_class();
-    	if(array_key_exists($_property, $ccls :: $fields))
+    	$fields = $ccls :: getFieldsArray();
+    	if(array_key_exists($_property, $fields))
     	{
-    		switch($ccls :: $fields[$_property]['type'])
+    		switch($fields[$_property]['type'])
     		{
     			case 'string':
     				return is_string($value);
@@ -110,21 +111,21 @@ abstract class Entity
     			break;  			
 				
 				default:
-    				if(class_exists($ccls :: $fields[$_property]['type']))
+    				if(class_exists($fields[$_property]['type']))
     				{	
-    					if(get_class($value) == $ccls :: $fields[$_property]['type'] || '\\'.get_class($value) == $ccls :: $fields[$_property]['type'])
+    					if(get_class($value) == $fields[$_property]['type'] || '\\'.get_class($value) == $fields[$_property]['type'])
     					{
     						return true;
     					}
     					else
 	    				{
-	    					throw new $ccls::$myExceptionClass("expecting " . $ccls :: $fields[$_property]['type'] . ' but got a ' . get_class($value));
+	    					throw new $ccls::$myExceptionClass("expecting " . $fields[$_property]['type'] . ' but got a ' . get_class($value));
 	    					return false;
 	    				}    				    
     				}
     				else
     				{
-    					throw new $ccls::$myExceptionClass($ccls . '::fieldspec contains illegal type: "' . $ccls :: $fields[$_property]['type'] . '"');
+    					throw new $ccls::$myExceptionClass($ccls . '::fieldspec contains illegal type: "' . $fields[$_property]['type'] . '"');
     					return false;
     				}
     			break;
@@ -151,6 +152,7 @@ abstract class Entity
     public static function inputArrayIsValid($_input_array, $_enforceUseOfMandatoryFields = true)
     {
     	$ccls = get_called_class();
+    	$fields = $ccls :: getFieldsArray();
     	if(!is_array($_input_array))
     	{
     		throw new $ccls::$myExceptionClass('input array has to be an array!'); 
@@ -160,7 +162,7 @@ abstract class Entity
     	{
 	    	$retval = true;
 	    	print_r($_input_array);
-	    	foreach($ccls::$fields as $field => $fieldSpec)
+	    	foreach($fields as $field => $fieldSpec)
 	    	{
 	    		if(array_key_exists($field, $_input_array))
 	    		{
@@ -226,7 +228,8 @@ abstract class Entity
         if(self::inputArrayIsValid($_data_array, $_enforceUseOfMandatoryFields))
         {
         	$ccls = get_called_class();
-	        foreach($ccls::$fields as $field => $fieldSpec)
+        	$fields = $ccls :: getFieldsArray();
+	        foreach($fields as $field => $fieldSpec)
 	    	{
 	    		if(($_enforceUseOfMandatoryFields && $fieldSpec['mandatory']) || array_key_exists($field, $_data_array))
 	    		{
@@ -241,6 +244,22 @@ abstract class Entity
         	return false;        
         }
         
+    }
+    
+    /**
+     * this function will return the static $fields property from the called class
+     * IF that called class doesn't provide an override. If it does, it does so because
+     * it has to combine it's own $fields with it's parent's $fields. For example, the 
+     * Employee class does this, because Employee extends Person extends Entity
+     *
+     * @access 					public
+     * @author 					Jos Bolssens <marvelade@gmail.com>
+     * @return 					Array
+     */
+    public static function getFieldsArray()
+    {
+    	$ccls = get_called_class();
+    	return $ccls::$fields;
     }
     
     

@@ -18,12 +18,14 @@ class AddressTest extends PHPUnit_Framework_TestCase
      */
 	public function testMagicGetFunction()
     {
-		$a1 = new Common\Address();		
-		
+		$a1 = new Common\Address();	
+		$this->assertTrue($a1 -> __get('id') === false);
+			
+		$a1 -> id = 26;
 		$this->assertTrue($a1 -> __get('id') !== false);
-		$this->assertTrue($a1 -> __get('country') !== false);
+		$this->assertEquals($a1 -> __get('id'), 26);
 		
-		$this->assertFalse($a1 -> __get('fgdhjsdfgkjhsgdfkjhg') !== false);
+		$this->assertFalse($a1 -> __get('fgdhjsdfgkjhsgdfkjhg'));
 		$this->assertFalse($a1 -> __get(123) !== false);
 		$this->assertFalse($a1 -> __get(-1) !== false);
 
@@ -38,68 +40,89 @@ class AddressTest extends PHPUnit_Framework_TestCase
     {
     	$a1 = new Common\Address();
     	
-    	$g1 = array(		"id"				=> 5,
-							"country" 			=> 'BEL',
-							"city"				=> 'Gent',
-							"street"			=> 'Dok Noord',
-							"number"			=> '5a',
-							"box"        		=>  '3',
-							"nep-veld"			=> 'wtf stade gij hier te doen??',
-							"province" 			=> 'O-VL',
-							"organisationId" 	=> 4,
-							"addressTypeId"		=> 9);
+    	$a1 -> id = 5;
+		$a1 -> country =  'BEL';
+		$a1 -> city = 'Gent';
+		$a1 -> street = 'Dok Noord';
+		$a1 -> number = '5a';
+		$a1 -> box = '3';
+		$a1 -> province =  'O-VL';
+		$a1 -> organisationId = 4;
+		$a1 -> addressTypeId = 9;
 
-  		
-  		
-  		// Put "good" data in $a1					
-  		$a1 -> Create($g1);
-  		
-  		
-  		
   		// Check if it arrived well			
   		$this->assertTrue($a1 -> __get('id') !== false);
   		// and has the correct value
   		$this->assertEquals($a1 -> __get('id') , 5);
   		
   		
-  		// assert that nep-veld didn't make it into the object
-  		$this->assertClassNotHasAttribute('nep-veld', 'Common\Address');	
-		
-		// and that teh magic getter will also return false if asked for it
-		$this->assertFalse($a1 -> __get('nep-veld'));  
-  							
-        
+  		// Check if it arrived well			
+  		$this->assertTrue($a1 -> __get('country') !== false);
+  		// and has the correct value
+  		$this->assertEquals($a1 -> __get('country') , 'BEL');
+  		
+  		// Check if it arrived well			
+  		$this->assertTrue($a1 -> __get('city') !== false);
+  		// and has the correct value
+  		$this->assertEquals($a1 -> __get('city') , 'Gent');
+  		
+  		// Check if it arrived well			
+  		$this->assertTrue($a1 -> __get('box') !== false);
+  		// and has the correct value
+  		$this->assertEquals($a1 -> __get('box') , '3');
+  		        
     	
     }
     
     /**
      * @depends testCreateWithAllFieldsFilled
+     * @expectedException Common\AddressException
      */
-    public function testCreateWithJustMandatoryFieldsFilled()
+    public function testInstantiationWithOneInvalidProperty()
     {
     
     	// this test depends on testCreateWithAllFieldsFilled so we don't need to test
     	// the testitems from there anymore
     	    	
     	$a1 = new Common\Address();
-							
-  		$g1 = array(		"id"				=> 5,
-							"country" 			=> 'BEL',
-							"city"				=> 'Gent',
-							"street"			=> 'Dok Noord',
-							"number"			=> '5a',
-							"nep-veld"			=> 'wtf stade gij hier te doen??',
-							"province" 			=> 'O-VL',
-							"organisationId" 	=> 4,
-							"addressTypeId"		=> 9);
+		$a1 -> id = 5;
+		$a1 -> country =  'BEL';
+		$a1 -> city = 'Gent';
+		$a1 -> street = 'Dok Noord';
+		$a1 -> number = '5a';
+		$a1 -> nep_veld = 'wtf stade gij hier te doen??';
+		$a1 -> province =  'O-VL';
+		$a1 -> organisationId = 4;
+		$a1 -> addressTypeId = 9;
 
-       
+
   		
+    }
+    
+    
+    /**
+     * @depends testCreateWithAllFieldsFilled
+     */
+    public function testNonMandatoryNonPopulatedProperty()
+    {
+    
+    	// this test depends on testCreateWithAllFieldsFilled so we don't need to test
+    	// the testitems from there anymore
+    	    	
+    	$a1 = new Common\Address();
+		$a1 -> id = 5;
+		$a1 -> country =  'BEL';
+		$a1 -> city = 'Gent';
+		$a1 -> street = 'Dok Noord';
+		$a1 -> number = '5a';
+		$a1 -> province =  'O-VL';
+		$a1 -> organisationId = 4;
+		$a1 -> addressTypeId = 9;
+
+
   		
-  		// Put "good" data in $a1					
-  		$a1 -> Create($g1);
-  		
-  		//assert that the box property exists, even though it's not mandatory and not populated
+  		//assert that the box property exists in the Address class, even though it's not mandatory 
+  		// and not populated during object instantiation
   		$this->assertClassHasAttribute('box', 'Common\Address');
   		
   		// assert that the box property was not filled, but also not null
@@ -110,47 +133,48 @@ class AddressTest extends PHPUnit_Framework_TestCase
     
     
     
-    
     /**
      * @expectedException Common\AddressException
      */
     
-    public function testCreateWithIllegalInputArrays()
+    public function testInstantiationWithIllegalInput()
     {
     	
 
-    
-		$b1 = array(		"id"				=> 'stringinsteadofint',
-							"country" 			=> 'BEL',
-							"city"				=> 'Gent',
-							"street"			=> 'Dok Noord',
-							"number"			=> '5a',
-							"box"        		=>  '3',
-							"nep-veld"			=> 'wtf stade gij hier te doen??',
-							"province" 			=> 'O-VL',
-							"organisationId" 	=> 4,
-							"addressTypeId"		=> 9
-							);
-  							
-  		$b2 = array(		"id"				=> 5,
-							"country-ismandatorybutnotpresent" 			=> 'BEL',
-							"city"				=> 'Gent',
-							"street"			=> 'Dok Noord',
-							"number"			=> '5a',
-							"nep-veld"			=> 'wtf stade gij hier te doen??',
-							"province" 			=> 'O-VL',
-							"organisationId" 	=> 4,
-							"addressTypeId"		=> 9
-  							);
-  							
-  						
-  		// Put "bad" data in $a1
-  		$a1 = new Common\Address();					
+    	// Put "bad" data in $a1
+  		$a1 = new Common\Address();	
+		$a1 -> id = 'stringinsteadofint';
+		$a1 -> country =  'BEL';
+		$a1 -> city = 'Gent';
+		$a1 -> street = 'Dok Noord';
+		$a1 -> number = '5a';
+		$a1 -> box = '3';
+		$a1 -> nep_veld = 'wtf stade gij hier te doen??';
+		$a1 -> province =  'O-VL';
+		$a1 -> organisationId = 4;
+		$a1 -> addressTypeId = 9;
+							
   		$this->assertFalse($a1 -> Create($b1));
   		
+  		
+  		
+  		
   		// Put otherwise, yet equally bad data in $a2
-  		$a2 = new Common\Address();					
-  		$this->assertFalse($a2 -> Create($b2));
+  		$a2 = new Common\Address();										
+  		$a2 -> id = 5;
+		$a2 -> country_ismandatorybutnotpresent =  'BEL';
+		$a2 -> city = 'Gent';
+		$a2 -> street = 'Dok Noord';
+		$a2 -> number = '5a';
+		$a2 -> nep_veld = 'wtf stade gij hier te doen??';
+		$a2 -> province =  'O-VL';
+		$a2 -> organisationId = 4;
+		$a2 -> addressTypeId = 9;
+  							
+			
+  						
+  						
+  		
     }
     
     /**
@@ -158,17 +182,18 @@ class AddressTest extends PHPUnit_Framework_TestCase
      */
     public function testExceptionThrownWhenCallingUpdateOnNonEmptyAddress()
     {
-    	$g1 = array(		"id"				=> 5,
-							"country" 			=> 'BEL',
-							"city"				=> 'Gent',
-							"street"			=> 'Dok Noord',
-							"number"			=> '5a',
-							"box"        		=>  '3',
-							"province" 			=> 'O-VL',
-							"organisationId" 	=> 4,
-							"addressTypeId"		=> 9);
-    
     	$a1 = new Common\Address();
+    	$a1 -> id = 5;
+		$a1 -> country =  'BEL';
+		$a1 -> city = 'Gent';
+		$a1 -> street = 'Dok Noord';
+		$a1 -> number = '5a';
+		$a1 -> box = '3';
+		$a1 -> province =  'O-VL';
+		$a1 -> organisationId = 4;
+		$a1 -> addressTypeId = 9;
+    
+    	
     	$this -> assertFalse($a1 -> Update($g1));
     	
     }

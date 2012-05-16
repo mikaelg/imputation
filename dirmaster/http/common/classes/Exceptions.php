@@ -2,7 +2,7 @@
 
 	
 
-		class EntityException						extends \Exception{ }
+		class EntityException					extends \Exception{ }
 	
 		class AddressException 					extends \Exception{ }
 		class PersonException					extends \Exception{ }
@@ -10,9 +10,10 @@
 		class CostCentreException				extends \Exception{ }
 		class ImputationException				extends \Exception{ }
 		class ProjectException					extends \Exception{ }
+		class EmployeeException					extends \Exception{ }
+		
 		
 		class CollectionException				extends \Exception{ }
-		
 		class ProjectCollectionException		extends \Exception{ }
 
 	

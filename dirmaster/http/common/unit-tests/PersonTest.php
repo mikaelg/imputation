@@ -22,14 +22,18 @@ class PersonTest extends PHPUnit_Framework_TestCase
      */
 	public function testMagicGetFunction()
     {
-		$p1 = new Common\Person();		
-		
+		$p1 = new Common\Person();
+		$p1 -> id = 5;
+		$this->assertEquals($p1 -> __get('id') , 5);
 		$this->assertTrue($p1 -> __get('id') !== false);
-		$this->assertTrue($p1 -> __get('lastname') !== false);
 		
-		$this->assertFalse($p1 -> __get('fgdhjsdfgkjhsgdfkjhg') !== false);
-		$this->assertFalse($p1 -> __get(123) !== false);
-		$this->assertFalse($p1 -> __get(-1) !== false);
+		
+		
+		//$this->assertTrue($p1 -> __get('lastname') !== false);
+		
+		$this->assertFalse($p1 -> __get('fgdhjsdfgkjhsgdfkjhg'));
+		$this->assertFalse($p1 -> __get(123));
+		$this->assertFalse($p1 -> __get(-1));
 
 		
     }
@@ -61,7 +65,7 @@ class PersonTest extends PHPUnit_Framework_TestCase
 		$a -> city = 'Gent';
 		$a -> street = 'Dok Noord';
 		$a -> number = '5a';
-		$a -> nepveld = 'Mwhuhahahahaaaa';
+
 		$a -> box = '3';
 		$a -> province = 'O-VL';
 		$a -> organisationId = 4;
@@ -73,19 +77,14 @@ class PersonTest extends PHPUnit_Framework_TestCase
     	
     	
     	
-    	$gp1 =Array(	"id" => 5,
-						"lastname"=> 'Janssens',
-						"firstname"=> 'Jan',
-						"gender"=> 'M',
-						"emailaddresses"=> $eac,
-						"addresses"=> $ac,
-						"status"=> 'Geen idee wat dit is'
-			);
+    	$p1 -> id = 5;
+		$p1 -> lastname ='Janssens';
+		$p1 -> firstname = 'Jan';
+		$p1 -> gender = 'M';
+		$p1 -> emailaddresses = $eac;
+		$p1 -> addresses = $ac;
+		$p1 -> status ='Geen idee wat dit is';
 
-  		
-  		
-  		// Put "good" data in $p1					
-  		$p1 -> Create($gp1);
 
   		
   		// Check if it arrived well			
