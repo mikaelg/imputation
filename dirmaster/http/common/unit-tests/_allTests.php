@@ -1,7 +1,5 @@
 <?php
 
-
-
 $testFiles = array();
 $path = realpath('.');
 	

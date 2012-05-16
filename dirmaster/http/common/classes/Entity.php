@@ -75,53 +75,68 @@ abstract class Entity
     
     public function __set($_property, $value)
     {
+    	if($this -> valueMatchesPropertyType($_property, $value))
+    	{
+    		$this -> $_property = $value;
+    	}
+    	
+    }
+    
+    protected function valueMatchesPropertyType($_property, &$value)
+    {
     	$ccls = get_called_class();
     	if(array_key_exists($_property, $ccls :: $fields))
     	{
     		switch($ccls :: $fields[$_property]['type'])
     		{
     			case 'string':
-    				$this -> $_property = strval($value);
+    				return is_string($value);
     			break;
     			
     			case 'integer':
-    				$this -> $_property = intval($value);
+    				return is_int($value);
     			break;
     			
     			case 'float':
-    				$this -> $_property = floatval($value);
+    				return is_float($value);
     			break;
     			
     			case 'bool':
-    				$this -> $_property = (bool)$value;
+    				return is_bool($value);
     			break;
     			
     			case 'array':
-    				$this -> $_property = (array)$value;
+    				return is_array($value);
     			break;  			
 				
 				default:
-    				if(class_exists($ccls :: $fields[$_property]['type']) || (get_class($value) == $ccls :: $fields[$_property]['type']) )
-    				{
-    				    $this -> $_property = $value;
+    				if(class_exists($ccls :: $fields[$_property]['type']))
+    				{	
+    					if(get_class($value) == $ccls :: $fields[$_property]['type'] || '\\'.get_class($value) == $ccls :: $fields[$_property]['type'])
+    					{
+    						return true;
+    					}
+    					else
+	    				{
+	    					throw new $ccls::$myExceptionClass("expecting " . $ccls :: $fields[$_property]['type'] . ' but got a ' . get_class($value));
+	    					return false;
+	    				}    				    
     				}
     				else
     				{
     					throw new $ccls::$myExceptionClass($ccls . '::fieldspec contains illegal type: "' . $ccls :: $fields[$_property]['type'] . '"');
+    					return false;
     				}
     			break;
     		}
-			
     		
-    		return true;
     	}
     	else
     	{
+    		throw new $ccls::$myExceptionClass($_property . ' is no valid property for class ' . $ccls);
     		return false;
     	}
-    	
     }
-    
     
     
     
