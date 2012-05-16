@@ -272,6 +272,41 @@ abstract class Entity
     }
     
     
+    public function allMandatoryFieldsArePresent()
+    {
+    	$ccls = get_called_class();
+        $fields = $ccls :: getFieldsArray();
+        $retval = true;
+        foreach($fields as $fieldname => $fieldspecArray)
+        {
+        	if($fieldspecArray['mandatory'])
+        	{
+        		if($this -> __get($fieldname) !== false)
+        		{
+        			// magic getter returns boolean false if the property hasn't been __set() yet.
+        			//
+        			// Do nothing; $retval remains true
+        		}
+        		else
+        		{
+        			// property is mandatory and not set. Exit and return false
+        			return false;
+        		}
+        		
+        	}
+        	else
+        	{
+        		// do nothing, we don't need it anyway
+        	}
+        }
+        
+        // not sure if we really need $retval...
+        // if we get this far, we might as well just return true, b/c $retval will be true...
+        // 3 cheers for unit testing to figure that out :) 
+        return $retval;
+        
+    }
+    
     
     /**
      * Short description of method Create

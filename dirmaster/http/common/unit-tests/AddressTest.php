@@ -35,6 +35,7 @@ class AddressTest extends PHPUnit_Framework_TestCase
     
     /**
      * @depends testConstructor
+     * @depends testMagicGetFunction
      */
     public function testCreateWithAllFieldsFilled()
     {
@@ -129,7 +130,39 @@ class AddressTest extends PHPUnit_Framework_TestCase
   		$this->assertEquals($a1 -> __get('box'), '');
   		$this->assertNotNull($a1 -> __get('box'));
   		
-    }  
+    }
+    
+    
+    /**
+     * @depends testCreateWithAllFieldsFilled
+     */
+    public function testAllMandatoryFieldsArePresent()
+    {
+    	$a1 = new Common\Address();
+    	
+    	// assert that an empty address object is not properly populated
+    	$this -> assertFalse($a1 -> allMandatoryFieldsArePresent());
+    	
+		$a1 -> id = 5;
+		$a1 -> country =  'BEL';
+		$a1 -> city = 'Gent';
+		$a1 -> street = 'Dok Noord';
+		$a1 -> number = '5a';
+		$a1 -> province =  'O-VL';
+		$a1 -> organisationId = 4;
+		
+		// assert that an address object with 1 missing mandatory property is also not properly populated
+		$this -> assertFalse($a1 -> allMandatoryFieldsArePresent());
+		
+		// populate the last mandatory field
+		$a1 -> addressTypeId = 9;
+		
+		
+		// assert that a complete address object IS indeed properly populated
+		$this -> assertTrue($a1 -> allMandatoryFieldsArePresent());
+    }
+    
+      
 }
   
   
