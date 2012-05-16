@@ -42,7 +42,42 @@ class EmployeeTest extends PHPUnit_Framework_TestCase
 		
     }
     
-   
+    
+    /**
+     * @expectedException Common\EmployeeException
+     */
+    public function testExceptionBySettingPropertyToWrongDatatype()
+    {
+    	$p1 = new Common\Employee();
+		$p1 -> id = 'StringInsteadOfInt';
+		$this->assertEquals($p1 -> __get('id') , 0);
+    }
+
+
+
+	/**
+     * @expectedException Common\EmployeeException
+     */
+    public function testExceptionBySettingNonExistingProperty()
+    {
+    	$p1 = new Common\Employee();
+		$p1 -> lorem_ipsum = 5;
+    }
+    
+   	public function testPopulationOfFunctionDescriptionProperty()
+    {
+    	$p1 = new Common\Employee();
+    	//assert that functionDescription isn't filled yet
+    	$this->assertTrue($p1 -> __get('functionDescription') === false);
+    	
+		
+		$p1 -> functionDescription = "Project Manager";
+		//assert that is is now and that the getter returns it
+		$this->assertEquals($p1 -> __get('functionDescription') , "Project Manager");
+		$this->assertTrue($p1 -> __get('functionDescription') !== false);
+		
+		
+    }
 
       
 }
