@@ -129,77 +129,7 @@ class AddressTest extends PHPUnit_Framework_TestCase
   		$this->assertEquals($a1 -> __get('box'), '');
   		$this->assertNotNull($a1 -> __get('box'));
   		
-    }
-    
-    
-    
-    /**
-     * @expectedException Common\AddressException
-     */
-    
-    public function testInstantiationWithIllegalInput()
-    {
-    	
-
-    	// Put "bad" data in $a1
-  		$a1 = new Common\Address();	
-		$a1 -> id = 'stringinsteadofint';
-		$a1 -> country =  'BEL';
-		$a1 -> city = 'Gent';
-		$a1 -> street = 'Dok Noord';
-		$a1 -> number = '5a';
-		$a1 -> box = '3';
-		$a1 -> nep_veld = 'wtf stade gij hier te doen??';
-		$a1 -> province =  'O-VL';
-		$a1 -> organisationId = 4;
-		$a1 -> addressTypeId = 9;
-							
-  		$this->assertFalse($a1 -> Create($b1));
-  		
-  		
-  		
-  		
-  		// Put otherwise, yet equally bad data in $a2
-  		$a2 = new Common\Address();										
-  		$a2 -> id = 5;
-		$a2 -> country_ismandatorybutnotpresent =  'BEL';
-		$a2 -> city = 'Gent';
-		$a2 -> street = 'Dok Noord';
-		$a2 -> number = '5a';
-		$a2 -> nep_veld = 'wtf stade gij hier te doen??';
-		$a2 -> province =  'O-VL';
-		$a2 -> organisationId = 4;
-		$a2 -> addressTypeId = 9;
-  							
-			
-  						
-  						
-  		
-    }
-    
-    /**
-     * @expectedException Common\AddressException
-     */
-    public function testExceptionThrownWhenCallingUpdateOnNonEmptyAddress()
-    {
-    	$a1 = new Common\Address();
-    	$a1 -> id = 5;
-		$a1 -> country =  'BEL';
-		$a1 -> city = 'Gent';
-		$a1 -> street = 'Dok Noord';
-		$a1 -> number = '5a';
-		$a1 -> box = '3';
-		$a1 -> province =  'O-VL';
-		$a1 -> organisationId = 4;
-		$a1 -> addressTypeId = 9;
-    
-    	
-    	$this -> assertFalse($a1 -> Update($g1));
-    	
-    }
-          
-
-      
+    }  
 }
   
   

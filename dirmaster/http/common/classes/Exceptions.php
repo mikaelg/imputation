@@ -11,6 +11,7 @@
 		class ImputationException				extends \Exception{ }
 		class ProjectException					extends \Exception{ }
 		class EmployeeException					extends \Exception{ }
+		class ContactException					extends \Exception{ }
 		
 		
 		class CollectionException				extends \Exception{ }

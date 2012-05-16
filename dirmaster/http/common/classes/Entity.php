@@ -281,7 +281,7 @@ abstract class Entity
      * @param	$_data_array	Associative Array that holds the address data.
      * @return 					Bool
      */
-    public function Create($_data_array)
+    /*public function Create($_data_array)
     {
     	$ccls = get_called_class();
 
@@ -296,7 +296,7 @@ abstract class Entity
     		return false;   	
     	}
               
-    }
+    }*/
     
     
 
@@ -307,7 +307,7 @@ abstract class Entity
      * @author firstname and lastname of author, <author@example.org>
      * @return mixed
      */
-    public function Update($_data_array)
+   /* public function Update($_data_array)
     {
     	
     	if(!isset($this -> id))
@@ -322,23 +322,8 @@ abstract class Entity
     		return false;    	
     	}
         
-    }
+    }*/
 
-    /**
-     * Short description of method Delete
-     *
-     * @access public
-     * @author firstname and lastname of author, <author@example.org>
-     * @return mixed
-     */
-    public function Delete()
-    {
-        /* unset($this) werkt niet... dus wellicht heeft deze method geen zin, tenzij er
-         * effectief een record uit de databank weg moet, maar dat kan hier in deze common 
-         * class sowieso niet; we gingen deze classes onafhankelijk van de DAL houden... 
-         */ 
-         
-        return true;
-    }}
+}
 
 ?>
