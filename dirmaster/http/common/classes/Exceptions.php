@@ -16,6 +16,8 @@
 		
 		class CollectionException				extends \Exception{ }
 		class ProjectCollectionException		extends \Exception{ }
+		
+		class ProjectFactoryException			extends \Exception{}
 
 	
 

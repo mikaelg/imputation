@@ -14,6 +14,8 @@ class Project extends Entity
 										"startDate"				=> Array("type" =>"\DateTime", 					"mandatory" => true),
 										"endDate"				=> Array("type" =>"\DateTime",					"mandatory" => false),
 										"status"				=> Array("type" =>"string",						"mandatory" => true),
+										"budget"				=> Array("type" =>"float",						"mandatory" => false),
+										"estimatedCost"			=> Array("type" =>"float",						"mandatory" => false),
 										"totalCost"				=> Array("type" =>"float",						"mandatory" => false),
 										"contacts"				=> Array("type" =>"\ArrayObject",				"mandatory" => false),
 								);
@@ -32,6 +34,11 @@ class Project extends Entity
 	protected $totalCost;
 	protected $contacts;
 
+	protected function addProperty($_name,$_type, $_mandatory){
+		self::$fields[$_name] = Array("type" => $_type,"mandatory" => $_mandatory);
+		
+		//print_r(self::$fields,false);
+	}
     
     /**
      * Short description of method GetProjectType

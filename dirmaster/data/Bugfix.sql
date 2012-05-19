@@ -35,5 +35,8 @@ ALTER TABLE `Imputation`.`Imputations` CHANGE COLUMN `idCosCentre` `idCostCentre
 
 
 /* MIG : 19/05/2012 */
+UPDATE `Imputation`.`projects` SET `name` = 'testproject2', `description` = 'testproject2' WHERE `idProject` = 2;
+
 ALTER TABLE `Imputation`.`projects` 
 ADD UNIQUE INDEX `name_UNIQUE` (`name` ASC) ;
+
