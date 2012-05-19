@@ -75,10 +75,19 @@ abstract class Entity
     
     public function __set($_property, $value)
     {
+    	/**
+    	 * stop if null and not mandatory
+    	 */
+    	if($this -> isValueNullAndNotMandatory($_property, $value)){
+    		return;
+    	}
+    	
+    	
     	if($this -> valueMatchesPropertyType($_property, $value))
     	{
     		$this -> $_property = $value;
     	}
+
     	else
     	{
     		$ccls = get_called_class();
@@ -86,6 +95,29 @@ abstract class Entity
     		throw new $ccls::$myExceptionClass('Trying to set ' . $ccls.'::'.$_property . ' to ' . $value . ' which is of type ' . gettype($value) . '.  A value of type "' . $fields[$_property]['type'] . '" was expected!' );
     	}
     	
+    }
+    
+    protected  function isValueNullAndNotMandatory($_property, $value){
+    	$ccls = get_called_class();
+    	$fields = $ccls :: getFieldsArray();
+    	if(array_key_exists($_property, $fields))
+    	{
+    		if($value == null &&  $fields[$_property]['mandatory']  == false)
+    			return true;
+    		else 
+    			return false;
+    	}   	
+    }
+    
+    /**
+     * convert string to numeric value if is_numeric
+     * @param unknown_type $value
+     */
+    private function ConvertNumeric($_value){
+    	if(is_numeric($_value))
+    		$_value = $_value + 0;
+    	
+    	return $_value;
     }
     
     protected function valueMatchesPropertyType($_property, $value)
@@ -96,19 +128,19 @@ abstract class Entity
     	{
     		//echo  . "\n";
 
+
     		switch($fields[$_property]['type'])
     		{
     			case 'string':
     				return is_string($value);
     			break;
     			
-    			case 'integer':
-    				
-    				return is_int($value);
+    			case 'integer':	
+    				return is_int($this->ConvertNumeric($value));
     			break;
     			
     			case 'float':
-    				return is_float($value);
+    				return is_float($this->ConvertNumeric($value));
     			break;
     			
     			case 'bool':

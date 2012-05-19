@@ -32,3 +32,8 @@ ALTER TABLE `Imputation`.`Imputations` CHANGE COLUMN `idCosCentre` `idCostCentre
 , ADD PRIMARY KEY (`idImputation`, `idProject`, `idPerson`, `idCostCentre`) 
 , DROP INDEX `FK_Imputation_CostCentre` 
 , ADD INDEX `FK_Imputation_CostCentre` (`idCostCentre` ASC) ;
+
+
+/* MIG : 19/05/2012 */
+ALTER TABLE `Imputation`.`projects` 
+ADD UNIQUE INDEX `name_UNIQUE` (`name` ASC) ;
