@@ -19,7 +19,7 @@ class OverviewController extends AuthenticationController {
 		 * Hier dienen we de data uit het model  op te roepen en door te geven aan de view.
 		 *
 		 */
-		$this->model = new OverviewModel();
+		$this->model = new OverviewModel($_POST);
 		
 		//$this->get
 
@@ -27,6 +27,8 @@ class OverviewController extends AuthenticationController {
 		$this->dcreg->foo = 'INSERTED FROM CONTROLLER<b />Overview<br />';
 		
 		print_r($this->dcreg->args);
+		
+		
 		
 		$this->assembleView();
 

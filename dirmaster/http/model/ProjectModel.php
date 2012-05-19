@@ -17,7 +17,7 @@ class ProjectModel extends Model {
 		
 		$sql = "SELECT p.budget FROM projects AS p WHERE p.name = :prnm LIMIT 1";
 		$stmt = $this -> dal -> prepare($sql);
-		$stmt -> bindValue(':prnm', $_projectID, \PDO::PARAM_INT);
+		$stmt -> bindValue(':prnm', $_projectID, \PDO::PARAM_STR);
 		$stmt -> execute();
 		$row = $stmt -> fetchAll();		
 		
@@ -53,7 +53,7 @@ class ProjectModel extends Model {
 					ON c.idCompany = p.idCompany
 				WHERE p.name = :prnm LIMIT 1";
         $stmt = $this -> dal -> prepare($sql);
-	    $stmt -> bindValue(':prnm', $_projectID, \PDO::PARAM_INT);
+	    $stmt -> bindValue(':prnm', $_projectID, \PDO::PARAM_STR);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();
 	    
