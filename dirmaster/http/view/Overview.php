@@ -21,6 +21,7 @@
 		echo '<p>Projectnaam: <a href="/project/'.$p->name.'">'.$p->name.'</a></p>';
 	} 
 	?>
+	<p><a href="/overview">Zoek opnieuw</a></p>
 <?php } //end overview ?>
 
 	<div class="debug">
