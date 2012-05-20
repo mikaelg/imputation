@@ -2,6 +2,7 @@
 
 class ProjectModel extends Model {
 
+	private $projectId;
 	private $p;
 	
 	public function __construct(){
@@ -9,37 +10,47 @@ class ProjectModel extends Model {
 		parent::__construct();
 	}
 	
-	
-	
-	public function getProjectValues($_projectID)
-	{
-
-		
-		$sql = "SELECT p.budget FROM projects AS p WHERE p.name = :prnm LIMIT 1";
+	public function getProjectValuesById($_projectID){
+		$sql = "SELECT p.budget FROM projects AS p WHERE p.idProject = :prnm LIMIT 1";
 		$stmt = $this -> dal -> prepare($sql);
-		$stmt -> bindValue(':prnm', $_projectID, \PDO::PARAM_STR);
+		$stmt -> bindValue(':prnm', $_projectID, \PDO::PARAM_INT);
 		$stmt -> execute();
-		$row = $stmt -> fetchAll();		
+		$row = $stmt -> fetchAll();
 		
-
+		$this->projectId = $_projectID;
+		
 		//let the project factory determine what kind of object to return
 		$pf = new \Common\projectsFactory();
-		$this->p = $pf->getProject($_projectID,$row[0]["budget"]);
+		$this->p = $pf->getProject($row[0]["budget"]);
 		
-		echo "budget = ".$this->p->budget;
+		//echo "budget = ".$this->p->budget;
 		
 		
-		$this -> getProjectData($_projectID, $this->p);
-		$this -> getProjectTeamMembers($_projectID, $this->p);
-		$this -> getCustomerCompany($_projectID, $this->p);
-		$this -> getProjectContacts($_projectID, $this->p);
+		$this -> getProjectData($this->p);
+		$this -> getProjectTeamMembers($this->p);
+		$this -> getCustomerCompany($this->p);
+		$this -> getProjectContacts($this->p);
 		
-		return $this->p;
+		return $this->p;		
+	}
+	
+	public function getProjectValues($_projectName)
+	{
+		
+		$sql = "SELECT p.idProject, p.budget FROM projects AS p WHERE p.name = :prnm LIMIT 1";
+		$stmt = $this -> dal -> prepare($sql);
+		$stmt -> bindValue(':prnm', $_projectName, \PDO::PARAM_STR);
+		$stmt -> execute();
+		$row = $stmt -> fetchAll();
+		
+		$this->projectId = $row[0]["idProject"];
+		
+		return $this->getProjectValuesById($row[0]["idProject"]);
 		
 	}
 	
 
-	private function getProjectData($_projectID, &$_proj_obj){
+	private function getProjectData(&$_proj_obj){
 
         
 		
@@ -51,9 +62,9 @@ class ProjectModel extends Model {
 					ON pt.idProjectType = p.idProjectType
 				JOIN companies AS c
 					ON c.idCompany = p.idCompany
-				WHERE p.name = :prnm LIMIT 1";
+				WHERE p.idProject = :prid LIMIT 1";
         $stmt = $this -> dal -> prepare($sql);
-	    $stmt -> bindValue(':prnm', $_projectID, \PDO::PARAM_STR);
+	    $stmt -> bindValue(':prid', $this->projectId, \PDO::PARAM_STR);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();
 	    
@@ -81,7 +92,7 @@ class ProjectModel extends Model {
         
 	}
 	
-	private function getCustomerCompany($_projectID, &$_proj_obj){
+	private function getCustomerCompany(&$_proj_obj){
 
         $sql = "SELECT c.*, a.* FROM projects AS p 
 				JOIN companies AS c
@@ -90,9 +101,9 @@ class ProjectModel extends Model {
 					ON ca.idCompany = p.idCompany
 				JOIN addresses AS a
 					ON a.idAddress = ca.idAddress
-				WHERE p.name = :prnm LIMIT 1";
+				WHERE p.idProject = :prid LIMIT 1";
         $stmt = $this -> dal -> prepare($sql);
-	    $stmt -> bindValue(':prnm', $_projectID, \PDO::PARAM_STR);
+	    $stmt -> bindValue(':prid', $this->projectId, \PDO::PARAM_INT);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();
 	    
@@ -116,16 +127,16 @@ class ProjectModel extends Model {
         
 	}
 	
-	private function getProjectTeamMembers($_projectID, &$_proj_obj)
+	private function getProjectTeamMembers(&$_proj_obj)
 	{
 		$sql = "SELECT pns.* FROM projects AS p 
 				JOIN projectteammembers AS ptm 
 					ON ptm.idProject = p.idProject
 				JOIN persons AS pns
 					ON ptm.idPerson = pns.idPerson
-				WHERE p.name = :prnm ";
+				WHERE p.idProject = :prid ";
         $stmt = $this -> dal -> prepare($sql);
-	    $stmt -> bindParam(':prnm', $_projectID, \PDO::PARAM_STR);
+	    $stmt -> bindParam(':prid', $this->projectId, \PDO::PARAM_STR);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();
 	    if($stmt -> errorCode() == "00000")
@@ -143,16 +154,16 @@ class ProjectModel extends Model {
 		} 
 	}
 	
-	private function getProjectContacts($_projectID, &$_proj_obj)
+	private function getProjectContacts(&$_proj_obj)
 	{
 		$sql = "SELECT pns.* FROM projects AS p 
 				JOIN projectcontacts AS pct 
 					ON pct.idProject = p.idProject
 				JOIN persons AS pns
 					ON pct.idPerson = pns.idPerson
-				WHERE p.name = :prnm ";
+				WHERE p.idProject = :prid ";
         $stmt = $this -> dal -> prepare($sql);
-	    $stmt -> bindParam(':prnm', $_projectID, \PDO::PARAM_STR);
+	    $stmt -> bindParam(':prid', $this->projectId, \PDO::PARAM_STR);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();
 	    if($stmt -> errorCode() == "00000")

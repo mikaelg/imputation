@@ -5,6 +5,8 @@ put the variable content here:<br />
 <?php print($dcreg->foo); ?>
 <br />
 <?php print($_SESSION['loginsession']); ?>
+<br />
+<?php echo '<pre>' . print_r($dcreg->projects, true) . '</pre>'; ?>
 
 </p>
 </div>

@@ -21,7 +21,7 @@ class OverviewController extends AuthenticationController {
 		 */
 		$this->model = new OverviewModel($_POST);
 		
-		//$this->get
+		$this->dcreg->projects = $this->model->getProjects();
 
 		
 		$this->dcreg->foo = 'INSERTED FROM CONTROLLER<b />Overview<br />';

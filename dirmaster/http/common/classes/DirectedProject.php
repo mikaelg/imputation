@@ -2,7 +2,7 @@
 
 class DirectedProject extends Project
 {
-	protected static $myExceptionClass = 'Common\QuotedProjectException';
+	protected static $myExceptionClass = 'Common\DirectedProjectException';
 }
 
 ?>

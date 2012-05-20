@@ -17,17 +17,28 @@ class projectsFactory
 {
 	protected static $myExceptionClass = 'Common\ProjectFactoryException';
 	private $p;
+	private static $projects = array();
 	
+	public function addToProjectArray($_project) {
+		if(\get_parent_class($_project) == "Common\Project"){
+			//echo "PARENT CLASS" . \get_parent_class($_project);
+			self::$projects[] = $_project;
+		}
+	}
+	
+	public function  getProjectArray(){
+		return self::$projects;
+	}
 
     /**
-     * Short description of method newProject
+     * Short description of method getProject
      *
      * @access public
      * @author firstname and lastname of author, <author@example.org>
      * @param  Integer budget
      * @return Project
      */
-    public  function newProject($_budget)
+    public  function getProject($_budget = NULL)
     {
 
     
@@ -46,24 +57,7 @@ class projectsFactory
         return $this->p;
     }
 
-    /**
-     * Short description of method getProject
-     *
-     * @access public
-     * @author firstname and lastname of author, <author@example.org>
-     * @param  Integer ProjectId
-     * @param  Integer budget
-     * @return Project
-     */
-    public  function getProject($_projectId,$_budget = NULL)
-    {
-        if(is_null($_projectId) || empty($_projectId))
-        	throw new $this::$myExceptionClass('projectId is null or empty');
-        
-        $this->p->id = $_projectId;
-        return $this->newProject($_budget);
-    }
-
+  
 } /* end of class projectsFactory */
 
 ?>
