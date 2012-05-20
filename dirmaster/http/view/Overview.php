@@ -1,30 +1,50 @@
-<div id="wrapper">
+<div class="row">
+	<div class="span12">
+		<div class="page-header">
+			<h1>Projecten overzicht</h1>
+		</div>
+		
+		<?php  if($dcreg->showFormOverview){ ?>
+		
+			<form action="" method="post" name="overiew">
+				<label for="startDate">Start datum</label>
+				<input type="date" class="" autofocus="autofocus" id="startDate" name="startDate">
+				
+				<div class="form-actions">
+				<input type="submit" value="Verzenden" class="btn btn-primary"> 
+				</div>
+				<input type="hidden" name="formGuid" maxlength="100" value="<?php echo $dcreg->formGuid ?>">		
+			</form>
+		
+		<?php } //end form ?>
+		
+		<?php  if(!$dcreg->showFormOverview){ ?>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Projectnaam</th>
+					</tr>
+				</thead>
+				<tbody>
+	
+				<?php
+				foreach ($dcreg->projects as $p) {
+					echo '<tr><td><a href="/project/'.$p->name.'">'.$p->name.'</a></td></tr>';
+				} 
+				?>
 
-<?php  if($dcreg->showFormOverview){ ?>
-<div>
-	<form action="" method="post" name="overiew">
-		<label for="startDate">Start datum</label>
-		<input type="date" class="" autofocus="autofocus" id="startDate" name="startDate">
-		<br />
-		<input type="submit" value="Verzenden"> 
-		<input type="hidden" name="formGuid" maxlength="100" value="<?php echo $dcreg->formGuid ?>">		
-	</form>
+				</tbody>
+			</table>
+			<p><a href="/overview" class="btn btn-primary">Zoek opnieuw</a></p>
+		<?php } //end overview ?>		
+		
+		
+	</div>
 </div>
-<?php } //end form ?>
-
-<?php  if(!$dcreg->showFormOverview){ ?>
-<p>content voor de Overview</p>
 
 
-	<?php
-	foreach ($dcreg->projects as $p) {
-		echo '<p>Projectnaam: <a href="/project/'.$p->name.'">'.$p->name.'</a></p>';
-	} 
-	?>
-	<p><a href="/overview">Zoek opnieuw</a></p>
-<?php } //end overview ?>
-
-	<div class="debug">
+<div class="row">
+	<div class="span12">
 		<hr />
 		<p>
 		DEBUGGING ::<br />

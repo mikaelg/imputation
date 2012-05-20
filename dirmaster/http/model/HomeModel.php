@@ -4,7 +4,7 @@
 class HomeModel extends Model {
 
 	public function __construct(){
-		print("FROM CONSTRUCTOR Home_model");
+		//print("FROM CONSTRUCTOR Home_model");
 	} 
 	
 }

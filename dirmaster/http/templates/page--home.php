@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <?php include $r_head?>
 <body>
+<?php include $r_regions['header']?>
 
-<?php foreach ($r_regions as $v) {
+<div class="container">
+
+<?php foreach ($r_regions as $k=>$v) {
+	if($k != 'header')
 	include $v;
 }?>
+</div> <!-- /container -->
+
 </body>
 </html>

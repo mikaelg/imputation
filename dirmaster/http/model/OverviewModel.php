@@ -12,7 +12,7 @@ class OverviewModel extends Model {
 	public function getProjects(){
 		
 		//$this->startDate = "2012-05-12";
-		echo $this->startdate;
+		//echo $this->startdate;
 		
 		$sql = "SELECT p.idProject FROM projects AS p WHERE p.startdate >= :prstdt";
 		$stmt = $this -> dal -> prepare($sql);

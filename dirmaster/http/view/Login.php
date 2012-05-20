@@ -1,16 +1,21 @@
-<div id="wrapper">
-	<div id="content">
-		<h1>content voor de Loginpage testen</h1>
-		<p>
+
+<div class="row">
+	<div class="span4">
+		<div class="page-header">
+			<h1>Sign In</h1>
+		</div>
+
 		<?php 
 			//print($dcreg->foo);
 			if(is_array($dcreg->warnings)){
+				echo '<div class="alert alert-error">';
 				foreach ($dcreg->warnings as $value) {
 					print($value.'<br />');
 				}
+				echo '</div>';
 			}
 		?>
-		</p>
+
 		<form action="" method="post" name="login">
 			
 			<label for="loginName">Loginnaam</label>
@@ -18,11 +23,17 @@
 			<br />
 			<label for="password" >Paswoord</label>
 			<input type="password" maxlength="20" name="password" >
-			<br />
-			<input type="submit" value="Verzenden"> 
+			
+			<div class="form-actions">
+			<input type="submit" value="Verzenden" class="btn btn-primary"> 
+			</div>
 			
 			<input type="hidden" name="formGuid" maxlength="100" value="<?php echo $dcreg->formGuid ?>">
 		</form>
-		
 	</div>
+	<div class="span8">
+	</div>
+	
 </div>
+		
+
