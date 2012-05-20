@@ -25,4 +25,19 @@ class  Sanitize {
 		}
 	}
 	
+	public static function checkDateSanity($_value,$_type,$_length){
+		if(!self::checkSanity($_value,$_type,$_length))
+			return;
+		
+		$delim = '/';
+		$_value = str_replace(array('-','_','|'), $delim, $_value);
+		$dateparts = explode($delim, $_value);
+		
+		if(checkdate($dateparts[1], $dateparts[0], $dateparts[2]))
+			return $dateparts[2].$delim.$dateparts[1].$delim.$dateparts[0];
+		else
+			return;
+		
+	}
+	
 }

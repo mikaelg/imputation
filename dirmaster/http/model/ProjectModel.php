@@ -6,7 +6,6 @@ class ProjectModel extends Model {
 	private $p;
 	
 	public function __construct(){
-		print("FROM CONSTRUCTOR ProjectModel");
 		parent::__construct();
 	}
 	

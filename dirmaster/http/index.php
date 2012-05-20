@@ -93,6 +93,7 @@ spl_autoload_register(__NAMESPACE__.'\load_my_classes');
 ini_set('display_errors', 1); 
 ini_set('log_errors', 1); 
 ini_set('error_log', dirname(__FILE__) . '/error_log.txt'); 
+//error_reporting(0);
 error_reporting(E_ALL);
 
 

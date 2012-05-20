@@ -12,29 +12,7 @@ class LoginModel extends Model {
 		parent::__construct($_args);
 	} 
 	
-	/**
-	 * maak formGuid aan of geef bestaande terug
-	 * @return string
-	 */
-	public function generateFormGuid(){
 
-		
-		// Deze dienen we on-the-fly te genereren wanneer pagin voor eerste keer wordt opgeroepen.
-		if(!isset($this->formvars['formGuid'])){
-			return '1234567890';
-		} else {
-			return $this->formvars['formGuid'];
-		}
-	}
-	
-	public function checkFormGuid(){
-		/** 
-		 * doe ŽŽn of ander check tegen de database.
-		 * vb session id + controllername.
-		 * verder onderzoeken hoe dit in Drupal wordt opgevangen
-		 */
-		return true;
-	}
 	
 	public function loginStatus(){
 		return AuthenticationController::loginStatus();

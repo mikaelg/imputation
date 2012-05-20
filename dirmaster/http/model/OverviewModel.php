@@ -3,17 +3,20 @@
 
 class OverviewModel extends Model {
 
+	private $startdate;
+	
 	public function __construct($_args  = array()){
 		parent::__construct($_args);
 	}
 	
 	public function getProjects(){
 		
-		$startDate = "2012-05-12";
+		//$this->startDate = "2012-05-12";
+		echo $this->startdate;
 		
 		$sql = "SELECT p.idProject FROM projects AS p WHERE p.startdate >= :prstdt";
 		$stmt = $this -> dal -> prepare($sql);
-		$stmt -> bindValue(':prstdt', $startDate, \PDO::PARAM_STR);
+		$stmt -> bindValue(':prstdt', $this->startdate, \PDO::PARAM_STR);
 		$stmt -> execute();
 		$row = $stmt -> fetchAll();
 		
@@ -29,6 +32,23 @@ class OverviewModel extends Model {
 		
 		return  $pf->getProjectArray();
 		
+	}
+	
+	public function CheckDateRequest(){
+		if(isset($this->formvars['startDate']) && Sanitize::checkSanity($this->formvars['startDate'], 'string', 10)){
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	public function IsValidDate(){
+		$this->startdate = Sanitize::checkDateSanity($this->formvars['startDate'], 'string', 10);
+		
+		if(isset($this->startdate))
+			return true;
+		else
+			return false;
 	}
 	
 }
