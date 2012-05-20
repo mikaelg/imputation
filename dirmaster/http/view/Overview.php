@@ -3,7 +3,7 @@
 <?php  if($dcreg->showFormOverview){ ?>
 <div>
 	<form action="" method="post" name="overiew">
-		<label for="startDate">Loginnaam</label>
+		<label for="startDate">Start datum</label>
 		<input type="date" class="" autofocus="autofocus" id="startDate" name="startDate">
 		<br />
 		<input type="submit" value="Verzenden"> 
