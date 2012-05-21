@@ -1,10 +1,8 @@
 <div id="wrapper">
 
-	<p>
+
 	
 	<h2><?php echo $dcreg->project->name;?></h2>
-	
-	<table>
 	
 
 			<div><span style="display:inline-block;width:200px">Projecttype</span>
@@ -44,7 +42,7 @@
 
 	
 	<?php //echo '<pre>' . print_r($dcreg->project, true) . '</pre>'; ?>
-	</p>
+
 	<ul>
 		<li><a href="/overview">Overview</a></li>
 	</ul>

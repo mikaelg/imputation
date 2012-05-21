@@ -19,7 +19,7 @@ class Model{
 		try{
 			$this->dal = new \PDO( 'mysql:host=localhost;dbname=Imputation',
 					'root',
-					'',
+					'root',
 					array(
 							\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY    => 1,
 							\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
