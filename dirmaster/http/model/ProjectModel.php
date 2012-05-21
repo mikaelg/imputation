@@ -10,9 +10,9 @@ class ProjectModel extends Model {
 	}
 	
 	public function getProjectValuesById($_projectID){
-		$sql = "SELECT p.budget FROM projects AS p WHERE p.idProject = :prnm LIMIT 1";
+		$sql = "SELECT p.budget FROM projects AS p WHERE p.idProject = :prid LIMIT 1";
 		$stmt = $this -> dal -> prepare($sql);
-		$stmt -> bindValue(':prnm', $_projectID, \PDO::PARAM_INT);
+		$stmt -> bindValue(':prid', $_projectID, \PDO::PARAM_INT);
 		$stmt -> execute();
 		$row = $stmt -> fetchAll();
 		

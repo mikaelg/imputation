@@ -83,7 +83,7 @@ class Run extends Router {
 			}
 			else
 			{
-				print('rerutn 404 error page');
+				print('return 404 error page');
 			}
 			
 

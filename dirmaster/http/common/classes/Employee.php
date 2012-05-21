@@ -6,10 +6,13 @@ class Employee extends Person
 	protected static $myExceptionClass = 'Common\EmployeeException';
 	
 	
-	protected static $fields = Array("functionDescription" 	=> Array("type" =>"string",	"mandatory" => true));
+	protected static $fields = Array(	"functionDescription" 	=> Array("type" =>"string",		"mandatory" => /*true*/false),
+										"employedSince" 		=> Array("type" =>"\DateTime",	"mandatory" => true)
+										);
 
 	
-    protected $functionDescription = null;
+    protected $functionDescription;
+    protected $employedSince;
     
     /**
      * this function overrides Entity::getFieldsArray(), because Employee needs to merge Person's $fields

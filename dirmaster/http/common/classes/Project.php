@@ -39,6 +39,8 @@ class Project extends Entity
 		
 		//print_r(self::$fields,false);
 	}
+	
+	
     
     /**
      * Short description of method GetProjectType

@@ -30,11 +30,17 @@ class ProjectController extends AuthenticationController {
 			//print_r($this->dcreg->args);
 			
 			$p = $this->model->getProjectValues($this->dcreg->args[0]);
-			
 
-			
-			
 			$this->dcreg->project = $p;
+			
+			foreach($this->dcreg->project->projectTeam as $tm)
+			{
+				//HTML in controller, mag dit?
+				$namestring[] = '<a href="/employee/' . $tm['loginname'] . '" target="_blank">' . $tm['firstname'] . ' ' . $tm['name'] . '</a>';
+			}
+			
+			$this->teamAsCSV = implode(', ', $namestring);
+			
 			
 			
 		}

@@ -19,16 +19,16 @@ class Model{
 		try{
 			$this->dal = new \PDO( 'mysql:host=localhost;dbname=Imputation',
 					'root',
-					'root',
+					'',
 					array(
 							\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY    => 1,
 							\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
 							\PDO::ATTR_PERSISTENT => true,
 					)
 			);
-		}catch (PDOException $e){
+		}catch (\PDOException $e){
 			//throw new $myExceptionClass("Database connection failed : check connectionstring");
-			print("Database connection failed : check connectionstring: ".$e->getMessage());
+			die("Database connection failed : check connectionstring: ".$e->getMessage());
 		}
 		
 	}
@@ -50,7 +50,7 @@ class Model{
 	
 	public function checkFormGuid(){
 		/**
-		 * doe ŽŽn of ander check tegen de database.
+		 * doe Ã©Ã©n of ander check tegen de database.
 		 * vb session id + controllername.
 		 * verder onderzoeken hoe dit in Drupal wordt opgevangen
 		 */
