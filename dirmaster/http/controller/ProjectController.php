@@ -33,15 +33,15 @@ class ProjectController extends AuthenticationController {
 
 			$this->dcreg->project = $p;
 			
-			foreach($this->dcreg->project->projectTeam as $tm)
+			if($this->dcreg->project->numberOfProjectTeamMembers() >= 0)
 			{
-				//HTML in controller, mag dit?
-				$namestring[] = '<a href="/employee/' . $tm['loginname'] . '" target="_blank">' . $tm['firstname'] . ' ' . $tm['name'] . '</a>';
-			}
-			
-			$this->teamAsCSV = implode(', ', $namestring);
-			
-			
+				$this->teamMembersList = array();
+				foreach($this->dcreg->project->projectTeam as $tm)
+				{
+					$this->teamMembersList[] = array('/employee/' . $tm['loginname'], $tm['firstname'] . ' ' . $tm['name'] , "_blank");
+				}
+				
+			}			
 			
 		}
 		

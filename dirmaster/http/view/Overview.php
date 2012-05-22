@@ -1,3 +1,5 @@
+<? namespace be\imputation; ?>
+
 <div class="row">
 	<div class="span12">
 		<div class="page-header">
@@ -29,7 +31,7 @@
 	
 				<?php
 				foreach ($dcreg->projects as $p) {
-					echo '<tr><td><a href="/project/'.$p->name.'">'.$p->name.'</a></td></tr>';
+					echo '<tr><td>' . HTMLHelper::createLink('/project/'.$p->name , $p->name) . '</td></tr>';
 				} 
 				?>
 

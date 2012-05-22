@@ -42,13 +42,11 @@ class OverviewModel extends Model {
 			return false;
 	}
 	
-	public function IsValidDate(){
-		$this->startdate = Sanitize::checkDateSanity($this->formvars['startDate'], 'string', 10);
+	public function IsValidDate()
+	{
 		
-		if(isset($this->startdate))
-			return true;
-		else
-			return false;
+		$this->startdate = Sanitize::checkDateSanity($this->formvars['startDate'], 'string', 10);
+		return($this->startdate !== false);
 	}
 	
 }

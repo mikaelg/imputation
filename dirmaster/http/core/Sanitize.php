@@ -25,18 +25,47 @@ class  Sanitize {
 		}
 	}
 	
-	public static function checkDateSanity($_value,$_type,$_length){
-		if(!self::checkSanity($_value,$_type,$_length))
-			return;
+	public static function checkDateSanity($_value,$_type,$_length)
+	{
+		// delimiters in separate array to be able to add/modify the supported input delimiters
+		$supportedInputDelimiters = array('-','_','|');
 		
-		$delim = '/';
-		$_value = str_replace(array('-','_','|'), $delim, $_value);
-		$dateparts = explode($delim, $_value);
+		// initialize the SUPported INPut DELimiters presence flag to false
+		$supInpDel_present = false;
 		
-		if(checkdate($dateparts[1], $dateparts[0], $dateparts[2]))
-			return $dateparts[2].$delim.$dateparts[1].$delim.$dateparts[0];
+		// Loop through supported input delimiters and see if the input has two similar ones in one run.
+		// By doing a boolean OR function with the substr_count === 2 result (also bool), 
+		// one hit will set the result to true forever, no matter what the other comparisons
+		// come up with.		
+		foreach($supportedInputDelimiters as $dlmtr)
+		{
+			$supInpDel_present = $supInpDel_present || (substr_count($_value, $dlmtr) === 2);
+		}
+		
+		
+		if(!$supInpDel_present ||!self::checkSanity($_value,$_type,$_length))
+		{
+			return false;
+		}
 		else
-			return;
+		{
+			$realDelim = '/';
+			$_value = str_replace($supportedInputDelimiters, $realDelim, $_value);
+			$dateparts = explode($realDelim, $_value);
+			
+			if(checkdate($dateparts[1], $dateparts[0], $dateparts[2]))
+			{
+				return $dateparts[2].$realDelim.$dateparts[1].$realDelim.$dateparts[0];
+			}
+			else
+			{
+				return false;
+			}
+		}
+			
+		
+		
+		
 		
 	}
 	

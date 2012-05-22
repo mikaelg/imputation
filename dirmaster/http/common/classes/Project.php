@@ -40,6 +40,10 @@ class Project extends Entity
 		//print_r(self::$fields,false);
 	}
 	
+	public function numberOfProjectTeamMembers()
+	{
+		return count($this -> projectTeam);
+	}
 	
     
     /**

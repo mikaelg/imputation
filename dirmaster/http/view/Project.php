@@ -1,7 +1,7 @@
+<? namespace be\imputation; ?>
+
 <div id="wrapper">
 
-
-	
 	<h2><?php echo $dcreg->project->name;?></h2>
 	
 
@@ -34,11 +34,30 @@
 
 			<div><span style="display:inline-block;width:200px">Klant</span>
 			<?php echo $dcreg->project->customerCompany->name;?></div>
+			
+			<div>
+			<? 
+			if($dcreg->project->numberOfProjectTeamMembers() > 0)
+			{
+				$first = true;
+				foreach($this -> teamMembersList as $tmArray)
+				{
+					echo '<span style="display:inline-block;width:200px">';
+					echo $first ? "Project team" : '&nbsp;';
+					echo '</span>';
+					
+					echo HTMLHelper::createLink($tmArray[0], $tmArray[1], $tmArray[2]) . "<br />";
+					
+					$first = false;
+				}
 
-			<div><span style="display:inline-block;width:200px">Project team</span>
-			<?php echo $this -> teamAsCSV; ?></div>
-
-		
+			}
+			else
+			{
+				echo '<span style="display:inline-block;width:200px;font-style: italic;font-weight:bolder">Project team niet gedefini&euml;erd!</span>';
+			}
+			?>
+			</div> 
 
 	
 	<?php //echo '<pre>' . print_r($dcreg->project, true) . '</pre>'; ?>
