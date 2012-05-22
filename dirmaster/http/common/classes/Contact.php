@@ -5,7 +5,7 @@ class Contact extends Person
 	protected static $myExceptionClass = 'Common\ContactException';
 	
 	// Leave this empty for now, but it's open for extension
-	protected static $fields = Array();
+	private static $fields = Array();
 
 
     
@@ -17,7 +17,7 @@ class Contact extends Person
      * @author 					Jos Bolssens <marvelade@gmail.com>
      * @return 					Array
      */
-    public static function getFieldsArray()
+    final public static function getFieldsArray()
     {
     	return array_merge(parent::$fields, self::$fields);
     }

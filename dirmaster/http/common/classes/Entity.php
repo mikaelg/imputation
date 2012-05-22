@@ -300,7 +300,10 @@ abstract class Entity
     public static function getFieldsArray()
     {
     	$ccls = get_called_class();
-    	return $ccls::$fields;
+    	throw new EntityException("You shouldn't depend on Entity::getFieldsArray(); implement your own getFieldsArray() method in " . $ccls . ", you lazy SOAB :) ");
+    	
+    	
+    	
     }
     
     

@@ -5,7 +5,7 @@ class Project extends Entity
 	
 	protected static $myExceptionClass = 'Common\ProjectException';
 
-	protected static $fields = Array(	"id"					=> Array("type" =>"integer",					"mandatory" => true),
+	private static $fields = Array(	"id"					=> Array("type" =>"integer",					"mandatory" => true),
 										"name" 					=> Array("type" =>"string", 					"mandatory" => true),
 										"type"					=> Array("type" =>"string",						"mandatory" => true),
 										"parentProject"			=> Array("type" =>"Common\Project", 			"mandatory" => false),
@@ -33,13 +33,13 @@ class Project extends Entity
 	protected $status;
 	protected $totalCost;
 	protected $contacts;
-
-	protected function addProperty($_name,$_type, $_mandatory){
-		self::$fields[$_name] = Array("type" => $_type,"mandatory" => $_mandatory);
-		
-		//print_r(self::$fields,false);
-	}
 	
+	public static function getFieldsArray()
+    {
+    	return self::$fields;
+    }
+
+		
 	public function numberOfProjectTeamMembers()
 	{
 		return count($this -> projectTeam);

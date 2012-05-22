@@ -12,6 +12,7 @@
 		class ProjectException					extends \Exception{ }
 		class EmployeeException					extends \Exception{ }
 		class ContactException					extends \Exception{ }
+		class CustomerCompanyException			extends \Exception{ }
 		
 		
 		class CollectionException				extends \Exception{ }

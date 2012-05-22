@@ -5,7 +5,7 @@ abstract class Organisation extends Entity
 
 	protected static $myExceptionClass = 'Common\OrganisationException';
 	
-	protected static $fields = Array(	"id"				=> Array("type" =>"integer",					"mandatory" => true),
+	private static $fields = Array(	"id"				=> Array("type" =>"integer",					"mandatory" => true),
 										"name" 				=> Array("type" =>"string", 					"mandatory" => true),
 										"addresses"			=> Array("type" =>"\ArrayObject", 				"mandatory" => /*true*/false),
 										"employees"			=> Array("type" =>"\ArrayObject", 				"mandatory" => /*true*/false)
@@ -15,6 +15,11 @@ abstract class Organisation extends Entity
     public $name;
     public $addresses;
     public $employees;
+    
+    public static function getFieldsArray()
+    {
+    	return self::$fields;
+    }
 }
 
 ?>

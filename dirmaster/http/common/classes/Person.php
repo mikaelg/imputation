@@ -5,7 +5,7 @@ class Person extends Entity
 
 	protected static $myExceptionClass = 'Common\PersonException';
 	
-	protected static $fields = Array(	"id"				=> Array("type" =>"integer",						"mandatory" => true),
+	private static $fields = Array(		"id"				=> Array("type" =>"integer",						"mandatory" => true),
 										"lastname" 			=> Array("type" =>"string", 						"mandatory" => true),
 										"firstname"			=> Array("type" =>"string", 						"mandatory" => true),
 										"gender"			=> Array("type" =>"string", 						"mandatory" => true),
@@ -22,6 +22,10 @@ class Person extends Entity
 	protected $adresses;
 	protected $status;
 
+	public static function getFieldsArray()
+    {
+    	return self::$fields;
+    }
 
 
 

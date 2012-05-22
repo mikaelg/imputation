@@ -8,7 +8,7 @@ class Imputation extends Entity
 
     protected static $myExceptionClass = 'Common\ImputationException';
     
-    protected static $fields = Array(	"id"				=> Array("type" =>"integer",			"mandatory" => true),
+    private static $fields = Array(		"id"				=> Array("type" =>"integer",			"mandatory" => true),
 										"employee" 			=> Array("type" =>"Common\Employee", 	"mandatory" => true),
 										"from"				=> Array("type" =>"\DateTime", 			"mandatory" => true),
 										"to"				=> Array("type" =>"\DateTime", 			"mandatory" => true),
@@ -28,6 +28,11 @@ class Imputation extends Entity
 	protected $action;
 	protected $isBillable;
 	protected $comment;
+	
+	final public static function getFieldsArray()
+    {
+    	return self::$fields;
+    }
 	
 	public function CalculateCost()
 	{

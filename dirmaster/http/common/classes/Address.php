@@ -5,7 +5,7 @@ class Address extends Entity
 {
 	protected static $myExceptionClass = 'Common\AddressException';
 	
-	protected static $fields = Array(	"id"				=> Array("type" =>"integer",	"mandatory" => true),
+	private static $fields = Array(	"id"				=> Array("type" =>"integer",	"mandatory" => true),
 										"country" 			=> Array("type" =>"string", 	"mandatory" => true),
 										"city"				=> Array("type" =>"string", 	"mandatory" => true),
 										"street"			=> Array("type" =>"string", 	"mandatory" => true),
@@ -25,6 +25,11 @@ class Address extends Entity
 	protected $province;
 	protected $organisationId;
 	protected $addressTypeId;
+	
+	final public static function getFieldsArray()
+    {
+    	return self::$fields;
+    }
 	
 }
 ?>
