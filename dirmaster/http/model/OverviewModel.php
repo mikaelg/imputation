@@ -22,12 +22,12 @@ class OverviewModel extends Model {
 		
 		
 		//let the project factory determine what kind of object to return
-		$pf = new \Common\projectsFactory();
+		$pf = new \Common\ProjectsFactory();
 
 		
 		foreach ($row as $r) {
 			$pm = new ProjectModel();
-			$pf->addToProjectArray($pm->getProjectValuesById($r['idProject']));
+			$pf->addToProjectArray(ProjectModel::getProjectValuesById($r['idProject']));
 		}
 		
 		return  $pf->getProjectArray();

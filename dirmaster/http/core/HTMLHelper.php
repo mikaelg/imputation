@@ -21,4 +21,20 @@ class HTMLHelper
 	
 		return '<a href="' . $_uri . '" target="' . $_target . '">' . htmlentities($_anchortext) . '</a>';
 	}
+	
+	public static function arrayToSelect($_selectName, $_optionValuesArray)
+	{
+		$retHtml = '<select name="' . $_selectName . '">' . "\n";
+		
+		foreach($_optionValuesArray as $val => $displayText)
+		{
+			$retHtml.=  '<option value="' . $val . '">' . $displayText . '</option>' . "\n";
+		}
+		
+		$retHtml.= '</select>' . "\n";
+		
+		return $retHtml;
+		
+	}
+	
 }

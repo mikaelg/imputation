@@ -2,6 +2,11 @@
 
 class ProjectModel extends Model {
 
+	const FETCH_IMPUTATIONABLE_PROJECTS = 1;
+	const FETCH_NON_IMPUTATIONABLE_PROJECTS = 2;
+	const FETCH_ALL = 2;
+	
+
 	private $projectId;
 	private $p;
 	
@@ -9,47 +14,89 @@ class ProjectModel extends Model {
 		parent::__construct();
 	}
 	
-	public function getProjectValuesById($_projectID){
+	public static function getProjects($_mode = self::FETCH_IMPUTATIONABLE_PROJECTS)
+	{
+		switch($_mode)
+		{
+			case self::FETCH_IMPUTATIONABLE_PROJECTS:
+			default:
+				$cond = " p.idProjectStatus= 1 ";
+			break;
+			
+			case self::FETCH_NON_IMPUTATIONABLE_PROJECTS:
+				$cond = " p.idProjectStatus IN (2,3) ";
+			break;
+			
+			case self::FETCH_ALL:
+				$cond = " 1 ";
+			break;
+			
+			
+		}
+	
+		$sql = "SELECT p.idProject FROM projects AS p WHERE " . $cond . " ";
+		
+		//echo $sql;
+		
+		$stmt = self::createDal() -> prepare($sql);
+		$stmt -> execute();
+		
+		$retArr = array();
+		$row = $stmt -> fetchAll();
+		foreach ($row as $data)
+		{
+			$retArr[] = self::getProjectValuesById($data['idProject']);
+		}
+		
+		//echo count($retArr) . " projects in query!";
+		
+		return $retArr;
+		
+		
+	}
+	
+	public static function getProjectValuesById($_projectID){
 		$sql = "SELECT p.budget FROM projects AS p WHERE p.idProject = :prid LIMIT 1";
-		$stmt = $this -> dal -> prepare($sql);
+		$stmt = self::createDal() -> prepare($sql);
 		$stmt -> bindValue(':prid', $_projectID, \PDO::PARAM_INT);
 		$stmt -> execute();
 		$row = $stmt -> fetchAll();
 		
-		$this->projectId = $_projectID;
+
 		
 		//let the project factory determine what kind of object to return
-		$pf = new \Common\projectsFactory();
-		$this->p = $pf->getProject($row[0]["budget"]);
+		$pf = new \Common\ProjectsFactory();
+		$p = $pf->getProject($row[0]["budget"]);
+		$p->id = $_projectID;
 		
 		//echo "budget = ".$this->p->budget;
 		
 		
-		$this -> getProjectData($this->p);
-		$this -> getProjectTeamMembers($this->p);
-		$this -> getCustomerCompany($this->p);
-		$this -> getProjectContacts($this->p);
+		self::getProjectData($p);
+		self::getProjectTeamMembers($p);
+		self::getCustomerCompany($p);
+		self::getProjectContacts($p);
 		
-		return $this->p;		
+		return $p;		
 	}
 	
-	public function getProjectValues($_projectName)
+	public static function getProjectValues($_projectName)
 	{
 		
 		$sql = "SELECT p.idProject, p.budget FROM projects AS p WHERE p.name = :prnm LIMIT 1";
-		$stmt = $this -> dal -> prepare($sql);
+		$stmt = self::createDal() -> prepare($sql);
 		$stmt -> bindValue(':prnm', $_projectName, \PDO::PARAM_STR);
 		$stmt -> execute();
 		$row = $stmt -> fetchAll();
 		
 		$this->projectId = $row[0]["idProject"];
 		
-		return $this->getProjectValuesById($row[0]["idProject"]);
+		return self :: getProjectValuesById($row[0]["idProject"]);
 		
 	}
 	
 
-	private function getProjectData(&$_proj_obj){
+	private static function getProjectData(&$_proj_obj){
 
         
 		
@@ -62,8 +109,8 @@ class ProjectModel extends Model {
 				JOIN companies AS c
 					ON c.idCompany = p.idCompany
 				WHERE p.idProject = :prid LIMIT 1";
-        $stmt = $this -> dal -> prepare($sql);
-	    $stmt -> bindValue(':prid', $this->projectId, \PDO::PARAM_STR);
+        $stmt = self::createDal() -> prepare($sql);
+	    $stmt -> bindValue(':prid', $_proj_obj->__get('id'), \PDO::PARAM_STR);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();
 	    
@@ -91,7 +138,7 @@ class ProjectModel extends Model {
         
 	}
 	
-	private function getCustomerCompany(&$_proj_obj){
+	private static function getCustomerCompany(&$_proj_obj){
 
         $sql = "SELECT c.*, a.* FROM projects AS p 
 				JOIN companies AS c
@@ -101,8 +148,8 @@ class ProjectModel extends Model {
 				JOIN addresses AS a
 					ON a.idAddress = ca.idAddress
 				WHERE p.idProject = :prid LIMIT 1";
-        $stmt = $this -> dal -> prepare($sql);
-	    $stmt -> bindValue(':prid', $this->projectId, \PDO::PARAM_INT);
+        $stmt = self::createDal() -> prepare($sql);
+	    $stmt -> bindValue(':prid', $_proj_obj->__get('id'), \PDO::PARAM_INT);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();
 	    
@@ -126,7 +173,7 @@ class ProjectModel extends Model {
         
 	}
 	
-	private function getProjectTeamMembers(&$_proj_obj)
+	private static function getProjectTeamMembers(&$_proj_obj)
 	{
 		$sql = "SELECT pns.* FROM projects AS p 
 				JOIN projectteammembers AS ptm 
@@ -134,8 +181,8 @@ class ProjectModel extends Model {
 				JOIN persons AS pns
 					ON ptm.idPerson = pns.idPerson
 				WHERE p.idProject = :prid ";
-        $stmt = $this -> dal -> prepare($sql);
-	    $stmt -> bindParam(':prid', $this->projectId, \PDO::PARAM_STR);
+        $stmt = self::createDal() -> prepare($sql);
+	    $stmt -> bindParam(':prid', $_proj_obj->__get('id'), \PDO::PARAM_STR);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();
 	    if($stmt -> errorCode() == "00000")
@@ -153,7 +200,7 @@ class ProjectModel extends Model {
 		} 
 	}
 	
-	private function getProjectContacts(&$_proj_obj)
+	private static function getProjectContacts(&$_proj_obj)
 	{
 		$sql = "SELECT pns.* FROM projects AS p 
 				JOIN projectcontacts AS pct 
@@ -161,8 +208,8 @@ class ProjectModel extends Model {
 				JOIN persons AS pns
 					ON pct.idPerson = pns.idPerson
 				WHERE p.idProject = :prid ";
-        $stmt = $this -> dal -> prepare($sql);
-	    $stmt -> bindParam(':prid', $this->projectId, \PDO::PARAM_STR);
+        $stmt = self::createDal() -> prepare($sql);
+	    $stmt -> bindParam(':prid', $_proj_obj->__get('id'), \PDO::PARAM_STR);
 	    $stmt -> execute();
 	    $row = $stmt -> fetchAll();
 	    if($stmt -> errorCode() == "00000")

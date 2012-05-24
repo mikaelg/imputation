@@ -19,7 +19,7 @@
 		class ProjectCollectionException		extends \Exception{ }
 		
 		class ModelException					extends \Exception{}
-		class ProjectFactoryException			extends \Exception{}
+		class ProjectsFactoryException			extends \Exception{}
 		class QuotedProjectException			extends \Exception{}
 		class DirectedProjectException			extends \Exception{}
 

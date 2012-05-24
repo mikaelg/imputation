@@ -13,11 +13,10 @@ class Model{
 	
 	protected $dal;
 	
-	public function __construct($_args  = array()){
-		$this->formvars = $_args;
-		
+	public static function createDal()
+	{
 		try{
-			$this->dal = new \PDO( 'mysql:host=localhost;dbname=Imputation',
+			$dal = new \PDO( 'mysql:host=localhost;dbname=Imputation',
 					'root',
 					'',
 					array(
@@ -26,10 +25,17 @@ class Model{
 							\PDO::ATTR_PERSISTENT => true,
 					)
 			);
+			return $dal;
 		}catch (\PDOException $e){
-			//throw new $myExceptionClass("Database connection failed : check connectionstring");
+
 			die("Database connection failed : check connectionstring: ".$e->getMessage());
 		}
+	}
+	
+	public function __construct($_args  = array()){
+		$this->formvars = $_args;
+		$this -> dal = self::createDal();
+		
 		
 	}
 	
