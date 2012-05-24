@@ -5,7 +5,7 @@ class CostCentre extends Entity
 
 	protected static $myExceptionClass = 'Common\CostCentreException';
 	
-	private static $fields = Array(	"id"				=> Array("type" =>"integer",	"mandatory" => true),
+	private static $fields = Array(		"id"				=> Array("type" =>"integer",	"mandatory" => true),
 										"shorthand" 		=> Array("type" =>"string", 	"mandatory" => true),
 										"description"		=> Array("type" =>"string", 	"mandatory" => true),
 			);

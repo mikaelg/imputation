@@ -27,11 +27,25 @@
 				{
 					$projArr[$projObj -> id] = $projObj -> name;
 				}				
-				echo HTMLHelper::arrayToSelect("projectId", $projArr); ?>
+				echo HTMLHelper::arrayToSelect("projectId", $projArr);
+				?>
 			
 			<br />
-			<label for="password" >Paswoord</label>
-			<input type="password" maxlength="20" name="password" >
+			
+			
+			<label for="costCentre" >Kostendrager</label>
+			
+				<?php 
+				$ccColl = $this->model->getCostCentres();				
+				$ccArr = array();
+				foreach($ccColl as $ccObj)
+				{
+					$ccArr[$ccObj -> id] = $ccObj -> shorthand . ' - ' . $ccObj -> description;
+				}				
+				echo HTMLHelper::arrayToSelect("costCentre", $ccArr);
+				?>
+			
+			<br />
 			
 			<div class="form-actions">
 			<input type="submit" value="Verzenden" class="btn btn-primary"> 

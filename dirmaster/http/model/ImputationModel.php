@@ -17,6 +17,11 @@ class ImputationModel extends Model {
 		return ProjectModel :: getProjects();
 	} 
 	
+	public function getCostCentres()
+	{
+		return CostCentreModel :: getCostCentres();
+	}
+	
 
 	
 }

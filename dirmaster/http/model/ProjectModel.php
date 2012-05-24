@@ -20,7 +20,7 @@ class ProjectModel extends Model {
 		{
 			case self::FETCH_IMPUTATIONABLE_PROJECTS:
 			default:
-				$cond = " p.idProjectStatus= 1 ";
+				$cond = " p.idProjectStatus = 1 ";
 			break;
 			
 			case self::FETCH_NON_IMPUTATIONABLE_PROJECTS:
