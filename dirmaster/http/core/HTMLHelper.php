@@ -22,13 +22,15 @@ class HTMLHelper
 		return '<a href="' . $_uri . '" target="' . $_target . '">' . htmlentities($_anchortext) . '</a>';
 	}
 	
-	public static function arrayToSelect($_selectName, $_optionValuesArray)
+	public static function arrayToSelect($_selectName, $_optionValuesArray, $_defaultSelectedIndex = 0)
 	{
 		$retHtml = '<select name="' . $_selectName . '">' . "\n";
 		
 		foreach($_optionValuesArray as $val => $displayText)
 		{
-			$retHtml.=  '<option value="' . $val . '">' . $displayText . '</option>' . "\n";
+			$retHtml.=  '<option value="' . $val . '" ';
+			$retHtml.=  $val == $_defaultSelectedIndex ? ' CHECKED' : '';
+			$retHtml.= '>' . $displayText . '</option>' . "\n";
 		}
 		
 		$retHtml.= '</select>' . "\n";

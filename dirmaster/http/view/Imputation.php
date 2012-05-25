@@ -22,7 +22,7 @@
 
 				<?php 
 				$projColl = $this->model->getProjects();				
-				$projArr = array();
+				$projArr = array(0 => '- - Kies - -');
 				foreach($projColl as $projObj)
 				{
 					$projArr[$projObj -> id] = $projObj -> name;
@@ -37,7 +37,7 @@
 			
 				<?php 
 				$ccColl = $this->model->getCostCentres();				
-				$ccArr = array();
+				$ccArr = array(0 => '- - Kies - -');
 				foreach($ccColl as $ccObj)
 				{
 					$ccArr[$ccObj -> id] = $ccObj -> shorthand . ' - ' . $ccObj -> description;
@@ -47,12 +47,15 @@
 			
 			<br />
 			
+			<label for="date" >Datum (dd-mm-yyyy)</label>
+			<input type="text" name="date" value="" maxlength="10" />
 			
 			<label for="numHours" >Aantal uren</label>
 			<input type="text" name="numHours" value="" maxlength="2" />
 					
 			<label for="invoiceable">Factureerbaar?</label>
-			<input type="checkbox" name="invoiceable" value="" /> 
+			<input type="radio" name="invoiceable" value="1" /> Ja &nbsp;&nbsp;
+			<input type="radio" name="invoiceable" value="0" CHECKED /> Nee<br />
 			
 			<br />
 			<hr />
@@ -63,7 +66,7 @@
 			<br />
 			
 			<div class="form-actions">
-			<input type="submit" value="Verzenden" class="btn btn-primary"> 
+			<input type="submit" name="go" value="Verzenden" class="btn btn-primary"> 
 			</div>
 			
 			<input type="hidden" name="formGuid" maxlength="100" value="<?php echo $dcreg->formGuid ?>">

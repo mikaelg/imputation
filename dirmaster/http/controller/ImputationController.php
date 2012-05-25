@@ -25,12 +25,27 @@ class ImputationController extends Controller {
 		$this->loginmodel = new LoginModel($_POST);
 		
 		// zijn we reeds ingelogd ?
-		if($this->loginmodel->loginStatus()){
-			$this->assembleView();	
+		if($this->loginmodel->loginStatus())
+		{
+
+			//echo '<pre>' . print_r($_POST,true) . '</pre>';
+			$checkResult = $this->model->checkImputationValues();
+			if($checkResult === true)
+			{
+				echo "Imputation was valid!";
+			}
+			else
+			{
+				$this->dcreg->warnings = $checkResult;
+			}
+			
+			$this->dcreg->formGuid = $this->model->generateFormGuid();
+			$this->assembleView();
+				
 		}
 		else
 		{
-			die("A nee, da mag nie...");
+			die("A nee, da mag nie... Inloggen a.u.b.");
 		}
 	}
 }

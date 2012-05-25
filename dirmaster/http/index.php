@@ -1,4 +1,5 @@
 <?php namespace be\imputation;
+ob_start();
 
 /**
  * Don't output anything in this file.

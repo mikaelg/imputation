@@ -62,4 +62,11 @@ class Model{
 		 */
 		return true;
 	}
+	
+	public function formSubmissionSent($_submitButtonName = 'go')
+	{
+		return(isset($this->formvars->$_submitButtonName));
+	}
+	
+	
 }

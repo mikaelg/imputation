@@ -32,7 +32,7 @@ class LoginModel extends Model {
 		 * if formGuid is not set there was no post => quit
 		 * if formGuid is set check if it is valid or throw exception.
 		 */
-		if(isset($this->formvars['formGuid']) && Sanitize::checkSanity($this->formvars['formGuid'], 'string', 100)){
+		if(isset($this->formvars['formGuid']) && Sanitize::checkSanity($this->formvars['formGuid'], 'string')){
 			$formGuid = $this->formvars['formGuid'];
 			if($formGuid != '1234567890')
 				throw new Exception("fatal form error!");
@@ -40,7 +40,7 @@ class LoginModel extends Model {
 		else 
 			return;
 		
-		if(isset($this->formvars['loginName']) && Sanitize::checkSanity($this->formvars['loginName'], 'string', 100)){
+		if(isset($this->formvars['loginName']) && Sanitize::checkSanity($this->formvars['loginName'], 'string')){
 			$loginName = $this->formvars['loginName'];
 		}
 		else {

@@ -45,7 +45,7 @@ class OverviewModel extends Model {
 	public function IsValidDate()
 	{
 		
-		$this->startdate = Sanitize::checkDateSanity($this->formvars['startDate'], 'string', 10);
+		$this->startdate = Sanitize::checkDateSanity($this->formvars['startDate']);
 		return($this->startdate !== false);
 	}
 	

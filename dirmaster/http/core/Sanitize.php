@@ -7,25 +7,63 @@
  */
 class  Sanitize {
 	
-	public static  function  checkSanity($_value,$_type,$_length)
+	
+	private static function cast(&$_value,$_type)
 	{
-		$isType = 'is_'.$_type;
+		switch($_type)
+		{
+			case 'string':
+			case 'str':
+				$_value = (string) strval($_value);
+			break;
+			
+			case 'integer':
+			case 'int':
+				$_value = (int) intval($_value);
+			break;
+			
+			case 'float':
+			case 'double':
+				$_value = (float) floatval($_value);
+			break;
+			
+			case 'boolean':
+			case 'bool':
+				$_value = self :: toBool($_value);
+			break;
+			
+			default:
+				throw new \Exception($_type . 'is an illegal type.');
+			break;
+		}
 		
-		if(!$isType($_value)){
-			return false;
-		}
-		elseif(empty($_value)){
-			return false;
-		}
-		elseif(strlen($_value) > $_length){
-			return false;
-		}
-		else {
-			return true;
-		}
+		
 	}
 	
-	public static function checkDateSanity($_value,$_type,$_length)
+	public static function checkSanity($_value,$_type,$_length=100)
+	{
+		if(is_null($_value))
+		{
+			return false;
+		}
+		else
+		{
+			self::cast($_value,$_type);
+
+			if(strlen($_value) > $_length)
+			{
+				echo "Too long! ";
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		
+	}
+	
+	public static function checkDateSanity($_value)
 	{
 		// delimiters in separate array to be able to add/modify the supported input delimiters
 		$supportedInputDelimiters = array('-','_','|');
@@ -43,7 +81,7 @@ class  Sanitize {
 		}
 		
 		
-		if(!$supInpDel_present ||!self::checkSanity($_value,$_type,$_length))
+		if(!$supInpDel_present)
 		{
 			return false;
 		}
@@ -63,10 +101,13 @@ class  Sanitize {
 			}
 		}
 			
-		
-		
-		
-		
 	}
+	
+	public static function toBool($_nb)
+	{
+		return (intval($_nb) > 0);
+	}
+	
+	
 	
 }
