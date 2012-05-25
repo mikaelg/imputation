@@ -49,11 +49,7 @@ class ImputationModel extends Model {
 		}
 		else 
 		{
-			echo isset($this->formvars['projectId']) ? "isset T " : "isset nil ";
-			
-			echo Sanitize::checkSanity($this->formvars['projectId'], 'int') ? "checksanity T " : "checksanity nil ";
 			$warnings[] = "Project is not valid";
-
 		}
 		
 		
@@ -64,7 +60,6 @@ class ImputationModel extends Model {
 		else 
 		{
 			$warnings[] = "Cost Centre is not valid";
-
 		}
 		
 		if(isset($this->formvars['date']) && Sanitize::checkDateSanity($this->formvars['date'], 'int'))
@@ -74,7 +69,6 @@ class ImputationModel extends Model {
 		else 
 		{
 			$warnings[] = "Date is not valid";
-
 		}
 		
 		
@@ -85,7 +79,6 @@ class ImputationModel extends Model {
 		else 
 		{
 			$warnings[] = "Number of hours is not valid";
-
 		}
 		
 				
@@ -96,7 +89,6 @@ class ImputationModel extends Model {
 		else 
 		{
 			$warnings[] = "invoiceable is not valid";
-
 		}
 		
 		$comments = strval($this->formvars['comments']);
