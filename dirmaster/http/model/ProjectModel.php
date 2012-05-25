@@ -7,7 +7,6 @@ class ProjectModel extends Model {
 	const FETCH_ALL = 2;
 	
 
-	private $projectId;
 	private $p;
 	
 	public function __construct(){
@@ -88,8 +87,7 @@ class ProjectModel extends Model {
 		$stmt -> bindValue(':prnm', $_projectName, \PDO::PARAM_STR);
 		$stmt -> execute();
 		$row = $stmt -> fetchAll();
-		
-		$this->projectId = $row[0]["idProject"];
+
 		
 		return self :: getProjectValuesById($row[0]["idProject"]);
 		

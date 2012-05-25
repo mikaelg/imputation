@@ -47,6 +47,21 @@
 			
 			<br />
 			
+			
+			<label for="numHours" >Aantal uren</label>
+			<input type="text" name="numHours" value="" maxlength="2" />
+					
+			<label for="invoiceable">Factureerbaar?</label>
+			<input type="checkbox" name="invoiceable" value="" /> 
+			
+			<br />
+			<hr />
+			
+			<label for="comments">Commentaar</label></label>
+			<textarea name="comments" rows="5"></textarea> 
+			
+			<br />
+			
 			<div class="form-actions">
 			<input type="submit" value="Verzenden" class="btn btn-primary"> 
 			</div>
