@@ -61,17 +61,25 @@ class LoginModel extends Model {
 			/**
 			 * TODO check against database
 			 */
-			if($password != "test" || $loginName != "mig"){
+			//print_r($this->checkInDatabse($loginName, $password));
+			
+			$result = $this->checkInDatabase($loginName,$password );
+			
+			//if($password != "test" || $loginName != "mig"){
+			if($result === false){
+				
 				
 				$warnings[] = "Your credentials are not found!";
 				return $warnings;
 			}
 			else {
 				// put user id in session.
-				$userid = "12345";
+				$userid = $result['loginid'];
 				
 				//session_start();
 				$_SESSION['loginsession'] = $userid.'#'.md5($loginName.$userid.$_SERVER['REMOTE_ADDR']);
+				$_SESSION['fullname'] = $result['fullname'];
+				
 				
 				
 				return true;
@@ -79,6 +87,37 @@ class LoginModel extends Model {
 		}
 		
 	
+	}
+	
+	private function checkInDatabase($_uid, $_pwd){
+		
+		$encPwd = md5($_pwd);
+		//print ("ENCRYPTED PASWORD: ".$encPwd . " STOP");
+		
+		$sql = "SELECT idPerson, loginname, password, name, firstname FROM persons WHERE loginname = :pruid AND password =  :prpwd";
+		$stmt = $this -> dal -> prepare($sql);
+		$stmt -> bindValue(':pruid', $_uid, \PDO::PARAM_STR);
+		$stmt -> bindValue(':prpwd', $encPwd, \PDO::PARAM_STR);
+		$stmt -> execute();
+		$row = $stmt -> fetch();
+		
+		if(empty($row))
+			return false;
+		
+		try {
+			if(strtolower($row['loginname']) === strtolower($_uid) && $row['password'] === $encPwd ){
+				$result = array();
+				$result['loginid'] = $row['idPerson'];
+				$result['fullname'] = $row['firstname']." ".$row['name'];
+				return $result;
+			}
+		}
+		catch (\Exception $e){
+			return false;
+		}
+		 
+		// if you ain't out of here yet, there definitely something wrong !!!!
+		return false;
 	}
 	
 }

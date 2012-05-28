@@ -31,6 +31,13 @@ abstract class AuthenticationController extends Controller{
 			
 	}
 	
+	public static function getFullUserName(){
+		if(isset($_SESSION['fullname']))
+			return $_SESSION['fullname'];
+		else 
+			return "NO USERNAME SET";
+	}
+	
 	public static function loginStatus(){
 		
 		if(isset($_SESSION['loginsession'])){

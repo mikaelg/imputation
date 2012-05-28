@@ -53,4 +53,8 @@ class OverviewModel extends Model {
 		return($this->startdate !== false);
 	}
 	
+	public function getStartDate(){
+		return $this->startdate;
+	}
+	
 }

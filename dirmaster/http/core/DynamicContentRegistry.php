@@ -14,6 +14,7 @@
  */
 
 class DynamicContentRegistry {
+	//protected static $myExceptionClass = 'Common\DynamicContentRegistryException';
 
 	private static $instance = null;
 	private $dynamicContent;
@@ -40,12 +41,14 @@ class DynamicContentRegistry {
 	 */
 	public function __set($key, $val) {
 		
-		if(array_key_exists($key, $this->dynamicContent))
-			return false;
-		else
-		{
+		if(array_key_exists($key, $this->dynamicContent)) {
+			/**
+			 * dit werkt niet hier moet nog een oplossing voor gevonden worden
+			 */
+			//throw new \Exception("Property ".$key." can not be set twice");
+		}
+		else {
 			$this->dynamicContent[$key] = $val;
-			return true;
 		}
 	}
 	
@@ -60,12 +63,18 @@ class DynamicContentRegistry {
 		return false;
 	}
 	
+	public function __isset($key)
+	{
+		//echo "Is '$key' set?";
+		return isset($this->dynamicContent[$key]);
+	}
+	
 	/**
 	 * Update regsitry value
 	 * @param unknown_type $_key
 	 * @param unknown_type $_value
 	 */
 	public function update($_key,$_value){
-		$this->dynamicContent[$key] = $val;
+		$this->dynamicContent[$_key] = $_value;
 	}
 }

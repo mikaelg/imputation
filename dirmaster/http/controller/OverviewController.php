@@ -24,11 +24,15 @@ class OverviewController extends AuthenticationController {
 		
 		//$this->dcreg->formGuid = $this->model->generateFormGuid();
 		
+		/**
+		 * controleer er een datum string is doorgegeven
+		 * controleer of string een "valid date" is.
+		 */
 		if($this->model->CheckDateRequest()){
 			
 			if($this->model->IsValidDate()){
 				$this->dcreg->showFormOverview = false;
-				$this->dcreg->projects = $this->model->getProjects();
+				$this->dcreg->projects = $this->model->getProjects();			
 			}
 			else
 			{
@@ -38,7 +42,21 @@ class OverviewController extends AuthenticationController {
 			$this->dcreg->showFormOverview = true;
 		}
 		
-		if($this->dcreg->showFormOverview = true){
+		/**
+		 * wanneer het resultaat leeg is wordt het formulier opniew weergegeven met een boodschap.
+		 */
+		if(empty($this->dcreg->projects) && !$this->dcreg->showFormOverview){
+			//echo "PROJECT IS NOT SET";
+			
+			$this->dcreg->update("showFormOverview",true);
+			$this->dcreg->projectsNoResults = "Geen resultaat gevonden voor ". $this->model->getStartDate();
+		}
+		
+		
+		/**
+		 * GUID aanmaken voor formulier
+		 */
+		if($this->dcreg->showFormOverview){
 			// niet ingelogd
 			// maak een formGuid aan als er geen $_POST['formGuid'] variable is
 			$this->dcreg->formGuid = $this->model->generateFormGuid();
@@ -52,7 +70,7 @@ class OverviewController extends AuthenticationController {
 		}
 			
 		
-
+		// DEBUG
 		
 		$this->dcreg->foo = 'INSERTED FROM CONTROLLER<br />Overview<br />';
 		

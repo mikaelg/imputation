@@ -14,6 +14,13 @@
 			<h1>Projecten overzicht</h1>
 		</div>
 		
+		<?php if(isset($this->dcreg->projectsNoResults)){ ?>
+			<div class="alert">
+		    	<button class="close" data-dismiss="alert">×</button>
+		    	<h2><?php echo $this->dcreg->projectsNoResults; ?></h2>
+		    </div>		
+		<?php }?>
+		
 		<?php  if($dcreg->showFormOverview){ ?>
 		
 			<form action="" method="post" name="overiew">
@@ -28,6 +35,7 @@
 			</form>
 		
 		<?php } //end form ?>
+		
 		
 		<?php  if(!$dcreg->showFormOverview){ ?>
 			<table class="table table-striped">
