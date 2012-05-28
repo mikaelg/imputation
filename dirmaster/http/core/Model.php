@@ -16,7 +16,7 @@ class Model{
 	public static function createDal()
 	{
 		try{
-			$dal = new \PDO( 'mysql:host=localhost;dbname=Imputation',
+			$dal = new \PDO( 'mysql:host=localhost;dbname=imputation',
 					'root',
 					'root',
 					array(

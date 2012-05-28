@@ -20,9 +20,9 @@ class OverviewModel extends Model {
 		$stmt -> execute();
 		$row = $stmt -> fetchAll();
 		
-		print "TEST RETURN PROJECT";
-		print "COUNT".count($row);
-		print_r($row);
+		//print "TEST RETURN PROJECT";
+		//print "COUNT".count($row);
+		//print_r($row);
 		
 		
 		//let the project factory determine what kind of object to return
