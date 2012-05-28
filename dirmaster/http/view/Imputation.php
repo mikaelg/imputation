@@ -60,7 +60,7 @@
 			<br />
 			<hr />
 			
-			<label for="comments">Commentaar</label></label>
+			<label for="comments">Commentaar</label>
 			<textarea name="comments" rows="5"></textarea> 
 			
 			<br />
