@@ -12,7 +12,7 @@ class OverviewModel extends Model {
 	public function getProjects(){
 		
 		//$this->startDate = "2012-05-12";
-		echo $this->startdate;
+		//echo $this->startdate;
 		
 		$sql = "SELECT p.idProject FROM projects AS p WHERE p.startdate >= :prstdt";
 		$stmt = $this -> dal -> prepare($sql);
@@ -30,8 +30,7 @@ class OverviewModel extends Model {
 
 		
 		foreach ($row as $r) {
-			$pm = new ProjectModel();
-			
+			//$pm = new ProjectModel();
 			$pf->addToProjectArray(ProjectModel::getProjectValuesById($r['idProject']));
 		}
 		
@@ -40,7 +39,7 @@ class OverviewModel extends Model {
 	}
 	
 	public function CheckDateRequest(){
-		if(isset($this->formvars['startDate']) && Sanitize::checkSanity($this->formvars['startDate'], 'string', 10)){
+		if(isset($this->formvars['startDate']) && Sanitize::mig_checkSanity($this->formvars['startDate'], 'string', 10)){
 			return true;
 		}
 		else
@@ -50,7 +49,7 @@ class OverviewModel extends Model {
 	public function IsValidDate()
 	{
 		
-		$this->startdate = Sanitize::checkDateSanity($this->formvars['startDate']);
+		$this->startdate = Sanitize::mig_checkDateSanity($this->formvars['startDate'], 'string', 10);
 		return($this->startdate !== false);
 	}
 	

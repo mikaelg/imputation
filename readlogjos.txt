@@ -23,7 +23,7 @@ Date:   Fri May 25 16:30:21 2012 +0200
     in de formvars property zitten, ge-submit is.
     
     
-    4.1) Sanitize class grotendeels herwerkt om meer
+MIG heb eigen sanitize functions opnieuw toegevoegd. Kreeg Overview niet meer deftig werkende met verschillend date input formaten.    4.1) Sanitize class grotendeels herwerkt om meer
     fool-proof te werken.
     
     4.2) Aangezien de $_length parameter (#3) van
@@ -31,14 +31,14 @@ Date:   Fri May 25 16:30:21 2012 +0200
     gekregen, hoeft dit niet meer in LoginModel
     meegegeven te worden.
     
-    4.3) Aangezien Sanitize::checkDateSanity() geen 2e
+TE BESPREKEN    4.3) Aangezien Sanitize::checkDateSanity() geen 2e
     en 3e parameter meer behoeft (type ligt vast en de
     lengte speelt geen rol; als het maar een geldige
     datum kan worden) kunnen de calls ernaar ook toekomen
     met 1 argument.
     
     
-    5) ob_start() call toegevoegd aan de entry-point
+TE BESPREKEN    5) ob_start() call toegevoegd aan de entry-point
     index.php
 
 commit 0227759c98593ddfa2c3b02af67c4ec6423e213f
@@ -66,39 +66,42 @@ commit 64850b7b134c7dfe980ed3a4fb39ffaabd2c0828
 Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
 Date:   Thu May 24 16:45:31 2012 +0200
 
-    1/ directory dirmaster/http/imputation verhinderde dat de imputationController zijn werk kon doen. mod_rewrite werkt alleen als er geen directory met de controllernaam bestaat. Dusdoende deze directory hernoemd naar __imputation. Ik begrijp ook niet helemaal wat die directory daar eigenlijk staat te doen?
+IS GEDELETE was waarschijnlijk een test, alles lijkt nog te werken
+>>    1/ directory dirmaster/http/imputation verhinderde dat de imputationController zijn werk kon doen. mod_rewrite werkt alleen als er geen directory met de controllernaam bestaat. Dusdoende deze directory hernoemd naar __imputation. Ik begrijp ook niet helemaal wat die directory daar eigenlijk staat te doen?
     
-    2/ Overal waar er projectFactory stond, vervangen door ProjectsFactory (grote P in het begin en ook ProjectS in het meervoud). Tevens nog een geval gevonden waar QuoteProject nog niet vervangen was door QuotedProject.
+OK >>    2/ Overal waar er projectFactory stond, vervangen door ProjectsFactory (grote P in het begin en ook ProjectS in het meervoud). Tevens nog een geval gevonden waar QuoteProject nog niet vervangen was door QuotedProject.
     
-    3/ Extra methode bijgemaakt in HTMLHelper class om een array om te zetten in een select/option pulldown.
+OK >>    3/ Extra methode bijgemaakt in HTMLHelper class om een array om te zetten in een select/option pulldown.
     
-    4.1/ Creeren van DAL in de core model ge-encapsuleerd in een statische createDal() method, dit omdat er regelmatig queries moeten gebeuren die niet rechtstreeks iets met een bepaald project te maken hebben, maar algemeen zijn voor de project class. Dit is naar mijn gevoel een gevolg van uitsplitsen van de Models en de Common classes; als een ProjectModel rechtstreeks de data zou bijhouden ipv het in een common object te moeten pompen, hadden we dat niet static hoeven te doen.
+TE BESPREKEN >>    4.1/ Creeren van DAL in de core model ge-encapsuleerd in een statische createDal() method, dit omdat er regelmatig queries moeten gebeuren die niet rechtstreeks iets met een bepaald project te maken hebben, maar algemeen zijn voor de project class. Dit is naar mijn gevoel een gevolg van uitsplitsen van de Models en de Common classes; als een ProjectModel rechtstreeks de data zou bijhouden ipv het in een common object te moeten pompen, hadden we dat niet static hoeven te doen.
     
-    4.2/ deze wijziging ook doorgevoerd in OverviewModel en ProjectModel; vrij ingrijpende wijziging, want de meeste referenties naar  moesten herlegd worden naar self::.
+ OK alles werkt >>   4.2/ deze wijziging ook doorgevoerd in OverviewModel en ProjectModel; vrij ingrijpende wijziging, want de meeste referenties naar  moesten herlegd worden naar self::.
     
     5/ ImputationModel, -View en -Controller aangemaakt
     
-    6/ Properties oproepen met alleen maar een pijltje geeft blijkbaar een E_NOTICE: 'Indirect modification of overloaded property X::x has no effect'  als er een __get() method bestaat. Als je die foutmelding niet wil moet je ->__get('id') doen ipv ->id.
+TE BESPREKEN    6/ Properties oproepen met alleen maar een pijltje geeft blijkbaar een E_NOTICE: 'Indirect modification of overloaded property X::x has no effect'  als er een __get() method bestaat. Als je die foutmelding niet wil moet je ->__get('id') doen ipv ->id.
 
 commit 83b64c49bb8ebdbe0fa9811d9b9967c5a27655bb
 Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
 Date:   Tue May 22 18:51:34 2012 +0200
 
-    shell script gemaakt voor installatie van phpunit op xampp, Jos heeft de neiging om zijn xampp installatie regelmatig om zeep te helpen :)
+WAAR IS UW SCRIPT ???? 
+>> shell script gemaakt voor installatie van phpunit op xampp, Jos heeft de neiging om zijn xampp installatie regelmatig om zeep te helpen :)
 
 commit c8fbb8d00418231df32e57e17a6157e9932ec317
 Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
 Date:   Tue May 22 18:40:59 2012 +0200
 
-    1.1\ static  array overal private gemaakt en getter method voor geschreven in elke class die Entity extendt. Daar waar geen verdere extension meer verwacht wordt, deze method tevens als final gedefinieerd. Unit-tests hielpen hier goed bij om deze functionaliteit te benchmarken.
+OK >>    1.1\ static  array overal private gemaakt en getter method voor geschreven in elke class die Entity extendt. Daar waar geen verdere extension meer verwacht wordt, deze method tevens als final gedefinieerd. Unit-tests hielpen hier goed bij om deze functionaliteit te benchmarken.
     
-    1.2\ In Entity de body van getFieldsArray() aangepast zodanig dat er een EntityException gegooid wordt wanneer die wordt aangeroepen; in principe mag die function call nooit cascaden tot op het niveau van Entity.
+OK maar moet "$ccls = get_called_class();" er dan nog staan op line 305 ????????
+>>    1.2\ In Entity de body van getFieldsArray() aangepast zodanig dat er een EntityException gegooid wordt wanneer die wordt aangeroepen; in principe mag die function call nooit cascaden tot op het niveau van Entity.
     
-    2\ AddProperty method uit Project class weggehaald, omdat dit nu overal op een uniforme manier wordt geregeld met de getFieldsArray() method.
+OK >>    2\ AddProperty method uit Project class weggehaald, omdat dit nu overal op een uniforme manier wordt geregeld met de getFieldsArray() method.
     
-    3\ ProjectCollection class file met een underscore ge-prefixt; wellicht hebben we deze niet meer nodig…
+OK denk ik ook >>    3\ ProjectCollection class file met een underscore ge-prefixt; wellicht hebben we deze niet meer nodig…
     
-    4\ Filenaam van QuotedProject gecorrigeerd (de d in het midden was vergeten)
+OK >>    4\ Filenaam van QuotedProject gecorrigeerd (de d in het midden was vergeten)
 
 commit 046d7fec05f949b80d0f916c9272262bee6d9354
 Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>

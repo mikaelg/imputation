@@ -19,6 +19,7 @@ class OverviewController extends AuthenticationController {
 		 * Hier dienen we de data uit het model  op te roepen en door te geven aan de view.
 		 *
 		 */
+		//print $_POST['startDate'];
 		$this->model = new OverviewModel($_POST);
 		
 		//$this->dcreg->formGuid = $this->model->generateFormGuid();

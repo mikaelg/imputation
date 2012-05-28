@@ -1,5 +1,13 @@
 <? namespace be\imputation; ?>
 
+
+	<script type="text/javascript">
+		
+		$(function(){
+			$('#startDate').datepicker();
+		});
+	</script>
+
 <div class="row">
 	<div class="span12">
 		<div class="page-header">
@@ -10,7 +18,8 @@
 		
 			<form action="" method="post" name="overiew">
 				<label for="startDate">Start datum</label>
-				<input type="date" class="" autofocus="autofocus" id="startDate" name="startDate">
+				
+				<input type="date" class=""  id="startDate" name="startDate" value="<?php echo date("d/m/Y"); ?>" data-date-format="dd/mm/yyyy">
 				
 				<div class="form-actions">
 				<input type="submit" value="Verzenden" class="btn btn-primary"> 
