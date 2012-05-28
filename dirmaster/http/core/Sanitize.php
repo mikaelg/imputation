@@ -42,7 +42,7 @@ class  Sanitize {
 	
 	public static function checkSanity($_value,$_type,$_length=100)
 	{
-		if(is_null($_value))
+		if(is_null($_value) || empty($_value))
 		{
 			return false;
 		}

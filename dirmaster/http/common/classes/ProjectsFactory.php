@@ -24,6 +24,8 @@ class ProjectsFactory
 			//echo "PARENT CLASS" . \get_parent_class($_project);
 			self::$projects[] = $_project;
 		}
+		else 
+			throw new $this::$myExceptionClass('Object is not of type "Common\Project"'); 
 	}
 	
 	public function  getProjectArray(){

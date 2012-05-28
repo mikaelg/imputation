@@ -12,13 +12,17 @@ class OverviewModel extends Model {
 	public function getProjects(){
 		
 		//$this->startDate = "2012-05-12";
-		//echo $this->startdate;
+		echo $this->startdate;
 		
 		$sql = "SELECT p.idProject FROM projects AS p WHERE p.startdate >= :prstdt";
 		$stmt = $this -> dal -> prepare($sql);
 		$stmt -> bindValue(':prstdt', $this->startdate, \PDO::PARAM_STR);
 		$stmt -> execute();
 		$row = $stmt -> fetchAll();
+		
+		print "TEST RETURN PROJECT";
+		print "COUNT".count($row);
+		print_r($row);
 		
 		
 		//let the project factory determine what kind of object to return
@@ -27,6 +31,7 @@ class OverviewModel extends Model {
 		
 		foreach ($row as $r) {
 			$pm = new ProjectModel();
+			
 			$pf->addToProjectArray(ProjectModel::getProjectValuesById($r['idProject']));
 		}
 		

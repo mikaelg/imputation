@@ -25,7 +25,6 @@ class OverviewController extends AuthenticationController {
 		
 		if($this->model->CheckDateRequest()){
 			
-			
 			if($this->model->IsValidDate()){
 				$this->dcreg->showFormOverview = false;
 				$this->dcreg->projects = $this->model->getProjects();
@@ -46,7 +45,7 @@ class OverviewController extends AuthenticationController {
 			// als $this->dcreg->formGuid niet leeg is wil dit zeggen dat dit een POST is dus checken we de formGuid met de database
 			// als controle formGuid false geeft stoppen we de verdere rendering van het formulier
 			if(!$this->model->checkFormGuid()){
-				header("Location: /donottemperwiththeformdude");
+				header("Location: /donottemperwiththeform");
 				return;
 			}
 		}

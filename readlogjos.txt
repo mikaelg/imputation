@@ -1,0 +1,706 @@
+commit b32331d27ef27f77a7a46017aaafd09f63158f0f
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Fri May 25 16:31:46 2012 +0200
+
+    ImputationModel code opgekuist
+
+commit 9c823999163cc525d54800a6e15c86acc9b030bd
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Fri May 25 16:30:21 2012 +0200
+
+    1) Serverside controle op (min of meer afgewerkte)
+    imputatieinvoer middels aanpassing van
+    ImputationController en ImputationModel classes.
+    
+    
+    2) arrayToSelect() method in HTMLHelper uitgebreid
+    zodat je ook een defaultwaarde aan de select kunt
+    meegeven.
+    
+    
+    3) In core/Model.php een extra method geschreven
+    voor het controleren of een form,  waarvan de waarden
+    in de formvars property zitten, ge-submit is.
+    
+    
+    4.1) Sanitize class grotendeels herwerkt om meer
+    fool-proof te werken.
+    
+    4.2) Aangezien de $_length parameter (#3) van
+    Sanitize::checkSanity nu een default van 100 heeft
+    gekregen, hoeft dit niet meer in LoginModel
+    meegegeven te worden.
+    
+    4.3) Aangezien Sanitize::checkDateSanity() geen 2e
+    en 3e parameter meer behoeft (type ligt vast en de
+    lengte speelt geen rol; als het maar een geldige
+    datum kan worden) kunnen de calls ernaar ook toekomen
+    met 1 argument.
+    
+    
+    5) ob_start() call toegevoegd aan de entry-point
+    index.php
+
+commit 0227759c98593ddfa2c3b02af67c4ec6423e213f
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Fri May 25 09:18:03 2012 +0200
+
+    1\ property projectId niet meer nodig in ProjectModel
+    class.
+    
+    2\ Extra inputs bijgevoegd in Imputation view voor
+    aantal gepresteerde uren, checkbox voor factureerbaar
+    ja/nee en commentaar-veld
+
+commit 788713ac0e2c4891f1300d83f2b5062ada074897
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Thu May 24 17:31:29 2012 +0200
+
+    1.1\ In Imputation invoer form de select toegevoegd om een costcentre te kiezen
+    
+    1.2\ Method getCostCentres() toegevoegd aan ImputationModel
+    
+    1.3\ CostCentreModel aangemaakt voor gebruik in ImputationController.
+
+commit 64850b7b134c7dfe980ed3a4fb39ffaabd2c0828
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Thu May 24 16:45:31 2012 +0200
+
+    1/ directory dirmaster/http/imputation verhinderde dat de imputationController zijn werk kon doen. mod_rewrite werkt alleen als er geen directory met de controllernaam bestaat. Dusdoende deze directory hernoemd naar __imputation. Ik begrijp ook niet helemaal wat die directory daar eigenlijk staat te doen?
+    
+    2/ Overal waar er projectFactory stond, vervangen door ProjectsFactory (grote P in het begin en ook ProjectS in het meervoud). Tevens nog een geval gevonden waar QuoteProject nog niet vervangen was door QuotedProject.
+    
+    3/ Extra methode bijgemaakt in HTMLHelper class om een array om te zetten in een select/option pulldown.
+    
+    4.1/ Creeren van DAL in de core model ge-encapsuleerd in een statische createDal() method, dit omdat er regelmatig queries moeten gebeuren die niet rechtstreeks iets met een bepaald project te maken hebben, maar algemeen zijn voor de project class. Dit is naar mijn gevoel een gevolg van uitsplitsen van de Models en de Common classes; als een ProjectModel rechtstreeks de data zou bijhouden ipv het in een common object te moeten pompen, hadden we dat niet static hoeven te doen.
+    
+    4.2/ deze wijziging ook doorgevoerd in OverviewModel en ProjectModel; vrij ingrijpende wijziging, want de meeste referenties naar  moesten herlegd worden naar self::.
+    
+    5/ ImputationModel, -View en -Controller aangemaakt
+    
+    6/ Properties oproepen met alleen maar een pijltje geeft blijkbaar een E_NOTICE: 'Indirect modification of overloaded property X::x has no effect'  als er een __get() method bestaat. Als je die foutmelding niet wil moet je ->__get('id') doen ipv ->id.
+
+commit 83b64c49bb8ebdbe0fa9811d9b9967c5a27655bb
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Tue May 22 18:51:34 2012 +0200
+
+    shell script gemaakt voor installatie van phpunit op xampp, Jos heeft de neiging om zijn xampp installatie regelmatig om zeep te helpen :)
+
+commit c8fbb8d00418231df32e57e17a6157e9932ec317
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Tue May 22 18:40:59 2012 +0200
+
+    1.1\ static  array overal private gemaakt en getter method voor geschreven in elke class die Entity extendt. Daar waar geen verdere extension meer verwacht wordt, deze method tevens als final gedefinieerd. Unit-tests hielpen hier goed bij om deze functionaliteit te benchmarken.
+    
+    1.2\ In Entity de body van getFieldsArray() aangepast zodanig dat er een EntityException gegooid wordt wanneer die wordt aangeroepen; in principe mag die function call nooit cascaden tot op het niveau van Entity.
+    
+    2\ AddProperty method uit Project class weggehaald, omdat dit nu overal op een uniforme manier wordt geregeld met de getFieldsArray() method.
+    
+    3\ ProjectCollection class file met een underscore ge-prefixt; wellicht hebben we deze niet meer nodig…
+    
+    4\ Filenaam van QuotedProject gecorrigeerd (de d in het midden was vergeten)
+
+commit 046d7fec05f949b80d0f916c9272262bee6d9354
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Tue May 22 17:52:58 2012 +0200
+
+    1\ Aanpassing aan projectweergave zodat een leeg projectteam op een andere manier wordt weergegeven.
+    
+MIG ????? overiew werkt niet meer 
+Sanitize checkSanity line 45 : " || empty($_value)" toegevoegd >>    2\ Bij illegale invoer in datum-zoekveld kwamen er errors tevoorschijn. De functie Sanitize::checkDateSanity() werd herschreven om dit op te vangen: eerst een check per input delimiter of er wel 2 inzitten en zo ja, omzetten naar slashkes en een controle doen van de datum.
+    
+
+OK MIG >>    3\ HTMLHelper class gemaakt in core directory, voorlopig nog maar met 1 method: createLink() . Deze zorgt ervoor dat we enkel HTML in de view schrijven en ook dat alle links uniform worden weergegeven.
+
+commit e4ed038d1d7243fa28594d67b6db1fc515c65194
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Mon May 21 22:13:50 2012 +0200
+
+    idFunction toegevoegd op koppelingstabel projectteammembers - export imputation20120521-22-11_NoCache.sql
+
+commit 54a8c07c4ae320c7d049952b0140ba74f1d224e3
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Mon May 21 17:32:16 2012 +0200
+
+OK MIG heb wel de error boodschap aangepast $e->getMessage staat nu in comment
+>>    1\ regel 29 in core\Model.php aangepast: \PDOException, (dus met slash ervoor) anders zoekt PHP naar de PDOException class binnen be\imputation, en die bestaat natuurlijk niet. Pijnlijk gevolg was dat de connectionstring naar het scherm werd gedumpt met de (zij het verkeerde) credentials en al. De print() op regel 31 vervangen door een die(); als de connectionstring verkeerd is mag hij verder niks doen en nu werd wel het login form getoond.
+    
+    2\ spelfoutje uit core/Run.php gehaald
+    
+MIG ENKELE VOORSTELLEN
+-- line 28 : moet eigenlijk in dcreg komen en uitgeprint worden in view
+-- $this->teammemberlist wordt rechtstreeks opgeroepin in view?
+ik zou dit toevoegen aan $dcreg zodat frontenddeve enkel een print_r hoeft te doen om te zien wat er beschikbaar is.
+>>    3.1\ In ProjectController de projectinfo wat netter weergegeven.
+    
+OK MIG :: voor mij mag dit wel ! >>     3.2\ in Project-view een if/else structuur gestoken maar eigenlijk mag dat niet volgens het MVC principe. Hoe steken we dat best in de controller?
+    
+OK MIG >>    4\ Het is goed dat projecten nu via hun ID worden opgehaald, maar de PDO parameter heette nog steeds :prnm, wat verwarring kan opleveren. Is nu vervangen door :prid waar nodig.
+    
+    5\ Employee-MVC-trio toegevoegd, vertrokken vanuit project.
+
+commit 656e5a694b959b09eb0a37c2565f5218dea6b637
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sun May 20 23:22:54 2012 +0200
+
+    1./ Bootstrap geimplementeerd in head header en page templates
+    2./ Bootstrap styling toegepast voor volgende views: home, login
+    logedin, logout en overview
+
+commit f4f48abeacc5aa64c33a12e48ae4c4d44e07ca2d
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sun May 20 16:58:45 2012 +0200
+
+    zoek opnieuw toegevoegd aan overview
+
+commit 58e0b7f1766d865cba08dd5e6168724b9f6ea97f
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sun May 20 16:53:50 2012 +0200
+
+    start datum label toegevoegd op overview formulier
+
+commit 736099a9d1ee2a4e52fa76cecaa428cf05343268
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sun May 20 16:44:39 2012 +0200
+
+    1./ form met startdate toegevoegd aan overview
+    2./ sanitize class uitgebreid met checkDateSanity
+    3./ generateFormGuid en checkFormGuid verplaatst naar model class (nog
+    niet verder uitgewerkt)
+    4./ ATTR_PERSISTENT toegevoegd aan PDO (model.php line 26)
+
+commit 1d7d526fa49c1fa2670819823bcb8512c58c550e
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sun May 20 02:00:29 2012 +0200
+
+    1./ overview mvc aangemaakt.
+    2./ projectModel : function getProjectValuesById toegevoegd
+    2.1./ alle functies die data ophalen werken nu op idProject en niet meer
+    op name.
+    3./ ProjectsFactory : array toegevoegd -> private static $projects
+
+commit 8923acd5c6db0cb8d8dc09a02e42edb79d2060b4
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sat May 19 22:04:03 2012 +0200
+
+    PARAM_STR
+
+commit 0edc0e085a571be0fe95f03d83b674bc7367de1a
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sat May 19 18:58:29 2012 +0200
+
+    1./ ProjectFactory class toegevoegd. Deze wordt gebruikt in projectModel
+    2./ addProperty toegevoegd aan Project class (line 37) TODO: dit hoort thuis
+    in de Entity class hiervoor dienen we $field reeds te declareren in
+    Entity
+    3./ QuotedProject heeft nu een constructor waarin "budget" property
+    wordt toegevoegd aan $fields
+    4./ ProjectFactoryException aangemaakt
+
+commit 2c6440238892a2ffddd03fd3c1f5db02f145df36
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sat May 19 13:35:48 2012 +0200
+
+    1./project name is Unique => alter DB in Dirmaster/Data/Bugfix.sql
+    2.1./ Entity.php aangepast met :
+    private ConvertNumeric (line 116) en protected
+    2.2./ isValueNullAndNotMandatory (line 100) > deze wordt opgeroepen in de
+    __SET
+
+commit b1527ef67002f5723873e9c2ed74b932afc293f6
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Wed May 16 17:34:21 2012 +0200
+
+    /model/Imputation.php hernoemd naar /model/ImputationModel.php om in lijn te lopen met de naamgevingswijziging van Mikael
+
+commit 1bf1f418b744a725969f9b73557cd95725b08956
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Wed May 16 17:29:27 2012 +0200
+
+    allMandatoryFieldsArePresent() method toegevoegd aan Entity class om van elk child object van Entity te checken of alle verplichte velden zijn ingevuld. Dit kan zeer belangrijk worden als we met bepaalde objecten bewerkingen willen gaan doen. Deze method werd ook getest in AddressTest en doet properkes wat hij moet doen.
+
+commit 053f8457594cd99c8dc6a0586a39d41d32d2cd43
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Wed May 16 16:44:11 2012 +0200
+
+    AddressType class verwijderd. Encapsulation van adrestype heeft geen zin, het kan aanschouwd worden als enkelvoudige property van een adres. Contact class uitgewerkt, analoog aan de Employee class, maar (voorlopig nog) zonder extra properties. Voor ons heeft een Contact niet meteen extra properties nodig t.o.v. een ander persoon, dus diens fields array mag nu nog leeg blijven. de getFieldsArray() method wordt wel al klaargezet voor het geval we extra velden zouden gaan aanmaken in de toekomst. Extra Exception aangemaakt voor de Contact class (Common\ContactException). Create() en Update() methods van Entity verwijderd. Unit tests hiernaar aangepast
+
+commit 6aafc2de3380687138a6ae7d3511d4bf51e558a6
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Wed May 16 15:24:23 2012 +0200
+
+    __get van Entity controleerde het type wel, maar deed nog niks als het type verkeerd was. Nu gooit die een Exception van het gepaste type i.f.v. de child class waarvan de property geest werd. Door alle testen nog eens te draaien erachter gekomen dat de EmailAddress class nog een foutje bevatte in zijn  array. Type van email property moet uiteraard string zijn en die stond verkeerdelijk nog op integer; wschl een copy-paste foutje.
+
+commit b5eccd3f5d52b4e3162281c34c4e8ec35809e1ed
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Wed May 16 14:53:19 2012 +0200
+
+    Employee class aangepast: functionDescription mag niet public zijn. De expliciete getters en setters zijn niet meer nodig, aangezien __get en __set van de Entity class deze functionaliteit op zich nemen. EmployeeException class toegevoegd en fields array uitgebreid, vertrekkende van de fields array van de Person class. Hiervoor moest er een getter geschreven worden voor de  array, aangezien het oproepen ervan nu op 2 verschillende manieren kan moeten gebeuren. Employee unit-test aangemaakt om deze uitbreiding te testen. Erachter gekomen dat PersonTest nu ook faalt. Dit komt doordat de __get en __set van Entity zijn aangepast. Unit test PersonTest werkt nu weer. Objectcreatie via inputArrays afgeschaft. Doel was om een result-array uit de databank rechtstreeks in een object te kunnen pompen, maar de veldnamen van de databank matchen toch niet 1 op 1 met de propertjes van de objecten, dus dat heeft geen zin meer. AddressTest aangepast om dit te reflecteren
+
+commit 44820d2e8fa2b685f0355d4cc43e867067e16e59
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Wed May 16 11:59:13 2012 +0200
+
+    Imputation class verder uitgewerkt, alsook een unit test geschreven hiervoor. Door de unit test nog enkele verbeteringen aangebracht aan de Entity class waar Imputation van overerft. COntrole van types in Entity zit nu ook in een aparte private method om de magic __set() te vereenvoudigen.
+
+commit 0044b1c0e0ffdd72f8dff6245e1f186bd3996958
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Tue May 15 15:40:46 2012 +0200
+
+    opzet voor phpunit test suite = fail
+
+commit dc2097f29150a062704564fcf2679b9b414e1ecc
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Mon May 14 22:30:07 2012 +0200
+
+    refactor dal, dcreg in templates vb:header, aanzet project factory
+
+commit 1929c2ef1b0091701abf7e186cf170b1561a6426
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Mon May 14 20:46:18 2012 +0200
+
+    SQL file met lowercase tabelnamen toegevoegd aan data dir
+
+commit 5b76e8f42f7beee5dbcebe719ac3d56d5245b5a7
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Mon May 14 19:27:41 2012 +0200
+
+    tikfoutje gecorrigeerd
+
+commit 2a83605d069825fc726548f19b034a5f40bbc915
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Mon May 14 19:21:21 2012 +0200
+
+    project-object-opbouw uit de common classes gerealiseerd met ArrayObjects
+
+commit 208cc70f294c5c166be81aefd01192ed7ac02f0c
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Mon May 14 18:56:19 2012 +0200
+
+    Alle collections vervangen door ArrayObjects
+
+commit fd422f69d539e44e6f7c5bb2d3a4fe7c66a4fb9c
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Mon May 14 15:55:35 2012 +0200
+
+    In projectModel de common classes proberen te gebruiken. Vanaf hier een experiment-branch om collecties ni arrays of ArrayObjects op te slaan ipv in SplObjecCollections
+
+commit 9d5becde954ec39e4384308a793aca4205b3e455
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Mon May 14 00:08:05 2012 +0200
+
+    project mvc toegevoegd - geeft projectid argument terug uit url
+
+commit 9aa13c08edc447c62bd3b37c711d0591edea804d
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sun May 13 22:14:33 2012 +0200
+
+    root en pathseparator
+
+commit 6b10c5bbc65cd0c116d82fdf614bc2290fc0cd50
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sun May 13 21:48:20 2012 +0200
+
+    load_my_classe aangepast: alle models hernoemd naar viewnaamModel, all controlers hernoemd naar viewnaamCotnroller, require_once staan nu in comment
+
+commit 39c3136d3ec44746565451a88fe33759b04c9548
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sun May 13 21:02:58 2012 +0200
+
+    login logout links toegevoegd aan templates/header.php, logout mvc, formGuid in login controller, DynamicContentControler is nu Singelton
+
+commit ee231cdd4bce153222f2fab999936832edacf889
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Thu May 10 19:06:39 2012 +0200
+
+    De door ArgoUML gegenereerde class code opgeschoond en klaargezet om te kunnen gaan gebruiken in de Entity en Collection gebaseerde architectuur. Ook zijn een aantal enumeratie-classes zoals ProjectStatus, AddressType, etc. nu extenties van de ingebouwde SplEnum class. Ook de datum en datum/tijd containers extenden nu het ingebouwde DateTime object wat een aantal handige functionalteiten met zich meebrengt, zoals o.a. een diff() method die een verschil tussen 2 DateTime objecten teruggeeft wat we veelvuldig gaan moeten gebruiken om gewerkte tijd te destilleren uit start- en eindtijdstip.
+
+commit 5a1cff5638113122b658e4fa8b0ec30b7100b2e8
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Thu May 10 12:34:16 2012 +0200
+
+    Extra classes Person en EmailAddress toegevoegd, alsook een EmailAddressCollection en een PersonTest. Door deze test zijn er wat mankementen gevonden in de Entity class die bij deze ook zijn opgelost.
+
+commit 262b62f3803a6fbc8468632bd6e110f0025db51e
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Thu May 10 10:25:17 2012 +0200
+
+    verwijderde interface files ook ge-untracked in git
+
+commit 094d0bf67e120acb75e6d7895d548d1b0f4f81da
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Thu May 10 10:20:16 2012 +0200
+
+    Alle verantwoordelijkheden van het Address object verplaatst naar de abstracte parent class "Entity". Entity geeft nu concrete code die de Create, Update en Delete functionaliteit voor alle ervan overervende classes gaat regelen. In de entiteit classes zelf (Imputation, Person, Address, Company, etc.) moet je dan enkel nog de velden declareren en de bijbehorende protected variabelen. De rest wordt allemaal geregeld door de basisclass Entity
+
+commit f0617019667a41c992f1ecf43a78cf37c3119895
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Thu May 10 09:33:33 2012 +0200
+
+    AddressCollection extendt nu Collection die op zijn beurt \SplObjectStorage extendt. Unit tests OK.
+
+commit f88efccc56a47e322bf80e4f93056e9a8f128cd5
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Wed May 9 18:02:46 2012 +0200
+
+    Addresscollection niet meer implemeteren naar iAddressCollection, maar nu extenden van de in PHP ingebouwde \SplObjectStorage class die ervoor gemaakt is om objecten bij te houden. De AddressCollectionTest is ook herschreven om die nieuwe functionaliteiten te testen en alles slaagt op dat vlak. Volgende stap is om alle collections op die manier te gaan opvatten. Met veel kans kan daar nog e.e.a. geabstraheerd worden naar een abstracte Collection class die het gemeenscahppelijke deel code van toevoegen en opzoeken in zo'n collectie centraal regelt. Specifieke toepassingen kunnen dan de gelijknamige functies van hun parent overerven en er nog wat extra's mee doen
+
+commit de3f98927fce28fb66e035abf3bd604d4273e769
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Wed May 9 15:33:22 2012 +0200
+
+    Addresscollectiontest gemaakt alsook een addresscollectionexception
+
+commit 84fd1565d5aacec546e56d12c00cfafc06181c3a
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Wed May 9 11:21:51 2012 +0200
+
+    nog 2 extra assertions met assertClassHasAttribute() en assertClassNotHasAttribute()
+
+commit 57bb826a43d6ae33f70f00546a8e4e30d66ae6b3
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Wed May 9 11:06:59 2012 +0200
+
+    Eigen AddressException aangemaakt om in de unit tests hierop te kunnen testen m.b.v. @expectedException. Unit test verder uitgebreid; op dit moment zijn er 6 tests met daarin 14 assertions die allen OK passeren. Toch een aantal foutjes uit de code gehaald hierdoor, dus zeker nuttig, maar op grote schaal neemt het schrijven van dit soort testen ZEER veel tijd in beslag
+
+commit a4fb9e47c246eca5593edd3044a2b10bd727538d
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Tue May 8 16:57:09 2012 +0200
+
+    Address class herwerkt met lege string en getal 0 initialisaties voor de properties. __get() method toegevoegd. unit test herwerkt hiernaar
+
+commit c252e7a23bd7f3da80c740c4f297a1d2a3378bcd
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Tue May 8 13:26:57 2012 +0200
+
+    dirmaster/common ge-untracked
+
+commit 5e2f493a036e7fc6a0a4be358eb4b65270f712a6
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Tue May 8 13:25:41 2012 +0200
+
+    common_classes verplaatst naar binnen de http folder
+
+commit d51b305fd8aab123642bdc3c28402a3f72075155
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Mon May 7 22:33:53 2012 +0200
+
+    test2.php - update ->number als test
+
+commit cd4d4b5255e8c7452a24cad644bf3af4f854650c
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Sun May 6 12:30:54 2012 +0200
+
+    Unit test opzet gemaakt voor testen van de Common Address class
+
+commit acea1f895021cd3d79e26b065ee02a016b06e34f
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Sat May 5 01:41:31 2012 +0200
+
+    Wat extra dingen in gitignore toegevoegd voor
+    gebruik van Eclipse op Windows. interfaces en collections
+    in orde gezet om een test te kunnen doen met de common
+    classes Address en AddressCollection. Begin te twijfelen
+    of het veelvuldig gebruik van interfaces hier op zijn
+    plaats is. Na wat studie erachter gekomen dat deze interfaces
+    wellicht kunnen vervangen worden door abstracte classes en
+    overerving. Zo kan je ook de definitie van bepaalde methods
+    afdwingen en vermijd je dubbele code die we zeker gaan krijgen
+    als we met interfaces blijven werken. Nu zit er nog veel data in
+    arrays daar waar we aparte objecten voor kunnen gebruiken (zoals
+    bvb een AddressSpec Object ipv een assoc. array). Nog veel werk
+    aan de winkel :)
+
+commit 042d68fb5910247de0eff5af3fc4f0785af1b79d
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Fri May 4 17:33:50 2012 +0200
+
+    Addresscollection opnieuw gesaved
+
+commit cf8e62a2c9dfb1d7f12191c949edbcc4890fb9df
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Fri May 4 17:33:00 2012 +0200
+
+    Aanpassing aan AddressCollection class. Geheel kon nog niet getest worden doch wordt toch gepusht naar GitHub om er thuis aan verder te kunnen werken
+
+commit 9e7b328f1eb9826e0b276848aec70b29bb01ca54
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Wed May 2 15:52:32 2012 +0200
+
+    mod_rewrite routing args .htaccess
+
+commit 1e68f290fd364398bc829b4d8f796752c7be01b2
+Merge: b886d20 7686efe
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Wed May 2 13:22:50 2012 +0200
+
+    Merge branch 'master' of github.com:mikaelg/imputation
+
+commit b886d2035bb878732a9a69e46fccae0fa0905f13
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Wed May 2 13:10:28 2012 +0200
+
+    bootstrap
+
+commit b697bf43ab1cff7cde80c3eb20350f55151e3744
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Wed May 2 11:30:56 2012 +0200
+
+    run.php dynamic loading
+
+commit 7686efeb5802f72877e3d0bef69b031a7627d2f9
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Wed May 2 11:30:25 2012 +0200
+
+    index file verwijst nu correct naar de werkdirectory voor Mac Xampp
+
+commit 93d6e8fbf6f750c56ee205c51373e512cf1c5c50
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Tue May 1 12:59:20 2012 +0200
+
+    Autoloader test -> MIG
+
+commit f80b3bb8e93237c4f6c28e102e79c56af457ba7d
+Merge: 708cdc9 1610583
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Tue May 1 11:49:26 2012 +0200
+
+    Merge branch 'master' of github.com:mikaelg/imputation
+    
+    Conflicts:
+    	dirmaster/http/core/Run.php
+
+commit 1610583b899fd98aeefbb8cc9c0925824fd214f3
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue May 1 10:39:18 2012 +0200
+
+    AuthenticationController, login met authenticatie controle op vb: overview pagina.
+
+commit a7aec7472ba0be81a4d3ad827b68e82036ba90ad
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Mon Apr 30 00:36:42 2012 +0200
+
+    database export
+
+commit f61f0fb86093cdbe1772f06c9087af3574b4045d
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Mon Apr 30 00:13:39 2012 +0200
+
+    simplified run, login page with model and core/sanitize class
+
+commit 708cdc938f3d3f69600d2c75545e15bfa421950f
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Sun Apr 29 12:13:26 2012 +0200
+
+    autoloader in effect, maar nog conflict met classes die niet dezelfde naam hebben als hun file. Nog overleggen met MIG wat we gaan doen met de controller classes
+
+commit 54f766ffe26a501b2cf510e1b9ba23c36a868e0e
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sat Apr 28 23:28:23 2012 +0200
+
+    deleted home_OLD.php
+
+commit 1873d27b0b421efefa8e11bd07fce7b4b2cb91f8
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sat Apr 28 23:27:10 2012 +0200
+
+    abstract controlle, dynamicContentRegistry, model -> aanzet
+
+commit c26a0da9f1fc69dab5096b8542322ae5f60dea2e
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Sat Apr 28 12:51:29 2012 +0200
+
+    Dummydata SQL file verder aangevuld. Bugs in initiele SQL file kunnen worden gepatched met Bugfix.sql. abstracte class DbBasedObject aangemaakt die basis SQL operaties doet. De Imputation class extendt deze. Nieuwe map tests aangemaakt om classfunctionaliteit in te testen.
+
+commit 42f4a84e12a296e471f57bb70da0858c9da3e749
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Fri Apr 27 13:45:01 2012 +0200
+
+    dummy data SQL aangepast
+
+commit 0a4ddb1c0af7ac3a4060adb1f0c925ba62537bb6
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Fri Apr 27 00:16:27 2012 +0200
+
+    eerste schuctere poging voor MVC
+
+commit a5533740dc63b2afae7eed5dd94e41b0281e02f4
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Tue Apr 24 18:55:06 2012 +0200
+
+    opzet gemaakt voor developer based rapport + dummy data SQL file aangemaakt
+
+commit 9003e3d6c25282f103ca980a4462bd0a888ef209
+Merge: f726809 e726474
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Tue Apr 24 17:26:32 2012 +0200
+
+    Merge branch 'master' of github.com:mikaelg/imputation
+
+commit f72680922d215d79ec6398fbe08f7546002f1344
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Tue Apr 24 17:26:24 2012 +0200
+
+    commit om weer te kunnen pullen
+
+commit e726474b01485429d1950138ee49409ddec4f7e9
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Fri Apr 20 23:23:52 2012 +0200
+
+    run added homepage
+
+commit e9bf28b332302c12244f319d51fe56f51945eb63
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Fri Apr 20 22:43:52 2012 +0200
+
+    added table CompanyPerson - imported countries
+
+commit 626c77e9ce52dad8611620d4018cd2f408f971ae
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Thu Apr 19 22:39:03 2012 +0200
+
+    Reportscontroller toegevoegd om te kunnen testen. Database nog niet aangepast om controllers te gaan zoeken, maar wel al e.e.a. toegevoegd aan de Run class om de testen te kunnen doen, al dan niet met code die effectief gaat zoeken. Tevens een debugger class toegevoegd om voor testdoeleinden het echo'en van debug informatie snel te kunnen in- en uitschakelen
+
+commit fb0a40b955f36ffa5b8e992721a11fa139339b09
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Thu Apr 19 17:41:02 2012 +0200
+
+    controler -> controller
+
+commit d23207f9510494a48a088a98571971fa9565028b
+Merge: f8f2164 df8d96c
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Thu Apr 19 07:33:23 2012 +0200
+
+    Merge branch 'master' of github.com:mikaelg/imputation
+
+commit f8f2164a78d34c71972a4814b31be5aed387bb55
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Thu Apr 19 07:31:56 2012 +0200
+
+    index.php - mvc classes dirs - core classes dir
+
+commit df8d96caeec531594ff71b1b05b466d8d5ee0033
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Mon Apr 16 14:56:49 2012 +0200
+
+    SQL file met landenlijst op de juiste plaats gezet :$
+
+commit 312cebd76427908f9eab9b7f8502452d17018177
+Author: Jos Bolssens (@ imac OWS) <marvelade@gmail.com>
+Date:   Mon Apr 16 14:55:48 2012 +0200
+
+    SQL file met landenlijst toegevoegd
+
+commit f51ba9be898c2be1e5eef04f483b5b3d5d844461
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sat Apr 14 23:10:52 2012 +0200
+
+    sql ERD
+
+commit 963ef21b61d0db7ab706d732fc2420ddff6bd0f5
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 23:33:54 2012 +0100
+
+    test
+
+commit 9dc583aa7c79042283393adb34caa1e2f4259f4d
+Merge: 224079f f69fd4a
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 23:30:05 2012 +0100
+
+    Merge branch 'master' into temprevert
+
+commit f69fd4a514b438d0168bc645dd04b530a991cd9b
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 23:28:46 2012 +0100
+
+    test from master
+
+commit 224079f3bb5427d37040eddafef5631f75aa0cab
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 23:26:56 2012 +0100
+
+    test from temprevert
+
+commit 5e05b4ac94709931ec99d0a8215bd85bc0606ea7
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 23:24:14 2012 +0100
+
+    delete directory
+
+commit 1185b64d1f4159906bc726349c7581d90217d1e2
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 23:07:00 2012 +0100
+
+    renamed dir
+
+commit f2f2d5aac0bc80346e0269fe4d08f2615f8e3405
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 23:00:37 2012 +0100
+
+    newdir
+
+commit 20cdc72d79431fefbee1a1cfe181eb4b7d7ff08c
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 21:17:28 2012 +0100
+
+    bookmarks
+
+commit a9d2254d1ffb97f0511877d028baa913634a3cf1
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 20:58:17 2012 +0100
+
+    testfeature1
+
+commit b7e62c485211de983ec69d6a602f4d19a6ebd58b
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 20:51:43 2012 +0100
+
+    testmig2
+
+commit d7e2f3abe55d8967feb497cb80fbe76497a4325c
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 20:45:13 2012 +0100
+
+    testmig tweed commit
+
+commit b1472ec0000fe268cfce30c84af9709e6e1138d5
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 20:44:11 2012 +0100
+
+    testmig eerst commit
+
+commit 4702c05881a24a5004b156959781a3a40b8e7b7b
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Tue Mar 13 20:13:12 2012 +0100
+
+    test readme
+
+commit bbb14de63f3092fdceeeb2d378bb14c367ff23dd
+Author: Georges Bolssens <marvelade@gmail.com>
+Date:   Tue Mar 13 20:28:17 2012 +0100
+
+    experimentje
+    
+    poipoipoipoipoi
+
+commit ffd8095fbac765147bf5b089d7931b80da94537b
+Author: Jos Bolssens <marvelade@gmail.com>
+Date:   Tue Mar 13 10:35:37 2012 +0100
+
+    Test commit
+    
+    De tekst "Lees mij" is toegevoegd aan de README
+
+commit db9315ec6dfd4a4224060d29f0ae2a4e451460c2
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sun Mar 11 11:25:29 2012 +0100
+
+    gitignore file
+
+commit d15cc99c65d25748177bd369ab13e077b2b7e08e
+Author: Mikael Gyselinck <mikael.gyselinck@gmail.com>
+Date:   Sun Mar 11 11:24:46 2012 +0100
+
+    first commit

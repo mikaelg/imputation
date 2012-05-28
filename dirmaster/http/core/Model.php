@@ -18,7 +18,7 @@ class Model{
 		try{
 			$dal = new \PDO( 'mysql:host=localhost;dbname=Imputation',
 					'root',
-					'',
+					'root',
 					array(
 							\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY    => 1,
 							\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
@@ -28,7 +28,7 @@ class Model{
 			return $dal;
 		}catch (\PDOException $e){
 
-			die("Database connection failed : check connectionstring: ".$e->getMessage());
+			die("Database connection failed : check connectionstring!"); // error boodschap geeft login weer.$e->getMessage());
 		}
 	}
 	
@@ -58,7 +58,7 @@ class Model{
 		/**
 		 * doe één of ander check tegen de database.
 		 * vb session id + controllername.
-		 * verder onderzoeken hoe dit in Drupal wordt opgevangen
+		 * verder onderzoeken hoe dit in in ander frameworks wordt opgevangen
 		 */
 		return true;
 	}
