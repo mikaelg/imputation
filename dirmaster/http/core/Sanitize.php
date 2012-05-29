@@ -40,9 +40,13 @@ class  Sanitize {
 		
 	}
 	
-	public static function checkSanity($_value,$_type,$_length=100)
+	public static function checkSanity($_value,$_type,$_length=100, $_mandatory = true)
 	{
-		if(is_null($_value) || empty($_value))
+		if(empty($_value) && $_mandatory)
+			return false;
+		
+		
+		if(is_null($_value))
 		{
 			return false;
 		}
@@ -66,7 +70,7 @@ class  Sanitize {
 	public static function checkDateSanity($_value)
 	{
 		// delimiters in separate array to be able to add/modify the supported input delimiters
-		$supportedInputDelimiters = array('-','_','|');
+		$supportedInputDelimiters = array('-','_','|', '/');
 		
 		// initialize the SUPported INPut DELimiters presence flag to false
 		$supInpDel_present = false;

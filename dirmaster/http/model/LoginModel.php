@@ -79,6 +79,7 @@ class LoginModel extends Model {
 				//session_start();
 				$_SESSION['loginsession'] = $userid.'#'.md5($loginName.$userid.$_SERVER['REMOTE_ADDR']);
 				$_SESSION['fullname'] = $result['fullname'];
+				$_SESSION['userid'] = $userid;
 				
 				
 				

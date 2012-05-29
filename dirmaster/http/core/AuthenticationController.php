@@ -18,6 +18,7 @@ abstract class AuthenticationController extends Controller{
 		
 		$userid = "2";
 		$loginName = "mig";
+
 		
 		parent::__construct($_controller,$_args);
 		

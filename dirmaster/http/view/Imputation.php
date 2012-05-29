@@ -1,4 +1,12 @@
 <?php namespace be\imputation; ?>
+
+<script type="text/javascript">
+		
+		$(function(){
+			$('#date').datepicker();
+		});
+	</script>
+
 <div class="row">
 	<div class="span4">
 		<div class="page-header">
@@ -48,8 +56,8 @@
 			<br />
 			
 			<label for="date" >Datum (dd-mm-yyyy)</label>
-			<input type="text" name="date" value="" maxlength="10" />
-			
+			<input type="date" class=""  id="date" name="date" value="<?php echo date("d/m/Y"); ?>" data-date-format="dd/mm/yyyy">
+
 			<label for="numHours" >Aantal uren</label>
 			<input type="text" name="numHours" value="" maxlength="2" />
 					
