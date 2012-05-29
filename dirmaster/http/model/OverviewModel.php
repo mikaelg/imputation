@@ -39,7 +39,7 @@ class OverviewModel extends Model {
 	}
 	
 	public function CheckDateRequest(){
-		if(isset($this->formvars['startDate']) && Sanitize::mig_checkSanity($this->formvars['startDate'], 'string', 10)){
+		if(isset($this->formvars['startDate']) && Sanitize::checkSanity($this->formvars['startDate'], 'string', 10)){
 			return true;
 		}
 		else

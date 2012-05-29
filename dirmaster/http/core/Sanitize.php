@@ -40,11 +40,45 @@ class  Sanitize {
 		
 	}
 	
-	public static function checkSanity($_value,$_type,$_length=100, $_mandatory = true)
-	{
-		if(empty($_value) && $_mandatory)
-			return false;
+	/*
+	public static function checkEmpty($_value,$_type){
 		
+		if( $_mandatory){
+			switch($_type)
+			{
+				case 'string':
+				case 'str':
+					$_value = (string) strval($_value);
+				break;
+				
+				case 'integer':
+				case 'int':
+					$_value = (int) intval($_value);
+				break;
+				
+				case 'float':
+				case 'double':
+					$_value = (float) floatval($_value);
+				break;
+				
+				case 'boolean':
+				case 'bool':
+					$_value = self :: toBool($_value);
+				break;
+				
+				default:
+					throw new \Exception($_type . 'is an illegal type.');
+				break;
+			}
+		}
+		//	return false;
+		
+		self::checkSanity($_value,$_type,$_length=100, $_mandatory = true);
+	}
+	*/
+	
+	public static function checkSanity($_value,$_type,$_length=100)
+	{	
 		
 		if(is_null($_value))
 		{
