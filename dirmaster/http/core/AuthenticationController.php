@@ -16,8 +16,10 @@ abstract class AuthenticationController extends Controller{
 		 * Don't know if this is OK by MVC police?
 		 */
 		
-		$userid = "12345";
-		$loginName = "mig";
+		// id en loginname van mikael stonden hier nog hardcoded, dus geraakte ik er sowieso niet in
+		// zeker een te bespreken punt voor vanavond...
+		$userid = "1";
+		$loginName = "jos";
 		
 		parent::__construct($_controller,$_args);
 		

@@ -1,4 +1,4 @@
-<? namespace be\imputation; ?>
+<?php namespace be\imputation; ?>
 
 <div id="wrapper">
 
@@ -36,7 +36,7 @@
 			<?php echo $dcreg->project->customerCompany->name;?></div>
 			
 			<div>
-			<? 
+			<?php 
 			if($dcreg->project->numberOfProjectTeamMembers() > 0)
 			{
 				$first = true;
