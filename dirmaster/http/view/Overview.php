@@ -1,4 +1,4 @@
-<? namespace be\imputation; ?>
+<?php namespace be\imputation; ?>
 
 
 	<script type="text/javascript">

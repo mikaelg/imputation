@@ -27,17 +27,32 @@ class ImputationController extends Controller {
 		// zijn we reeds ingelogd ?
 		if($this->loginmodel->loginStatus())
 		{
-
+			if($this->model->formSubmissionSent())
+			{
+				$checkResult = $this->model->checkImputationValues();
+				if($checkResult === true)
+				{
+					$saveResult = $this->model->saveImputationToDB();
+					if($saveResult === true)
+					{
+						echo '<div class="alert alert-success">
+						    	<button class="close" data-dismiss="alert">×</button>
+						    	<h2>Imputatie opgeslagen!</h2>
+						    </div>';
+					}
+					else
+					{
+						echo "something went wrong : " . $saveResult;
+					}
+				}
+				else
+				{
+					$this->dcreg->warnings = $checkResult;
+				}
+			}
 			//echo '<pre>' . print_r($_POST,true) . '</pre>';
-			$checkResult = $this->model->checkImputationValues();
-			if($checkResult === true)
-			{
-				echo "Imputation was valid!";
-			}
-			else
-			{
-				$this->dcreg->warnings = $checkResult;
-			}
+			
+			
 			
 			$this->dcreg->formGuid = $this->model->generateFormGuid();
 			$this->assembleView();

@@ -22,6 +22,66 @@ class ImputationModel extends Model {
 		return CostCentreModel :: getCostCentres();
 	}
 	
+	public function saveImputationToDB()
+	{
+		//echo '<pre>' . print_r($this->formvars,true) . '</pre>';
+		//echo '<pre>' . print_r($_SESSION,true) . '</pre>';
+		
+		try
+		{
+			$sql = "INSERT INTO imputations SET
+					idProject = :idProject,
+					idPerson = :idPerson,
+					idCostCentre = :idCostCentre,
+					start = :start,
+					end = :end,
+					isBillable = :isBillable,
+					comment = :comment;";
+					
+					
+			
+			$stmt = $this->dal->prepare($sql);
+			
+			$stmt -> bindValue(':idProject', intval($this->formvars['projectId']), \PDO::PARAM_INT);
+			$stmt -> bindValue(':idPerson', intval($_SESSION['userid']), \PDO::PARAM_INT);
+			$stmt -> bindValue(':idCostCentre', intval($this->formvars['costCentre']), \PDO::PARAM_INT);
+			
+			$startDateTime = (self::dutchDate2isoDate($this->formvars['date'])) . " 00:00";
+			//echo "<br />start : " . $startDateTime;
+			$stmt -> bindValue(':start', $startDateTime, \PDO::PARAM_STR);
+			
+			$endDateTimeUTC = strtotime(self::dutchDate2isoDate($this->formvars['date'])) + (floatval($this->formvars['numHours']) * 60 * 60);
+			$endDateTime = date("Y\-m\-d h\:i", $endDateTimeUTC);
+			//echo "<br />end : " . $endDateTime;
+			$stmt -> bindValue(':end', $endDateTime, \PDO::PARAM_STR);
+			
+			
+			$stmt -> bindValue(':isBillable', intval($this->formvars['invoiceable']), \PDO::PARAM_INT);
+			$stmt -> bindValue(':comment', strip_tags(strval($this->formvars['comments'])), \PDO::PARAM_STR);
+		
+			$stmt -> execute();
+			
+			if($stmt -> errorCode() === '00000')
+			{
+				return true;
+			}
+			else
+			{
+				return $stmt -> errorCode();
+			}
+		}
+		catch (\PDOException $e)
+		{
+			die("FATAL ERROR: PDO Exception: " . $e->getMessage());
+		}
+	}
+	
+	public static function dutchDate2isoDate($d)
+	{
+		$dateparts = explode('/', $d);
+		return $dateparts[2] . '-' . $dateparts[1] . '-' . $dateparts[0]; 
+	}
+	
 	public function checkImputationValues()
 	{
 		/**
@@ -62,9 +122,9 @@ class ImputationModel extends Model {
 			$warnings[] = "Cost Centre is not valid";
 		}
 		
-		if(isset($this->formvars['date']) && Sanitize::checkDateSanity($this->formvars['date'], 'int'))
+		if(isset($this->formvars['date']) && Sanitize::checkDateSanity($this->formvars['date']))
 		{
-			$date = new \DateTime($this->formvars['date']);
+			$date = $this->formvars['date'];
 		}
 		else 
 		{
@@ -88,6 +148,7 @@ class ImputationModel extends Model {
 		}
 		else 
 		{
+			
 			$warnings[] = "invoiceable is not valid";
 		}
 		
