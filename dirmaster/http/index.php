@@ -10,7 +10,10 @@ function load_my_classes($_cls)
 {
   //echo '<hr />' . $_cls . '<hr />';
   $PATH_SEPARATOR = DIRECTORY_SEPARATOR;
-  $ROOTPATH = $_SERVER["DOCUMENT_ROOT"];
+  //$ROOTPATH = $_SERVER["DOCUMENT_ROOT"];
+	$ROOTPATH = dirname($_SERVER["SCRIPT_FILENAME"]);
+	
+	//print_r($_SERVER);
   
 	
   // Windows XAMPP

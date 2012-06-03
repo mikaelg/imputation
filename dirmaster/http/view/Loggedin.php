@@ -15,6 +15,12 @@
 		<p>Maak een keuze uit onderstaande pagina's</p>
 		<ul>
 			<li><a href="/Overview">Overzicht van de projecten</a></li>
+			<li><a href="/project/testproject">Project "testproject"</a></li>
+			<li><a href="/employee">Employee</a></li>
+			<li><a href="/imputation">Imputation</a></li>
+			
+			
+			
 			<li><a href="/Logout">Logout</a></li>
 		</ul>
 		

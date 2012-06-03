@@ -7,7 +7,7 @@
  * @author gyselinckmikael
  *
  */
-class ImputationController extends Controller {
+class ImputationController extends AuthenticationController {
 
 	public function __construct($_controller,$_args = array()){
 		parent::__construct($_controller,$_args);
@@ -22,13 +22,14 @@ class ImputationController extends Controller {
 		 */
 		
 		$this->model = new ImputationModel($_POST);
-		$this->loginmodel = new LoginModel($_POST);
+		//$this->loginmodel = new LoginModel($_POST);
 		
 		// zijn we reeds ingelogd ?
-		if($this->loginmodel->loginStatus())
-		{
+		//if($this->loginmodel->loginStatus())
+		//{
 			if($this->model->formSubmissionSent())
 			{
+				echo "SUBMITTED";
 				$checkResult = $this->model->checkImputationValues();
 				if($checkResult === true)
 				{
@@ -57,10 +58,10 @@ class ImputationController extends Controller {
 			$this->dcreg->formGuid = $this->model->generateFormGuid();
 			$this->assembleView();
 				
-		}
-		else
-		{
-			die("A nee, da mag nie... Inloggen a.u.b.");
-		}
+		//}
+		//else
+		//{
+		//	die("A nee, da mag nie... Inloggen a.u.b.");
+		//}
 	}
 }

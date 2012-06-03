@@ -83,7 +83,9 @@ class Run extends Router {
 			}
 			else
 			{
-				print('return 404 error page');
+				//print('return 404 error page');
+				header("Location: /page404");
+				return;
 			}
 			
 

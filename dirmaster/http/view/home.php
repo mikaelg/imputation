@@ -4,8 +4,8 @@
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
         <h1>Imputation</h1>
-        <p>Een bedrijf heeft projecten voor verschillende klanten waar medewerkers type uren op registreren en projectmanagers rapporten uit kunnen trekken.</p>
-        <p><a class="btn btn-primary btn-large" href="https://github.com/mikaelg/imputation" target="_blank">Envisioning : Lees meer &raquo;</a></p>
+        <p>Om gebruik te maken van het Imputation project dien je te beschikken over een geldige login en paswoord.</p>
+        <p><a class="btn btn-primary btn-large" href="/login" >LOGIN &raquo;</a></p>
       </div>
       
       <div class="row">
@@ -15,12 +15,14 @@
 			    <li><a href="/login">login</a></li>
 				<li><a href="/overview">Overview</a></li>
 				<li><a href="/project/testproject">Project "testproject"</a></li>
+				<li><a href="/employee">Employee</a></li>
+				<li><a href="/imputation">Imputation</a></li>
 			</ul>
         </div>
         <div class="span5">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
+          <h2>Envisioning</h2>
+           <p>Een bedrijf heeft projecten voor verschillende klanten waar medewerkers type uren op registreren en projectmanagers rapporten uit kunnen trekken.</p>
+          <p><a class="btn" href="https://github.com/mikaelg/imputation" target="_blank" >Envisioning : Lees meer &raquo;</a></p>
        </div>
         <div class="span5">
           <h2>Heading</h2>

@@ -6,7 +6,7 @@
  * @author gyselinckmikael
  *
  */
-class LoginModel extends Model {
+class LoginModel extends AuthenticationModel {
 	
 	public function __construct($_args  = array()){
 		parent::__construct($_args);
@@ -90,6 +90,7 @@ class LoginModel extends Model {
 	
 	}
 	
+	/*
 	private function checkInDatabase($_uid, $_pwd){
 		
 		$encPwd = md5($_pwd);
@@ -120,5 +121,6 @@ class LoginModel extends Model {
 		// if you ain't out of here yet, there definitely something wrong !!!!
 		return false;
 	}
+	*/
 	
 }

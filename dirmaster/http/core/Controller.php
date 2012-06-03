@@ -21,32 +21,6 @@ abstract class Controller{
 	 */
 	public function __construct($_controller,$_args = array()){
 		
-		/*
-		 * !!!!!!!!!!! 
-		 * can't get this to work. 
-		 * So i moved it to the child controller
-		 * An other reason tom moved it, is that the child controller logic has to determine which model to use.
-		 * !!!!!!!!!!!!!!!!
-		if(file_exists('model/'.$_controller.'.php'))
-		{
-			require_once 'model/'.$_controller.'.php';
-			
-			
-			$className = ucfirst($_controller).'_model';
-			if (!class_exists('Home_model')) 
-			{ 
-			    //throw new Exception('Class $className Not Found !'); 
-				print 'Class $className Not Found !';
-			} 
-			else 
-			{ 
-			    $this->model = new $className; 
-			}
-			
-			//$this->model = new Home_model();
-			
-		}
-		*/
 		
 		$this->dcreg = DynamicContentRegistry::instantiate();
 		//$this->dcreg = new DynamicContentRegistry;
