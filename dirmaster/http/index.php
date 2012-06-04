@@ -1,5 +1,6 @@
 <?php namespace be\imputation;
 ob_start();
+header("Content-Type: text/html; charset=UTF-8");
 
 /**
  * Don't output anything in this file.

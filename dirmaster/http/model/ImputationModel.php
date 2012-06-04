@@ -132,7 +132,7 @@ class ImputationModel extends AuthenticationModel {
 		}
 		
 		
-		if(isset($this->formvars['numHours']) && $this->formvars['numHours'] != '' && Sanitize::checkSanity(floatval($this->formvars['numHours']), 'float'))
+		if(isset($this->formvars['numHours']) && $this->formvars['numHours'] != '' && intval($this->formvars['numHours'])>0 && Sanitize::checkSanity(floatval($this->formvars['numHours']), 'float'))
 		{
 			$numHours = floatval(abs($this->formvars['numHours']));
 		}
