@@ -36,14 +36,12 @@ class ImputationController extends AuthenticationController {
 					$saveResult = $this->model->saveImputationToDB();
 					if($saveResult === true)
 					{
-						echo '<div class="alert alert-success">
-						    	<button class="close" data-dismiss="alert">×</button>
-						    	<h2>Imputatie opgeslagen!</h2>
-						    </div>';
+						$this->dcreg->imputationSaveSuccess = true;
+						
 					}
 					else
 					{
-						echo "something went wrong : " . $saveResult;
+						$this->dcreg->imputationSaveSuccess = false;
 					}
 				}
 				else

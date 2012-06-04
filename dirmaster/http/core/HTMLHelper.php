@@ -29,7 +29,7 @@ class HTMLHelper
 		foreach($_optionValuesArray as $val => $displayText)
 		{
 			$retHtml.=  '<option value="' . $val . '" ';
-			$retHtml.=  $val == $_defaultSelectedIndex ? ' CHECKED' : '';
+			$retHtml.=  $val == $_defaultSelectedIndex ? ' SELECTED' : '';
 			$retHtml.= '>' . $displayText . '</option>' . "\n";
 		}
 		

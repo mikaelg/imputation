@@ -1,6 +1,5 @@
 <?php namespace Common;
 
-
 class Address extends Entity
 {
 	protected static $myExceptionClass = 'Common\AddressException';
