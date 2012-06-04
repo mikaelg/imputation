@@ -29,7 +29,7 @@ class ImputationController extends AuthenticationController {
 		//{
 			if($this->model->formSubmissionSent())
 			{
-				echo "SUBMITTED";
+				//echo "SUBMITTED";
 				$checkResult = $this->model->checkImputationValues();
 				if($checkResult === true)
 				{

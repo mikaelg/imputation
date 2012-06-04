@@ -76,7 +76,10 @@ class Model{
 	
 	public function formSubmissionSent($_submitButtonName = 'go')
 	{
-		return(isset($this->formvars->$_submitButtonName));
+		//print "formSubmissionSent:".$this->formvars[$_submitButtonName];
+		return(isset($this->formvars[$_submitButtonName]));
+		
+		//return(isset($this->formvars->$_submitButtonName));
 	}
 	
 	
