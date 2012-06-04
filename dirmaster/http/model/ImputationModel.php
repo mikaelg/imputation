@@ -6,7 +6,7 @@
  * @author Jos
  *
  */
-class ImputationModel extends Model {
+class ImputationModel extends AuthenticationModel {
 	
 	public function __construct($_args  = array()){
 		parent::__construct($_args);
@@ -43,7 +43,7 @@ class ImputationModel extends Model {
 			$stmt = $this->dal->prepare($sql);
 			
 			$stmt -> bindValue(':idProject', intval($this->formvars['projectId']), \PDO::PARAM_INT);
-			$stmt -> bindValue(':idPerson', intval($_SESSION['userid']), \PDO::PARAM_INT);
+			$stmt -> bindValue(':idPerson', intval(self::getUserId()), \PDO::PARAM_INT);
 			$stmt -> bindValue(':idCostCentre', intval($this->formvars['costCentre']), \PDO::PARAM_INT);
 			
 			$startDateTime = (self::dutchDate2isoDate($this->formvars['date'])) . " 00:00";

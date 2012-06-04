@@ -77,9 +77,9 @@ class LoginModel extends AuthenticationModel {
 				$userid = $result['loginid'];
 				
 				//session_start();
-				$_SESSION['loginsession'] = $userid.'#'.md5($loginName.$userid.$_SERVER['REMOTE_ADDR']);
+				$_SESSION['loginsession'] = self::createLoginSessionString($userid, $loginName);
 				$_SESSION['fullname'] = $result['fullname'];
-				$_SESSION['userid'] = $userid;
+				//$_SESSION['userid'] = $userid;
 				
 				
 				
@@ -89,6 +89,7 @@ class LoginModel extends AuthenticationModel {
 		
 	
 	}
+
 	
 	/*
 	private function checkInDatabase($_uid, $_pwd){

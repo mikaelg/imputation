@@ -67,4 +67,36 @@ class AuthenticationModel extends Model {
 		return false;
 	}
 	
+	protected static function createLoginSessionString($_userid, $_loginName)
+	{
+		return ($_userid.'#'.md5($_loginName.$_userid.$_SERVER['REMOTE_ADDR']));
+	}
+	
+	protected static function getUserID()
+	{
+		if(isset($_SESSION['loginsession']))
+		{
+			if(self::checkLoginSessionFormat($_SESSION['loginsession']))
+			{
+				$lsParts = explode("#", $_SESSION['loginsession']);
+				return intval($lsParts[0]);
+			}
+			else
+			{
+				throw new AuthenticationModelException("Login Session not correctly formatted.");
+			}
+		}
+		else
+		{
+			throw new AuthenticationModelException("Login Session not present");
+		}
+	}
+	
+	private static function checkLoginSessionFormat($_ls)
+	{
+		$lsParts = explode("#", $_ls);
+		return (count($lsParts) == 2 && strlen($lsParts[1]) == 32);
+	}
+	
+	
 }
