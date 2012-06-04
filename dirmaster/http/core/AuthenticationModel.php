@@ -67,12 +67,12 @@ class AuthenticationModel extends Model {
 		return false;
 	}
 	
-	protected static function createLoginSessionString($_userid, $_loginName)
+	final protected static function createLoginSessionString($_userid, $_loginName)
 	{
 		return ($_userid.'#'.md5($_loginName.$_userid.$_SERVER['REMOTE_ADDR']));
 	}
 	
-	protected static function getUserID()
+	final protected static function getUserID()
 	{
 		if(isset($_SESSION['loginsession']))
 		{
@@ -92,7 +92,7 @@ class AuthenticationModel extends Model {
 		}
 	}
 	
-	private static function checkLoginSessionFormat($_ls)
+	final private static function checkLoginSessionFormat($_ls)
 	{
 		$lsParts = explode("#", $_ls);
 		return (count($lsParts) == 2 && strlen($lsParts[1]) == 32);
