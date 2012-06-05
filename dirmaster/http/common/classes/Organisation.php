@@ -11,10 +11,10 @@ abstract class Organisation extends Entity
 										"employees"			=> Array("type" =>"\ArrayObject", 				"mandatory" => /*true*/false)
 								);
     
-    public $id;
-    public $name;
-    public $addresses;
-    public $employees;
+    protected $id;
+    protected $name;
+    protected $addresses;
+    protected $employees;
     
     public static function getFieldsArray()
     {

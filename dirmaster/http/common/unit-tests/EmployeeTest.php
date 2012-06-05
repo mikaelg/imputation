@@ -6,7 +6,7 @@ require_once dirname(dirname(__FILE__))."/classes/Employee.php";
 require_once dirname(dirname(__FILE__))."/classes/Address.php";
 
 
-require_once dirname(dirname(__FILE__))."/classes/EmailAddress.php";
+
 require_once dirname(dirname(__FILE__))."/classes/Exceptions.php";
 
 class EmployeeTest extends PHPUnit_Framework_TestCase

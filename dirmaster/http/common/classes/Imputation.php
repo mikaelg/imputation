@@ -34,10 +34,7 @@ class Imputation extends Entity
     	return self::$fields;
     }
 	
-	public function CalculateCost()
-	{
-        
-	}
+
 	
 	public function getSpentTime($_format = self::TIMEDIFF_FORMAT_FRACTIONAL_HOURS)
 	{
