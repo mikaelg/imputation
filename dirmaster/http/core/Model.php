@@ -29,7 +29,7 @@ class Model{
 					
 			$dal = new \PDO( 'mysql:host=localhost;dbname=imputation',
 						'root',
-						'',
+						'root',
 						array(
 								\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY    => 1,
 								\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
@@ -76,7 +76,10 @@ class Model{
 	
 	public function formSubmissionSent($_submitButtonName = 'go')
 	{
-		return(isset($this->formvars->$_submitButtonName));
+		//print "formSubmissionSent:".$this->formvars[$_submitButtonName];
+		return(isset($this->formvars[$_submitButtonName]));
+		
+		//return(isset($this->formvars->$_submitButtonName));
 	}
 	
 	
