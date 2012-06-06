@@ -3,59 +3,11 @@
 abstract class Entity
 {
     protected static $myExceptionClass = 'Common\EntityException';
-    
+    private static $fields;
 
     public function __construct()
     {
-    	//$ccls = get_called_class();
-    	
-    	// declare all neccesary properties to empty values, so they can be checked with isset();
-    	// the isset function returns false if a variable is set to null
-    	
-    	//not sure if initialisation is such a good idea...
-    	// commenting it out for now 
-    	
-    	/*foreach($ccls::$fields as $field => $fieldSpec)
-    	{
-    		switch($fieldSpec['type'])
-    		{
-    			case 'string':
-    				$this -> $field = '';
-    			break;
-    			
-    			case 'integer':
-    			case 'float':
-    				$this -> $field = 0;
-    			break;
-    			
-    			case 'bool':
-    				$this -> field = false;
-    			break;
-    			
-    			default:
-    				if(class_exists($fieldSpec['type']))
-    				{
-    				    //self-reference would create an endless loop
-    				    if($fieldSpec['type'] != $ccls)
-    				    {
-                            //echo 'Type: ' . $fieldSpec['type'] . '<br />';
-                            $this -> $field = new $fieldSpec['type'];
-                        }
-                        else
-                        {
-                            $this -> $field = null;
-                        }
-    				    
-    				}
-    				else
-    				{
-    					throw new $ccls::$myExceptionClass($ccls . '::fieldspec contains illegal type: "' . $fieldSpec['type'] . '"');
-    				}
-    			break;
-    		}
-   			
-    	}*/
-    	
+    	// Voorlopig leeg    	
     }
     
     
@@ -184,24 +136,13 @@ abstract class Entity
     
   
     /**
-     * this function will return the static $fields property from the called class
-     * IF that called class doesn't provide an override. If it does, it does so because
-     * it has to combine it's own $fields with it's parent's $fields. For example, the 
-     * Employee class does this, because Employee extends Person extends Entity
+     * this function is defined as abstract, because child functions MUST implement it
      *
      * @access 					public
      * @author 					Jos Bolssens <marvelade@gmail.com>
      * @return 					Array
      */
-    public static function getFieldsArray()
-    {
-    	$ccls = get_called_class();
-    	throw new EntityException("You shouldn't depend on Entity::getFieldsArray(); implement your own getFieldsArray() method in " . $ccls . ", you lazy SOAB :) ");
-    	
-    	
-    	
-    }
-    
+    public abstract static function getFieldsArray();    
     
     public function allMandatoryFieldsArePresent()
     {

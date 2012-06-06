@@ -20,20 +20,21 @@ class EmployeeController extends AuthenticationController {
 		 *
 		 */
 		$this->model = new EmployeeModel();
-
-		$this->dcreg->foo = 'INSERTED FROM CONTROLLER';
 		
 
-		if(!$this->dcreg->args)
-			print('please provide an employee');
+		if(!$this->dcreg->args){
+			$this->dcreg->employeeSpecified = false;
+		}
 		else {
 			$e = $this->model->getEmployeeValues($this->dcreg->args[0]);
-			$this->dcreg->employee = $e;	
+			$this->dcreg->employee = $e;
+			$this->dcreg->employeeSpecified = true;
+			
 		}
 		
 			
-		
 		$this->assembleView();
+		
 
 	}
 }

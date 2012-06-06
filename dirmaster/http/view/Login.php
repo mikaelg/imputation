@@ -6,7 +6,6 @@
 		</div>
 
 		<?php 
-			//print($dcreg->foo);
 			if(is_array($dcreg->warnings)){
 				echo '<div class="alert alert-error">';
 				foreach ($dcreg->warnings as $value) {

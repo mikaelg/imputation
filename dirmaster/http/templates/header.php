@@ -43,5 +43,3 @@
         </div>
       </div>
     </div>
-    
-    <?php // print $dcreg->foo ?>

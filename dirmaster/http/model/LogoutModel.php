@@ -31,7 +31,7 @@ class LogoutModel extends Model {
 		if(AuthenticationController::loginStatus())
 			return false;
 		else	
-			return true
+			return true;
 
 	}
 	

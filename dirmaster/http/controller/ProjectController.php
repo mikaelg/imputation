@@ -21,7 +21,6 @@ class ProjectController extends AuthenticationController {
 		 */
 		$this->model = new ProjectModel();
 
-		$this->dcreg->foo = 'INSERTED FROM CONTROLLER';
 		
 
 		if(!$this->dcreg->args)
@@ -33,7 +32,7 @@ class ProjectController extends AuthenticationController {
 
 			$this->dcreg->project = $p;
 			
-			if($this->dcreg->project->numberOfProjectTeamMembers() >= 0)
+			if($this->dcreg->project->getNumberOfProjectTeamMembers() >= 0)
 			{
 				$this->teamMembersList = array();
 				foreach($this->dcreg->project->projectTeam as $tm)

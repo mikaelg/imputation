@@ -17,8 +17,7 @@ class Page404Controller extends Controller {
 		 *
 		 */
 
-		
-		$this->dcreg->foo = 'INSERTED FROM CONTROLLER';
+
 		
 		$this->assembleView();
 

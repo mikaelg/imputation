@@ -37,7 +37,7 @@
 			
 			<div>
 			<?php 
-			if($dcreg->project->numberOfProjectTeamMembers() > 0)
+			if($dcreg->project->getNumberOfProjectTeamMembers() > 0)
 			{
 				$first = true;
 				foreach($this -> teamMembersList as $tmArray)
