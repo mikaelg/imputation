@@ -17,7 +17,7 @@ class Model{
 	{
 		try{
 			
-			/*$dal = new \PDO( 'mysql:host=localhost;dbname=imputation_imp',
+			$dal = new \PDO( 'mysql:host=localhost;dbname=imputation_imp',
 					'imputation_imp',
 					'imp9000',
 					array(
@@ -25,8 +25,8 @@ class Model{
 							\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
 							\PDO::ATTR_PERSISTENT => true,
 					)
-				*/
-					
+			
+			/*		
 			$dal = new \PDO( 'mysql:host=localhost;dbname=imputation',
 						'root',
 						'root',
@@ -35,6 +35,8 @@ class Model{
 								\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
 								\PDO::ATTR_PERSISTENT => true,
 						)
+			*/
+						
 			);
 			return $dal;
 		}catch (\PDOException $e){
