@@ -105,15 +105,15 @@
         <div class="span5">
             <h2>Mika&euml;l</h2>
             <ul>
-				<li><a href="" target="_blank">Use Case 1: Overzicht van projecten opvragen</a></li>
+				<li><a href="./_documentatie/" target="_blank">Use Case 1: Overzicht van projecten opvragen</a></li>
 
-                <li><a href="" target="_blank">Use Case 2: ???</a></li>
+                <li><a href="./_documentatie/" target="_blank">Use Case 2: ???</a></li>
 
-                <li><a href="" target="_blank">Activity diagram 1: ????</a></li>
+                <li><a href="./_documentatie/" target="_blank">Activity diagram 1: ????</a></li>
                 
-                <li><a href="" target="_blank">Activity diagram 2: ????</a></li>
+                <li><a href="./_documentatie/" target="_blank">Activity diagram 2: ????</a></li>
                 
-                <li><a href="" target="_blank">Class diagram: ????</a></li>
+                <li><a href="./_documentatie/" target="_blank">Class diagram: ????</a></li>
 
 
             </ul>
@@ -123,15 +123,15 @@
          <div class="span5">
         	<h2>Georges</h2>
             <ul>
-                <li><a href="" target="_blank" >Use Case 1: Imputeren van uren</a></li>
+                <li><a href="./_documentatie/" target="_blank" >Use Case 1: Imputeren van uren</a></li>
 
-                <li><a href="" target="_blank">Use Case 2: ???</a></li>
+                <li><a href="./_documentatie/" target="_blank">Use Case 2: ???</a></li>
 
-                <li><a href="" target="_blank">Activity diagram 1: ????</a></li>
+                <li><a href="./_documentatie/ACTIVITY_DIAGRAM_imputerenVanUren.pdf" target="_blank">Activity diagram 1: Imputeren van uren</a></li>
                 
-                <li><a href="" target="_blank">Activity diagram 2: ????</a></li>
+                <li><a href="./_documentatie/" target="_blank">Activity diagram 2: ????</a></li>
                 
-                <li><a href="" target="_blank">Class diagram: ????</a></li>
+                <li><a href="./_documentatie/CLASS_DIAGRAM_CommonNamespace.pdf" target="_blank">Class diagram: De Common Namespace</a></li>
 
             </ul>
         </div>
