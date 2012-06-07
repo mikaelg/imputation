@@ -18,9 +18,7 @@ class HomeController extends Controller {
 		 */
 		$this->model = new HomeModel();
 
-		
-		$this->dcreg->foo = 'INSERTED FROM CONTROLLER';
-		
+
 		$this->assembleView();
 
 	}

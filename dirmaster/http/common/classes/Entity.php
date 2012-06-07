@@ -3,59 +3,11 @@
 abstract class Entity
 {
     protected static $myExceptionClass = 'Common\EntityException';
-    
+    private static $fields;
 
     public function __construct()
     {
-    	//$ccls = get_called_class();
-    	
-    	// declare all neccesary properties to empty values, so they can be checked with isset();
-    	// the isset function returns false if a variable is set to null
-    	
-    	//not sure if initialisation is such a good idea...
-    	// commenting it out for now 
-    	
-    	/*foreach($ccls::$fields as $field => $fieldSpec)
-    	{
-    		switch($fieldSpec['type'])
-    		{
-    			case 'string':
-    				$this -> $field = '';
-    			break;
-    			
-    			case 'integer':
-    			case 'float':
-    				$this -> $field = 0;
-    			break;
-    			
-    			case 'bool':
-    				$this -> field = false;
-    			break;
-    			
-    			default:
-    				if(class_exists($fieldSpec['type']))
-    				{
-    				    //self-reference would create an endless loop
-    				    if($fieldSpec['type'] != $ccls)
-    				    {
-                            //echo 'Type: ' . $fieldSpec['type'] . '<br />';
-                            $this -> $field = new $fieldSpec['type'];
-                        }
-                        else
-                        {
-                            $this -> $field = null;
-                        }
-    				    
-    				}
-    				else
-    				{
-    					throw new $ccls::$myExceptionClass($ccls . '::fieldspec contains illegal type: "' . $fieldSpec['type'] . '"');
-    				}
-    			break;
-    		}
-   			
-    	}*/
-    	
+    	// Voorlopig leeg    	
     }
     
     
@@ -113,7 +65,7 @@ abstract class Entity
      * convert string to numeric value if is_numeric
      * @param unknown_type $value
      */
-    private function ConvertNumeric($_value){
+    private function convertNumeric($_value){
     	if(is_numeric($_value))
     		$_value = $_value + 0;
     	
@@ -136,11 +88,11 @@ abstract class Entity
     			break;
     			
     			case 'integer':	
-    				return is_int($this->ConvertNumeric($value));
+    				return is_int($this->convertNumeric($value));
     			break;
     			
     			case 'float':
-    				return is_float($this->ConvertNumeric($value));
+    				return is_float($this->convertNumeric($value));
     			break;
     			
     			case 'bool':
@@ -182,130 +134,15 @@ abstract class Entity
     
     
     
+  
     /**
-     * This function determines the validity of present object data accoording to the static field matrix above.
-     * 
-     *
-     * @access 					private
-     * @param	$_input_array	Associative Array that holds the candidate data.
-     * @return 					Bool
-     */
-    public static function inputArrayIsValid($_input_array, $_enforceUseOfMandatoryFields = true)
-    {
-    	$ccls = get_called_class();
-    	$fields = $ccls :: getFieldsArray();
-    	if(!is_array($_input_array))
-    	{
-    		throw new $ccls::$myExceptionClass('input array has to be an array!'); 
-    		return false;  
-    	}
-    	else
-    	{
-	    	$retval = true;
-	    	print_r($_input_array);
-	    	foreach($fields as $field => $fieldSpec)
-	    	{
-	    		if(array_key_exists($field, $_input_array))
-	    		{
-	    			$typeCheckFunction = 'is_'.$fieldSpec['type'];
-	    			if(is_callable($typeCheckFunction))
-	    			{
-	    				//echo "is " . $_input_array[$field] . " really a  " . $fieldSpec['type'] . "? ";
-	    				//echo ($typeCheckFunction($_input_array[$field])) ? " Yes it is" : " No it isn't";
-	    				//echo "\n";
-	    				$retval = $typeCheckFunction($_input_array[$field]) && $retval;
-	    			}
-	    			elseif(class_exists($fieldSpec['type']))
-	    			{
-	    				//echo "Does " . get_class($_input_array[$field]) . " equal " . $fieldSpec['type'] . "? ";
-	    				//echo (get_class($_input_array[$field]) == $fieldSpec['type']) ? " Yes it does" : " No it doesn't";
-	    				//echo "\n";
-	    				$retval = (get_class($_input_array[$field]) == $fieldSpec['type']) && $retval;
-	    			}
-	    			else
-	    			{
-	    				
-	    				$errMsg = 'Invalid type "' . $fieldSpec['type'] . '" specified in ' . $ccls . '::fields matrix ';
-	    				
-	    				if(!is_callable($typeCheckFunction))
-		    			{
-		    				$errMsg.= 'because ' . $typeCheckFunction . ' is not callable' ;
-		    			}
-		    			elseif(!class_exists($fieldSpec['type']))
-		    			{
-		    				$errMsg.= 'because class' . $fieldSpec['type'] . ' does not exist' ;
-		    			}
-		    			
-	    				throw new $ccls::$myExceptionClass($errMsg);
-	    				return false; 
-	    			}
-	    		
-	    		}
-	    		elseif($_enforceUseOfMandatoryFields && $fieldSpec['mandatory'])
-	   			{
-	   				throw new $ccls::$myExceptionClass('Field ' . $field . ' is marked as mandatory yet not provided!');
-	   				
-	   				return false;   			
-	   			}
-	    	}
-	
-	    	return $retval;
-    	}
-    }
-    
-    
-    
-    
-     /**
-     * This function populates the private variables in one go through an array
-     * 
-     * @access 					private
-     * @param	$_data_array	Associative Array that holds the candidate address data.
-     * @return 					Bool
-     */
-    protected function populate($_data_array, $_enforceUseOfMandatoryFields = true)
-    {
-    	
-        if(self::inputArrayIsValid($_data_array, $_enforceUseOfMandatoryFields))
-        {
-        	$ccls = get_called_class();
-        	$fields = $ccls :: getFieldsArray();
-	        foreach($fields as $field => $fieldSpec)
-	    	{
-	    		if(($_enforceUseOfMandatoryFields && $fieldSpec['mandatory']) || array_key_exists($field, $_data_array))
-	    		{
-    				$this -> $field = $_data_array[$field];
-    			}	    		
-	        }
-	        return true;
-        }
-        else
-        {
-        	
-        	return false;        
-        }
-        
-    }
-    
-    /**
-     * this function will return the static $fields property from the called class
-     * IF that called class doesn't provide an override. If it does, it does so because
-     * it has to combine it's own $fields with it's parent's $fields. For example, the 
-     * Employee class does this, because Employee extends Person extends Entity
+     * this function is defined as abstract, because child functions MUST implement it
      *
      * @access 					public
      * @author 					Jos Bolssens <marvelade@gmail.com>
      * @return 					Array
      */
-    public static function getFieldsArray()
-    {
-    	$ccls = get_called_class();
-    	throw new EntityException("You shouldn't depend on Entity::getFieldsArray(); implement your own getFieldsArray() method in " . $ccls . ", you lazy SOAB :) ");
-    	
-    	
-    	
-    }
-    
+    public abstract static function getFieldsArray();    
     
     public function allMandatoryFieldsArePresent()
     {

@@ -5,7 +5,6 @@ require_once dirname(dirname(__FILE__))."/classes/Person.php";
 require_once dirname(dirname(__FILE__))."/classes/Address.php";
 
 
-require_once dirname(dirname(__FILE__))."/classes/EmailAddress.php";
 require_once dirname(dirname(__FILE__))."/classes/Exceptions.php";
 
 class PersonTest extends PHPUnit_Framework_TestCase
@@ -46,12 +45,8 @@ class PersonTest extends PHPUnit_Framework_TestCase
     {
     	$p1 = new Common\Person();
     	
-    	
-    	$e = new Common\EmailAddress();
-    	$e -> id = 1;
-    	$e -> email = 'jantje@joepiedepoepie.nl';
     	$eac = new \ArrayObject();
-    	$eac[0] = $e;
+    	$eac[] = 'jantje@joepiedepoepie.nl';
     	
     	
     	

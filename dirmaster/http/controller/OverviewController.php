@@ -69,10 +69,7 @@ class OverviewController extends AuthenticationController {
 			}
 		}
 			
-		
-		// DEBUG
-		
-		$this->dcreg->foo = 'INSERTED FROM CONTROLLER<br />Overview<br />';
+
 		
 		print_r($this->dcreg->args);
 		

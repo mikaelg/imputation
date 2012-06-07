@@ -14,7 +14,6 @@ class Imputation extends Entity
 										"to"				=> Array("type" =>"\DateTime", 			"mandatory" => true),
 										"costCentre"		=> Array("type" =>"Common\CostCentre",	"mandatory" => true),
 										"project"			=> Array("type" =>"Common\Project", 	"mandatory" => true),
-										"action" 			=> Array("type" =>"string", 			"mandatory" => true),
 										"isBillable" 		=> Array("type" =>"bool",				"mandatory" => true),
 										"comment"			=> Array("type" =>"string",				"mandatory" => true),
 								);
@@ -25,7 +24,6 @@ class Imputation extends Entity
 	protected $to;
 	protected $costCentre;
 	protected $project;
-	protected $action;
 	protected $isBillable;
 	protected $comment;
 	
@@ -34,10 +32,7 @@ class Imputation extends Entity
     	return self::$fields;
     }
 	
-	public function CalculateCost()
-	{
-        
-	}
+
 	
 	public function getSpentTime($_format = self::TIMEDIFF_FORMAT_FRACTIONAL_HOURS)
 	{

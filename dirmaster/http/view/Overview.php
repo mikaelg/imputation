@@ -60,16 +60,3 @@
 		
 	</div>
 </div>
-
-
-<div class="row">
-	<div class="span12">
-		<hr />
-		<p>
-		DEBUGGING ::<br />
-		<?php print($dcreg->foo); ?><br />
-		<?php print($_SESSION['loginsession']); ?><br />
-		<?php echo '<pre>' . print_r($dcreg->projects, true) . '</pre>'; ?>
-		</p>
-	</div>
-</div>

@@ -9,7 +9,7 @@ class CustomerCompany extends Organisation
 
 	final public static function getFieldsArray()
     {
-    	return self::$fields;
+    	return array_merge(parent::getFieldsArray(), self::$fields);
     }
 }
 ?>

@@ -54,7 +54,6 @@ class ImputationTest extends PHPUnit_Framework_TestCase
 		$i -> to = new \DateTime('2012-05-15 14:00');
 		$i -> costCentre = new Common\CostCentre();
 		$i -> project = new Common\Project();
-		$i -> action = '';
 		$i -> isBillable = false;
 		$i -> comment = '';
 		
@@ -73,7 +72,6 @@ class ImputationTest extends PHPUnit_Framework_TestCase
 		$i -> to = new \DateTime('2012-05-15 16:30');
 		$i -> costCentre = new Common\CostCentre();
 		$i -> project = new Common\Project();
-		$i -> action = '';
 		$i -> isBillable = false;
 		$i -> comment = '';
 		

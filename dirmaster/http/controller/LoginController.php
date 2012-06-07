@@ -46,7 +46,6 @@ class LoginController extends Controller {
 			$result = $this->model->checkLoginCredentials();
 	
 			if(is_array($result)){
-				//$this->dcreg->foo = "from controller";
 				$this->dcreg->warnings = $result;
 			}
 			elseif($result){

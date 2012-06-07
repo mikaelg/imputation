@@ -11,13 +11,20 @@
 
 <div class="row">
 	<?php 
-		echo $dcreg->imputationSaveSuccess ? 
-		'<div class="alert alert-success">
+		if(isset($dcreg->imputationSaveSuccess))
+		{
+			echo $dcreg->imputationSaveSuccess ? 
+			'<div class="alert alert-success">
 		    	<button class="close" data-dismiss="alert">×</button>
 		    	<h2>Imputatie opgeslagen!</h2>
 		    </div>'
 		   :
 		 '<div class="alert alert-error">something went wrong</div>';
+		 }
+		 else
+		 {
+		 
+		 }
 
 	?>
 	<div class="span4">
@@ -26,10 +33,7 @@
 		</div>
 
 		<?php 
-			//print($dcreg->foo);
-			
-			//echo '<pre>' . print_r($dcreg,true) . '</pre>';
-			
+		
 			if(is_array($dcreg->warnings)){
 				echo '<div class="alert alert-error">';
 				foreach ($dcreg->warnings as $value) {
