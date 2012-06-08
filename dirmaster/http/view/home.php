@@ -50,7 +50,11 @@
 
                 <li>Inloggen</li>
 
-                <li>Overzicht van projecten opvragen</li>
+                <li>Overzicht van projecten met zoekfunctie op startdatum</li>
+                
+                <li>Detailpagina van een project</li>
+                
+                <li>Detailpagina van een personeelslid</li>
 
                 <li>Uren imputeren</li>
 
@@ -59,7 +63,7 @@
             </ul>
 
          	<p>De applicatie is gestoeld op de MVC-filosofie, waar de Model-classes zorgen voor de verbinding met de databank en de implementatie van de business-logic uit de "Common" classes (zie volgende paragraaf).
-        	De Controller dient voor het nemen van beslissingen op applicatie-vlak en sluit gegevens door van de Model-laag naar de View-laag. Een Run en Router class zorgen er in combinatie
+        	De Controller dient voor het nemen van beslissingen op applicatie-vlak en sluist gegevens door van de Model-laag naar de View-laag. Een Run en Router class zorgen er in combinatie
         	met de Apache module mod_rewrite voor dat de juiste controller wordt gekozen en dat de juiste parameters eraan worden meegegeven.</p>
 
         	<p>Het systeem werd zodanig geschreven dat er later andere functionaliteit kan worden toegevoegd. Denk hierbij aan HRM, CRM, Boekhouding, Facility-management, etc. 
@@ -77,7 +81,7 @@
 				en een adaptive layout voor verschillende devices.<br />
 				Er werd een eigen templating systeem gemaakt dat gebruik maakt van standaard PHP code die de inhoud van een dynamic content registry tussen de HTML zet.</p>
 
-            <p>De volgende functionaliteiten werden weggelaten:<br></p>
+            <p>De volgende functionaliteiten werden in de analysefase meegenomen, maar er werd voor gekozen om wegens het beperkte tijdsbestek de volgende aspecten niet in productie te nemen:<br></p>
             
             <ul>
                
@@ -95,7 +99,7 @@
             </ul>
 
             <p>
-                Tevens werd er <u>geen</u> rekening gehouden met client-side controle van de input in de invoerformulieren. Ten eerste omdat dergelijke controles enkel dienen om de usability te verbeteren en
+                Tevens werd er <strong>geen</strong> rekening gehouden met client-side controle van de input in de invoerformulieren. Ten eerste omdat dergelijke controles enkel dienen om de usability te verbeteren en
                 de uiteidelijke controle toch op server-niveau moet gebeuren; ten tweede omdat het een PHP cursus is, geen JavaScript cursus.<br />
                 Opnieuw pre-fillen van de ingevoerde waarden na het falen van een server-side controle wordt hier dan ook niet gedaan. 
             </p>
