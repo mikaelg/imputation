@@ -1,4 +1,5 @@
 # project directory #
+SETTINGS.txt
 MYFILES/
 eclipseWorkSpace/
 !MYFILES/opdracht1/*/*.php
