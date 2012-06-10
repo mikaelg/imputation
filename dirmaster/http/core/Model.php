@@ -17,6 +17,7 @@ class Model{
 	{
 		try{
 			
+			/*
 			$dal = new \PDO( 'mysql:host=localhost;dbname=imputation_imp',
 					'imputation_imp',
 					'imp9000',
@@ -25,17 +26,17 @@ class Model{
 							\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
 							\PDO::ATTR_PERSISTENT => true,
 					)
+			*/
 			
-			/*		
+				
 			$dal = new \PDO( 'mysql:host=localhost;dbname=imputation',
 						'root',
-						'',
+						'root',
 						array(
 								\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY    => 1,
 								\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
 								\PDO::ATTR_PERSISTENT => true,
 						)
-			*/
 						
 			);
 			return $dal;
