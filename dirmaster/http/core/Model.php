@@ -50,7 +50,7 @@ class Model{
 	
 		// Deze dienen we on-the-fly te genereren wanneer pagin voor eerste keer wordt opgeroepen.
 		if(!isset($this->formvars['formGuid'])){
-			return "1234567890";
+			//return "1234567890";
 			
 			return (md5(Settings::getSaltKey().session_id()));
 		} else {
@@ -59,15 +59,25 @@ class Model{
 	}
 	
 	public function checkFormGuid(){
-		return true;
+		
 		//print $this->formvars['formGuid'] . " = " . md5(Settings::getSaltKey().session_id());
+		//return true;
+		
+		/**
+		 * als er geen formGuid is is er geen post en stoppen we de controle
+		 */
+		if(!isset($this->formvars['formGuid']))
+			return false;
+		
 		/**
 		 * doe een check tegen session id in combinatie met saltkey
+		 * wanneer controle ok return true
+		 * wanneer controle NIET OK throw error. Er is gefoefeld!
 		 */
 		if ($this->formvars['formGuid'] == md5(Settings::getSaltKey().session_id()))
 			return true;
 		else
-			return false;
+			throw new $this::$myExceptionClass("fatal form error!"); // Exception("fatal form error!");
 	}
 	
 	public function formSubmissionSent($_submitButtonName = 'go')

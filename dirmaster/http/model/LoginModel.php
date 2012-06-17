@@ -34,10 +34,11 @@ class LoginModel extends AuthenticationModel {
 		 */
 		if(isset($this->formvars['formGuid']) && Sanitize::checkSanity($this->formvars['formGuid'], 'string')){
 			$formGuid = $this->formvars['formGuid'];
-			if($formGuid != '1234567890')
-			//if($this->checkFormGuid())
+			//if($formGuid != '1234567890')
+			// throw error overbodig ???? : gebeurd reeds in model checkRomGuid()
+			if(!$this->checkFormGuid())
 			{
-				throw new Exception("fatal form error!");
+				throw new \Exception("fatal form error!");
 			}
 		}
 		else 

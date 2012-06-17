@@ -39,6 +39,15 @@ class OverviewModel extends Model {
 	}
 	
 	public function CheckDateRequest(){
+		
+		if(isset($this->formvars['formGuid']) && Sanitize::checkSanity($this->formvars['formGuid'], 'string'))
+		{
+			$formGuid = $this->formvars['formGuid'];
+			//if($formGuid != '1234567890')
+			if(!$this->checkFormGuid())
+				throw new \Exception("fatal form error!");
+		}		
+		
 		if(isset($this->formvars['startDate']) && Sanitize::checkSanity($this->formvars['startDate'], 'string', 10)){
 			return true;
 		}

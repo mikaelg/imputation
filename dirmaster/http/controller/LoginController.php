@@ -35,12 +35,21 @@ class LoginController extends Controller {
 			// maak een formGuid aan als er geen $_POST['formGuid'] variable is
 			$this->dcreg->formGuid = $this->model->generateFormGuid();
 			
-			// als $this->dcreg->formGuid leeg is wil dit zeggen dat dit een POST is dus checken we de formGuid met de database
-			// als controle formGuid false geeft stoppen we de verdere rendering van het formulier
+			// als $this->dcreg->formGuid niet leeg is wil dit zeggen dat dit een POST is dus checken we de formGuid
+			// als controle formGuid een error geeft stoppen we de verdere rendering van het formulier
+			try {
+				$this->model->checkFormGuid();
+			} catch (\Exception $e) {
+				header("Location: /donottemperwiththeformdude");
+				return;
+			}
+			
+			/*
 			if(!$this->model->checkFormGuid()){
 				header("Location: /donottemperwiththeformdude");
 				return;
 			}
+			*/
 			 
 			
 			$result = $this->model->checkLoginCredentials();

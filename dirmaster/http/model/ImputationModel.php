@@ -97,7 +97,8 @@ class ImputationModel extends AuthenticationModel {
 		if(isset($this->formvars['formGuid']) && Sanitize::checkSanity($this->formvars['formGuid'], 'string'))
 		{
 			$formGuid = $this->formvars['formGuid'];
-			if($formGuid != '1234567890')
+			//if($formGuid != '1234567890')
+			if(!$this->checkFormGuid())
 				throw new \Exception("fatal form error!");
 		}
 		
