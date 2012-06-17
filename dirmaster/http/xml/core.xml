@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content>
+	<location lang="nl">
+		<title><![CDATA[Imputation]]></title>
+		<signin><![CDATA[Sign In]]></signin>
+		<signout><![CDATA[Sign Out]]></signout>
+		<footer><![CDATA[&copy; Imputation 2012]]></footer>	
+		<home><![CDATA[Home]]></home>
+		<overview><![CDATA[Overview]]></overview>
+		<testproject><![CDATA[Testproject]]></testproject>
+	</location>
+</content>

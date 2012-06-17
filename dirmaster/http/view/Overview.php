@@ -11,7 +11,7 @@
 <div class="row">
 	<div class="span12">
 		<div class="page-header">
-			<h1>Projecten overzicht</h1>
+			<h1><?php echo $dcreg->xml->location->title; ?></h1>
 		</div>
 		
 		<?php if(isset($this->dcreg->projectsNoResults)){ ?>
@@ -24,12 +24,12 @@
 		<?php  if($dcreg->showFormOverview){ ?>
 		
 			<form action="" method="post" name="overiew">
-				<label for="startDate">Start datum</label>
+				<label for="startDate"><?php echo $dcreg->xml->location->startdate; ?></label>
 				
 				<input type="date" class=""  id="startDate" name="startDate" value="<?php echo date("d/m/Y"); ?>" data-date-format="dd/mm/yyyy">
 				
 				<div class="form-actions">
-				<input type="submit" value="Verzenden" class="btn btn-primary"> 
+				<input type="submit" value="<?php echo $dcreg->xml->location->send; ?>" class="btn btn-primary"> 
 				</div>
 				<input type="hidden" name="formGuid" maxlength="100" value="<?php echo $dcreg->formGuid ?>">		
 			</form>
@@ -41,22 +41,27 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>Projectnaam</th>
+						<th><?php echo $dcreg->xml->location->projectname; ?></th>
 					</tr>
 				</thead>
 				<tbody>
 	
 				<?php
 				foreach ($dcreg->projects as $p) {
-					echo '<tr><td>' . HTMLHelper::createLink('/project/'.$p->name , $p->name) . '</td></tr>';
+					echo '<tr><td>' . HTMLHelper::mig_createLink(array('href'=>'/project/'.$p->name , 'text'=>$p->name, )) . '</td></tr>';
 				} 
 				?>
 
 				</tbody>
 			</table>
-			<p><a href="/overview" class="btn btn-primary">Zoek opnieuw</a></p>
+			<p><?php echo HTMLHelper::mig_createLink(array('href'=>'/overview/', 
+					'text'=>$dcreg->xml->location->newsearch,
+					'class'=>"btn btn-primary", 
+					'id'=>'backlink',
+					)) ?></p>
 		<?php } //end overview ?>		
 		
+		<?php echo session_id(); ?>
 		
 	</div>
 </div>

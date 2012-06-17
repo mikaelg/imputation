@@ -27,6 +27,8 @@ abstract class Controller{
 		
 		$this->dcreg->args = $_args;
 		
+		
+		
 		$this->controller = $_controller;
 		$this->regionHead = 'templates/head.php';
 		
@@ -96,6 +98,27 @@ abstract class Controller{
 		
 		$r_head = $this->getRegionHead();
 		$r_regions = $this->getRegions();
+		
+
+		$xmlf = dirname($_SERVER["SCRIPT_FILENAME"])."/xml/core.xml";
+		if(file_exists($xmlf)){
+			//echo 'XML FILE EXISTS: '.$xmlf;
+			$xml = simplexml_load_file($xmlf);
+			//echo $xml->location->body;
+			$this->dcreg->corexml = $xml;
+		}
+		
+		
+		$xmlf = dirname($_SERVER["SCRIPT_FILENAME"])."/xml/".$this->controller.'.xml';
+		if(file_exists($xmlf)){
+			//echo 'XML FILE EXISTS: '.$xmlf;
+			$xml = simplexml_load_file($xmlf);
+			//echo $xml->location->body;
+			$this->dcreg->xml = $xml;
+		}
+		
+
+		
 		
 		/**
 		 * yep, pretty weird, but it's the only way to access the registry from within the view

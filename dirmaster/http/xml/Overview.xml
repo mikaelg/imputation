@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content>
+	<location lang="nl">
+		<title><![CDATA[Projecten overzicht]]></title>
+		<startdate><![CDATA[Start datum]]></startdate>
+		<projectname><![CDATA[Projectnaam]]></projectname>
+		<send><![CDATA[Verzenden]]></send>
+		<newsearch><![CDATA[Zoek opnieuw]]></newsearch>
+		
+	</location>
+</content>

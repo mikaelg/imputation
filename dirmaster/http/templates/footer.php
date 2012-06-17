@@ -1,6 +1,6 @@
 <hr>
 <footer>
-    <p>&copy; Imputation 2012</p>
+    <p><?php echo $dcreg->corexml->location->footer; ?></p>
 </footer>
 
     <!-- Le javascript

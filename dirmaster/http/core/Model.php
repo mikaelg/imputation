@@ -50,19 +50,24 @@ class Model{
 	
 		// Deze dienen we on-the-fly te genereren wanneer pagin voor eerste keer wordt opgeroepen.
 		if(!isset($this->formvars['formGuid'])){
-			return '1234567890';
+			return "1234567890";
+			
+			return (md5(Settings::getSaltKey().session_id()));
 		} else {
 			return $this->formvars['formGuid'];
 		}
 	}
 	
 	public function checkFormGuid(){
-		/**
-		 * doe één of ander check tegen de database.
-		 * vb session id + controllername.
-		 * verder onderzoeken hoe dit in in ander frameworks wordt opgevangen
-		 */
 		return true;
+		//print $this->formvars['formGuid'] . " = " . md5(Settings::getSaltKey().session_id());
+		/**
+		 * doe een check tegen session id in combinatie met saltkey
+		 */
+		if ($this->formvars['formGuid'] == md5(Settings::getSaltKey().session_id()))
+			return true;
+		else
+			return false;
 	}
 	
 	public function formSubmissionSent($_submitButtonName = 'go')

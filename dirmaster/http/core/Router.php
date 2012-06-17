@@ -8,13 +8,14 @@
 class Router {
 	
 	private $route;
+	private $location;
 	private $args = array();
 	
 	function __construct($_arg) {
 		
 		
 		if(!empty($_arg))
-		{
+		{	
 			
 			//$controller = htmlspecialchars($_arg['rt'], ENT_QUOTES);
 			$_arg = explode('/',$_arg['rt']);
@@ -26,10 +27,21 @@ class Router {
 			}
 			$_arg = array_values($_arg);  // reindex the array
 			
-			$controller = htmlspecialchars($_arg[0], ENT_QUOTES);
+			// check if the first argument is location or controller
+			$contrArg = 0;
+			if(Settings::IsValidLocation($_arg[0])) {
+				$contrArg = 1;
+				$this->location = $_arg[0];
+			}
+			else {
+				$this->location = Settings::DefaultLocation();
+			}
+
+			
+			$controller = htmlspecialchars($_arg[$contrArg], ENT_QUOTES);
 			$this->route = ucfirst(trim(strval($controller)));
 			
-			unset($_arg[0]); // remove controler item at index 0
+			unset($_arg[$contrArg]); // remove controler item at index 0
 			$this->args = array_values($_arg); // reindex the array
 		}
 		
@@ -41,6 +53,13 @@ class Router {
 			return false;
 		else
 			return $this->route;
+	}
+	
+	public function getLocation(){
+		if(empty($this->location))
+			return false;
+		else
+			return $this->location;		
 	}
 	
 	public function getArgs(){

@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Imputation</a>
+          <a class="brand" href="#"><?php echo $dcreg->corexml->location->title; ?></a>
           
           <?php if(AuthenticationController::loginStatus()) { ?>
           <div class="btn-group pull-right">
@@ -19,25 +19,33 @@
             <ul class="dropdown-menu">
               <!--  <li><a href="#">Profile</a></li>
               <li class="divider"></li> //-->
-              <li><a href="/Logout">Sign Out</a></li>
+              <li><a href="/Logout"><?php echo $dcreg->corexml->location->signout; ?></a></li>
             </ul>
           </div>
           <?php } else {  ?>
            <div class="btn-group pull-right">
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="/Login">
-              <i class="icon-user"></i> Sign In
+              <i class="icon-user"></i><?php echo $dcreg->corexml->location->signin; ?>
             </a>
           </div>         
           <?php } // end login - logout ?>
           
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="/">Home</a></li>
+              <li class="active"><?php echo HTMLHelper::mig_createLink(array('href'=>'/', 
+					'text'=>$dcreg->corexml->location->home,
+					)) ?></li>
               <?php if(!AuthenticationController::loginStatus()) { ?>
-              <li><a href="/Login">Sign In</a></li>
+              <li><?php echo HTMLHelper::mig_createLink(array('href'=>'/Login', 
+					'text'=>$dcreg->corexml->location->signin,
+					)) ?></li>
               <?php }?>
-              <li><a href="/Overview">Overview</a></li>
-              <li><a href="/project/testproject">Testproject</a></li>
+              <li><?php echo HTMLHelper::mig_createLink(array('href'=>'/overview/', 
+					'text'=>$dcreg->corexml->location->overview,
+					)) ?></li>
+              <li><?php echo HTMLHelper::mig_createLink(array('href'=>'/project/testproject', 
+					'text'=>$dcreg->corexml->location->testproject,
+					)) ?></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
