@@ -42,7 +42,8 @@
                 <p>Een bedrijf heeft projecten voor verschillende klanten waar medewerkers type-uren op registreren en projectmanagers rapporten uit kunnen trekken.</p>
             </blockquote>
 
-            <p>Niet alle mogelijke aspecten van dit programma werden uitgewerkt, aangezien dit binnen het voorziene tijdsbestek onmogelijk was.<br>
+            <p>
+            Niet alle mogelijke aspecten van dit programma werden uitgewerkt, aangezien dit binnen het voorziene tijdsbestek onmogelijk was.<br>
             De volgende gebruiksscenario's zijn in code uitgewerkt:<br>
         	</p>
 
@@ -67,6 +68,31 @@
          	<p>De applicatie is gestoeld op de MVC-filosofie, waar de Model-classes zorgen voor de verbinding met de databank en de implementatie van de business-logic uit de "Common" classes (zie volgende paragraaf).
         	De Controller dient voor het nemen van beslissingen op applicatie-vlak en sluist gegevens door van de Model-laag naar de View-laag. Een Run en Router class zorgen er in combinatie
         	met de Apache module mod_rewrite voor dat de juiste controller wordt gekozen en dat de juiste parameters eraan worden meegegeven.</p>
+        	
+        <p>
+        De applicatie maakt gebruikt van clean url's. Hieronder enkele voorbeelden.
+        </p>
+        <ul>
+        <li><a href="http://imputation.loc:8888/employee/mig">http://imputation.loc:8888/employee/mig</a></li>
+        <li><a href="http://imputation.loc:8888/project/testproject">http://imputation.loc:8888/project/testproject</a></li>
+        </ul>
+
+
+		<p>Views maken gebruik van templates. Hieronder de gebruikt templates. Deze vind je terug in de template directory</p> 
+		<ul>
+		<li>page</li>
+		<li>page--home</li>
+		<li>head</li>
+		<li>header</li>
+		<li>footer</li>
+		</ul>
+
+		<p>Tekstuele content wordt bijgehouden in en uitgelezen uit xml files.</p>
+		<ul>
+		<li>core.xml file voor gemeenschappelijk data</li>
+		<li>Er kan een XML file per view aangemaakt worden. vb: Overview.xml</li>
+		</ul>
+
 
         	<p>Het systeem werd zodanig geschreven dat er later andere functionaliteit kan worden toegevoegd. Denk hierbij aan HRM, CRM, Boekhouding, Facility-management, etc. 
          	Om de business-logic hiervoor los te koppelen van de MVC architectuur is er gekozen voor een aparte namespace, genaamd "Common". In deze classes worden de 
@@ -95,9 +121,7 @@
 
                  <li>Wijzigen van wachtwoord</li>
 
-                <li>...</li>
-                <li>...</li>
-                <li>...</li>
+                <li>Registreren</li>
             </ul>
 
             <p>
@@ -140,13 +164,11 @@
             <ul>
             	<!-- haal de type="circle" weg als je een document hebt geupload en de URL hier hebt ingevuld-->
 
-                <li type="circle"><a href="./_documentatie/" target="_blank">Use Case 1: Overzicht van projecten opvragen</a></li>
+                <li ><a href="./_documentatie/IMPUTATION_USE_CASE_projecten.pdf" target="_blank">Use Case: Projecten opvragen</a></li>
 
-                <li type="circle"><a href="./_documentatie/" target="_blank">Use Case 2: ???</a></li>
+                <li ><a href="./_documentatie/IMPUTATION_ACTIVITY_DIAGRAM_zoekproject.pdf" target="_blank">Activity diagram 1: Zoek project</a></li>
 
-                <li type="circle"><a href="./_documentatie/" target="_blank">Activity diagram 1: ????</a></li>
-
-                <li type="circle"><a href="./_documentatie/" target="_blank">Activity diagram 2: ????</a></li>
+                <li ><a href="./_documentatie/IMPUTATION_ACTIVITY_DIAGRAM_zoekprojectteammember.pdf" target="_blank">Activity diagram 2: Zoek project teammember</a></li>
 
                 <li ><a href="./_documentatie/IMPUTATION_CLASS_MVC_authentication.pdf" target="_blank">Class diagram 1: MVC authentication</a></li>
                 <li ><a href="./_documentatie/IMPUTATION_CLASS_MVC_pages.pdf" target="_blank">Class diagram 2: MVC pages (na inloggen)</a></li>
@@ -159,9 +181,7 @@
             <ul>
             	<!-- haal de type="circle" weg als je een document hebt geupload en de URL hier hebt ingevuld-->
 
-                <li><a href="./_documentatie/USE_CASE_imputerenVanUren.pdf" target="_blank">Use Case 1: Imputeren van uren</a></li>
-
-                <li type="circle"><a href="./_documentatie/" target="_blank">Use Case 2: ???</a></li>
+                <li><a href="./_documentatie/USE_CASE_imputerenVanUren.pdf" target="_blank">Use Case: Imputeren van uren</a></li>
 
                 <li><a href="./_documentatie/ACTIVITY_DIAGRAM_imputerenVanUren.pdf" target="_blank">Activity diagram 1: Imputeren van uren</a></li>
 
@@ -238,9 +258,14 @@
             <a href="http://imputation.worldimagemap.com" target="_blank">http://imputation.worldimagemap.com</a>
             <br />
             <br />
-            Inloggen kan je <a href="/login">hier</a> met user "frb" en wachtwoord "1234567"
-            <br />
+            Inloggen kan je <a href="/login">hier</a> met volgende useraccounts:
             </p>
+            <ul>
+            <li>"frb" en wachtwoord "1234567"</li>
+            <li>"mig" en wachtwoord "12345678"</li>
+            <li>"jos" en wachtwoord "123456789"</li>
+            </ul>
+            
             <p>
             Op de project overzicht pagina krijg je resultaten als je zoekt met volgende data
         	</p>
