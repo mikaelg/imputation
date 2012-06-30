@@ -13,6 +13,7 @@ class LogoutModel extends Model {
 		
 	} 
 	
+	/*
 	public function generateFormGuid(){
 		//print("FROM CONSTRUCTOR Login_model");
 		// Deze dienen we on-the-fly te genereren wanneer pagin voor eerste keer wordt opgeroepen.
@@ -20,6 +21,7 @@ class LogoutModel extends Model {
 			return '1234567890';
 		}
 	}
+	*/
 	
 	public function Logout()
 	{
