@@ -59,6 +59,8 @@
                 <li>Uren imputeren</li>
 
                 <li>Uitloggen</li>
+                
+                <li>404 errorpagina</li>
 
             </ul>
 
@@ -146,7 +148,8 @@
 
                 <li type="circle"><a href="./_documentatie/" target="_blank">Activity diagram 2: ????</a></li>
 
-                <li type="circle"><a href="./_documentatie/" target="_blank">Class diagram: ????</a></li>
+                <li ><a href="./_documentatie/IMPUTATION_CLASS_MVC_authentication.pdf" target="_blank">Class diagram 1: MVC authentication</a></li>
+                <li ><a href="./_documentatie/IMPUTATION_CLASS_MVC_pages.pdf" target="_blank">Class diagram 2: MVC pages (na inloggen)</a></li>
             </ul>
         </div>
 
@@ -230,12 +233,21 @@
         </div>
 
         <div class="span10">
-            <p>De live site staat hier:<br>
+            <p>
+            De live site staat hier:<br />
             <a href="http://imputation.worldimagemap.com" target="_blank">http://imputation.worldimagemap.com</a>
             <br />
             <br />
             Inloggen kan je <a href="/login">hier</a> met user "frb" en wachtwoord "1234567"
+            <br />
+            </p>
+            <p>
+            Op de project overzicht pagina krijg je resultaten als je zoekt met volgende data
         	</p>
+            <ul>
+           	 <li>14/05/2012 of vroeger geeft alle resultaten</li>
+           	 <li>15/05/2012 en 16/05/2012 geven elk 1 project weer</li>
+            </ul> 
         </div>
     </div>
 
