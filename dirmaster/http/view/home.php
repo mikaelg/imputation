@@ -156,13 +156,13 @@
             <ul>
             	<!-- haal de type="circle" weg als je een document hebt geupload en de URL hier hebt ingevuld-->
 
-                <li type="circle"><a href="./_documentatie/" target="_blank">Use Case 1: Imputeren van uren</a></li>
+                <li><a href="./_documentatie/USE_CASE_imputerenVanUren.pdf" target="_blank">Use Case 1: Imputeren van uren</a></li>
 
                 <li type="circle"><a href="./_documentatie/" target="_blank">Use Case 2: ???</a></li>
 
                 <li><a href="./_documentatie/ACTIVITY_DIAGRAM_imputerenVanUren.pdf" target="_blank">Activity diagram 1: Imputeren van uren</a></li>
 
-                <li type="circle"><a href="./_documentatie/" target="_blank">Activity diagram 2: ????</a></li>
+                <li><a href="./_documentatie/ACTIVITY_DIAGRAM_Login.pdf" target="_blank">Activity diagram 2: Inloggen</a></li>
 
                 <li><a href="./_documentatie/CLASS_DIAGRAM_CommonNamespace.pdf" target="_blank">Class diagram: De Common Namespace</a></li>
             </ul>
